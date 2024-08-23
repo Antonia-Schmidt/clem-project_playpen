@@ -1,0 +1,1 @@
+python3 ./train_model_qlora.py --model_name "My Test Model" --output_dir './output' --training_dataset './data/train_data.csv' --model_adapter ''

@@ -10,6 +10,10 @@ import gc
 import torch
 import re
 import pandas as pd
+import datetime
+from unsloth import FastLanguageModel
+from unsloth.chat_templates import get_chat_template
+
 
 import logging
 
@@ -18,20 +22,19 @@ logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 from src.config.configurations import CustomLoraConfiguration, CustomBitsAndBitesConfiguration, CustomTrainingArguments, \
-    CustomInferenceConfig
+    CustomInferenceConfig, CustomUnslothModelConfig
 
 
 class CustomTextToSqlModel:
     def __init__(
             self,
             model_name: str,
-            model_adapter_name: str,
             path_dataset_train: str,
             path_dataset_inference: str,
             output_dir: str,
-            run_name: str,
             lora_config: CustomLoraConfiguration,
             bnb_config: CustomBitsAndBitesConfiguration,
+            unsloth_config: CustomUnslothModelConfig,
             training_arguments: CustomTrainingArguments,
             inference_config: CustomInferenceConfig,
             max_seq_length: int,
@@ -40,15 +43,19 @@ class CustomTextToSqlModel:
             custom_stopping_criterion: callable = None,
             train: bool = False,
             inference: bool = False,
-
+            model_adapter: str = None,
     ):
+        # get the current time for the run
+        now = datetime.datetime.now()
+
         self.model_name: str = model_name
         self.output_dir: str = output_dir
-        self.run_name: str = run_name
+        self.run_name: str = now.strftime('%Y-%m-%dT%H:%M:%S') + f' {model_name}'
         self.path_dataset_train: str = path_dataset_train
         self.path_dataset_inference: str = path_dataset_inference
         self.lora_config: CustomLoraConfiguration = lora_config
         self.bnb_config: CustomBitsAndBitesConfiguration = bnb_config
+        self.unsloth_config: CustomUnslothModelConfig = unsloth_config
         self.inference_config: CustomInferenceConfig = inference_config
         self.device_map: dict = device_map if device_map is not None else {"": 0}
         self.training_arguments: CustomTrainingArguments = training_arguments
@@ -80,40 +87,57 @@ class CustomTextToSqlModel:
         # if training is true, build new directory to save the model adapter in
         # if training is false use the given model adapter to allow also external adapters and none for
         # zero shot inference
-        self.model_adapter_name: str = self.directories['model_adapter_dir'] if self.do_train else model_adapter_name
+        self.model_adapter_name: str = self.directories['model_adapter_dir'] if self.do_train else model_adapter
 
-    def load_model(self) -> PreTrainedModel:
-        logging.info(f"Loading model {self.model_name}")
-        model: PreTrainedModel = AutoModelForCausalLM.from_pretrained(
-            self.model_name,
-            quantization_config=self.bnb_config.get_bnb_config(),
-            device_map=self.device_map,
+    '''
+        Load the model and tokenizer using unsloth FastLanguageModel from pretrained model weights
+    '''
+    def load_model_and_tokenizer(self):
+        logging.info(f'Loading model and tokenizer for: {self.model_name}')
+        model, tokenizer = FastLanguageModel.from_pretrained(
+            model_name=self.model_name,
+            max_seq_length=self.unsloth_config.max_seq_length,
+            dtype = self.unsloth_config.dtype,
+            load_in_4bit=self.unsloth_config.load_in_4_bit,
+            # token = "hf_...", # use one if using gated models like meta-llama/Llama-2-7b-hf
         )
-        model.config.use_cache = False
-        model.config.pretraining_tp = 1
 
-        return model
+        model = FastLanguageModel.get_peft_model(
+            model,  # Specify the existing model
+            r=self.lora_config.lora_r,
+            target_modules=self.lora_config.target_modules,
+            lora_alpha=self.lora_config.lora_alpha,
+            lora_dropout=self.lora_config.lora_dropout,  # Currently, only supports dropout = 0
+            bias=self.lora_config.lora_bias,  # Currently, only supports bias = "none"
+            use_gradient_checkpointing=self.unsloth_config.use_gradient_checkpointing,
+            random_state=7331,
+            max_seq_length=self.unsloth_config.max_seq_length,
+            use_rslora=self.lora_config.use_rslora,  # We support rank stabilized LoRA
+            loftq_config=self.lora_config.loftq_config,  # And LoftQ
+        )
 
-    def load_tokenizer(self) -> PreTrainedTokenizerBase:
-        logging.info(f"Loading Tokenizer for:  {self.model_name}")
-        tokenizer: PreTrainedTokenizerBase = AutoTokenizer.from_pretrained(self.model_name)
-        tokenizer.pad_token = tokenizer.eos_token
-        tokenizer.padding_side = "right"  # Fix weird overflow issue with fp16 training
+        tokenizer = get_chat_template(
+            tokenizer,
+            chat_template="llama-3",  # Supports zephyr, chatml, mistral, llama, alpaca, vicuna, vicuna_old, unsloth
+            # mapping = {"role" : "from", "content" : "value", "user" : "human", "assistant" : "gpt"}, # ShareGPT style
+        )
 
-        return tokenizer
+        # set model and tokenizer
+        self.model = model
+        self.tokenizer = tokenizer
 
     def load_adapter_model(self):
         del self.model
         gc.collect()
         torch.cuda.empty_cache()
-        logging.info("cleared cache to reaload model for inference")
+        logging.info("cleared cache to reload model for inference")
         if self.model_adapter_name is None:
             logging.info("adapter is None thus no adapter will be applied for inference")
-            self.model = self.load_model()
+            self.load_model_and_tokenizer()
             self.adapter_model = self.model
         else:
             logging.info(f"found adapter {self.model_adapter_name} for inference")
-            self.model = self.load_model()
+            self.load_model_and_tokenizer()
             self.adapter_model = PeftModel.from_pretrained(self.model, self.model_adapter_name)
 
     def load_pipeline(self):
@@ -271,6 +295,7 @@ class CustomTextToSqlModel:
         model_adapter_dir = root_path + "/model_adapter"
         inference_dir = root_path + "/inference"
         dataset_dir = root_path + '/dataset'
+        config_dir = root_path + "/config"
 
         inference_results_raw: str = inference_dir + "/inference_predictions.csv"
         dataset_train: str = dataset_dir + '/training_data.csv'
@@ -306,6 +331,11 @@ class CustomTextToSqlModel:
             os.mkdir(dataset_dir)
             logging.info(f"created new directory: {dataset_dir}")
 
+        # create the config directory
+        if not os.path.exists(path=config_dir):
+            os.mkdir(config_dir)
+            logging.info(f"created new directory: {config_dir}")
+
         return {
             'root_dir': root_path,
             'model_adapter_dir': model_adapter_dir,
@@ -314,4 +344,5 @@ class CustomTextToSqlModel:
             'inference_results_raw': inference_results_raw,
             'dataset_train': dataset_train,
             'dataset_test': dataset_test,
+            'config_dir': config_dir,
         }

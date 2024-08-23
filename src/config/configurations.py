@@ -13,13 +13,27 @@ import logging
 logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
 
 
+class CustomUnslothModelConfig:
+    def __init__(self, max_seq_length: int = 2048, dtype: str = None, load_in_4_bit: bool = True, use_gradient_checkpointing: bool = True):
+        self.max_seq_length = max_seq_length
+        self.dtype = dtype
+        self.load_in_4_bit = load_in_4_bit
+        self.use_gradient_checkpointing: bool = True
+
+
 class CustomLoraConfiguration:
-    def __init__(self, lora_r: int = 64, lora_alpha: int = 32, lora_dropout: float = 0.1,
-                 lora_targets: list = ['q_proj', 'v_proj']):
+    def __init__(self, lora_r: int = 64, lora_alpha: int = 32, lora_dropout: int = 0,
+                 lora_targets=None, use_rslora: bool = False, loftq_config: any = None):
+
+        if lora_targets is None:
+            lora_targets = ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj", ]
         self.lora_r: int = lora_r
         self.lora_alpha: int = lora_alpha
-        self.lora_dropout: float = lora_dropout
+        self.lora_dropout: float = lora_dropout  # NOTE: must be 0 cause unsloth cannot handle other
         self.target_modules: list = lora_targets
+        self.use_rslora: bool = use_rslora
+        self.loftq_config: any = loftq_config
+        self.lora_bias: any = None
 
     def get_lora_config(self) -> LoraConfig:
         return LoraConfig(
