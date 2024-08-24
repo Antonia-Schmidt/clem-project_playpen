@@ -4,3 +4,7 @@ __pycache__/
 *$py.class
 .DS_Store
 .idea/clem-project_playpen.iml
+
+# exclude model run metadata fil
+output
+wandb

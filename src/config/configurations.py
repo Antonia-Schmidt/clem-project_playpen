@@ -33,7 +33,7 @@ class CustomLoraConfiguration:
         self.target_modules: list = lora_targets
         self.use_rslora: bool = use_rslora
         self.loftq_config: any = loftq_config
-        self.lora_bias: any = None
+        self.lora_bias: any = "none"
 
     def get_lora_config(self) -> LoraConfig:
         return LoraConfig(
@@ -73,18 +73,20 @@ class CustomTrainingArguments:
             per_device_eval_batch_size: int = 2,
             per_device_train_batch_size: int = 12,
             optim: str = "paged_adamw_32bit",
-            lr_scheduler_type: str = "cosine",
+            lr_scheduler_type: str = "linear",
             max_steps: int = -1,
-            weight_decay: float = 0.001,
+            weight_decay: float = 0.01,
             learning_rate: float = 2e-4,
             max_grad_norm: float = 0.3,
-            gradient_accumulation_steps: int = 1,
+            gradient_accumulation_steps: int = 4,
             fp16: bool = False,
             bf16: bool = False,
             warmup_ratio: float = 0.03,
             group_by_length: bool = True,
             save_steps: int = 0,
-            logging_steps: int = 50
+            logging_steps: int = 50,
+            warmup_steps: int = 5,
+            hub_model_id: str = None
     ):
         self.output_dir: str = output_dir
         self.num_train_epochs: int = num_train_epochs
@@ -102,7 +104,11 @@ class CustomTrainingArguments:
         self.warmup_ratio: float = warmup_ratio
         self.group_by_length: bool = group_by_length
         self.lr_scheduler_type: str = lr_scheduler_type
-        self.report_to: list = ["tensorboard"]
+        self.report_to: list = ["tensorboard", "wandb"]
+        self.warmup_steps = warmup_steps
+        self.seed: int = 7331
+        self.run_name = "Default Run Unnamed"
+        self.hub_model_id = hub_model_id
 
     def get_training_args(self) -> TrainingArguments:
         return TrainingArguments(
@@ -122,7 +128,11 @@ class CustomTrainingArguments:
             warmup_ratio=self.warmup_ratio,
             group_by_length=self.group_by_length,
             lr_scheduler_type=self.lr_scheduler_type,
-            report_to=self.report_to
+            report_to=self.report_to,
+            warmup_steps=self.warmup_steps,
+            seed=self.seed,
+            run_name=self.run_name,
+            hub_model_id=self.hub_model_id
         )
 
 

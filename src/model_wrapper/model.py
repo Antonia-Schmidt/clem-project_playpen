@@ -19,7 +19,11 @@ import logging
 
 logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
 
+# set Environment variables
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
+os.environ["WANDB_PROJECT"] = "clembench-playpen-sft"  # name your W&B project
+os.environ["WANDB_LOG_MODEL"] = "checkpoint"  # log all model checkpoints
+
 
 from src.config.configurations import CustomLoraConfiguration, CustomBitsAndBitesConfiguration, CustomTrainingArguments, \
     CustomInferenceConfig, CustomUnslothModelConfig
@@ -29,6 +33,7 @@ class CustomTextToSqlModel:
     def __init__(
             self,
             model_name: str,
+            chat_template: str,
             path_dataset_train: str,
             path_dataset_inference: str,
             output_dir: str,
@@ -44,13 +49,16 @@ class CustomTextToSqlModel:
             train: bool = False,
             inference: bool = False,
             model_adapter: str = None,
+            
     ):
         # get the current time for the run
         now = datetime.datetime.now()
+        run_name: str = now.strftime('%Y-%m-%dT%H-%M-%S') + f'_{model_name.replace("/", "-")}'
 
         self.model_name: str = model_name
+        self.chat_template = chat_template
         self.output_dir: str = output_dir
-        self.run_name: str = now.strftime('%Y-%m-%dT%H:%M:%S') + f' {model_name}'
+        self.run_name: str = now.strftime('%Y-%m-%dT%H-%M-%S') + f'_{model_name.replace("/", "-")}'
         self.path_dataset_train: str = path_dataset_train
         self.path_dataset_inference: str = path_dataset_inference
         self.lora_config: CustomLoraConfiguration = lora_config
@@ -83,6 +91,10 @@ class CustomTextToSqlModel:
         self.do_train = train
         self.do_inference = inference
         self.directories: dict = self.build_directories()
+
+        # update training args for propper logging
+        self.training_arguments.run_name = run_name
+        self.training_arguments.output_dir = self.directories['model_dir']
 
         # if training is true, build new directory to save the model adapter in
         # if training is false use the given model adapter to allow also external adapters and none for
@@ -118,8 +130,7 @@ class CustomTextToSqlModel:
 
         tokenizer = get_chat_template(
             tokenizer,
-            chat_template="llama-3",  # Supports zephyr, chatml, mistral, llama, alpaca, vicuna, vicuna_old, unsloth
-            # mapping = {"role" : "from", "content" : "value", "user" : "human", "assistant" : "gpt"}, # ShareGPT style
+            chat_template=self.chat_template,  # Supports zephyr, chatml, mistral, llama, alpaca, vicuna, vicuna_old, unsloth
         )
 
         # set model and tokenizer
@@ -157,9 +168,7 @@ class CustomTextToSqlModel:
     def initialize_training(self):
         logging.info("Prepare Model for Training ...")
         if self.model is None:
-            self.model = self.load_model()
-        if self.tokenizer is None:
-            self.tokenizer = self.load_tokenizer()
+            self.load_model_and_tokenizer()
         if self.dataset_train is None:
             self.dataset_train = self.load_dataset_train()
         if self.trainer is None:
@@ -169,8 +178,10 @@ class CustomTextToSqlModel:
 
     def load_dataset_train(self) -> Dataset:
         logging.info("Loading Dataset for Training")
-        ds: Dataset = load_dataset('csv', data_files=self.path_dataset_train, split='train')
-        ds.shuffle()
+
+        df_data: DataFrame = pd.read_csv(self.path_dataset_train, index_col=0)
+        ds: Dataset = Dataset.from_pandas(df=df_data)
+
         return ds.shuffle()
 
     def load_dataset_inference(self) -> Dataset:
@@ -185,7 +196,7 @@ class CustomTextToSqlModel:
             train_dataset=self.dataset_train,
             peft_config=self.lora_config.get_lora_config(),
             dataset_text_field="text",
-            max_seq_length=self.max_seq_length,
+            max_seq_length=self.unsloth_config.max_seq_length,
             tokenizer=self.tokenizer,
             args=self.training_arguments.get_training_args(),
             packing=self.packing,
@@ -296,6 +307,7 @@ class CustomTextToSqlModel:
         inference_dir = root_path + "/inference"
         dataset_dir = root_path + '/dataset'
         config_dir = root_path + "/config"
+        model_dir = root_path + "/model"
 
         inference_results_raw: str = inference_dir + "/inference_predictions.csv"
         dataset_train: str = dataset_dir + '/training_data.csv'
@@ -336,6 +348,11 @@ class CustomTextToSqlModel:
             os.mkdir(config_dir)
             logging.info(f"created new directory: {config_dir}")
 
+         # create the config directory
+        if not os.path.exists(path=model_dir):
+            os.mkdir(model_dir)
+            logging.info(f"created new directory: {model_dir}")
+
         return {
             'root_dir': root_path,
             'model_adapter_dir': model_adapter_dir,
@@ -345,4 +362,5 @@ class CustomTextToSqlModel:
             'dataset_train': dataset_train,
             'dataset_test': dataset_test,
             'config_dir': config_dir,
+            'model_dir' : model_dir,
         }
