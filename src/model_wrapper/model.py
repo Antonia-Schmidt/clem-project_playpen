@@ -11,9 +11,8 @@ import torch
 import re
 import pandas as pd
 import datetime
-from unsloth import FastLanguageModel
+from unsloth import FastLanguageModel, unsloth_save_model
 from unsloth.chat_templates import get_chat_template
-
 
 import logging
 
@@ -201,6 +200,10 @@ class CustomTextToSqlModel:
             args=self.training_arguments.get_training_args(),
             packing=self.packing,
         )
+    
+    def merge_adapter_and_model():
+        # merge the adapter weigths into the model
+        pass
 
     def train_model(self):
         self.initialize_training()
@@ -209,8 +212,9 @@ class CustomTextToSqlModel:
         self.trainer.train()
 
     def save_model(self):
-        self.trainer.model.save_pretrained(self.directories['model_adapter_dir'])
-
+        unsloth_save_model(self.trainer.model, self.trainer.tokenizer, self.directories['model_adapter_dir'], push_to_hub=False, token=None)
+        self.trainer.push_to_hub()
+        
     def initialize_inference(self):
         logging.info("Prepare Model for Inference")
         self.model = self.load_model()

@@ -65,7 +65,7 @@ if __name__ == "__main__":
         fp16=not torch.cuda.is_bf16_supported(),
         bf16=torch.cuda.is_bf16_supported(),
         optim="adamw_8bit",
-        hub_model_id='Llama-3-Clembench-Runs-Successful-Episodes'
+        hub_model_id='clembench-playpen/Llama-3-Clembench-Runs-Successful-Episodes'
     )
     inference_config: CustomInferenceConfig = CustomInferenceConfig(
         do_sample=False,
@@ -94,7 +94,5 @@ if __name__ == "__main__":
     if train:
         model.train_model()
 
-        model.trainer.push_to_hub()
-
         # save the model
-        # model.save_model()
+        model.save_model()
