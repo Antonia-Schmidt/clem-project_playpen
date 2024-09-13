@@ -194,7 +194,7 @@ class CustomTextToSqlModel:
             model=self.model,
             train_dataset=self.dataset_train,
             peft_config=self.lora_config.get_lora_config(),
-            dataset_text_field="text",
+            dataset_text_field="chat",
             max_seq_length=self.unsloth_config.max_seq_length,
             tokenizer=self.tokenizer,
             args=self.training_arguments.get_training_args(),
