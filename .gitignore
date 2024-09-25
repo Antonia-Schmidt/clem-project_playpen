@@ -8,3 +8,5 @@ __pycache__/
 # exclude model run metadata fil
 output
 wandb
+
+.ipynb_checkpoints
