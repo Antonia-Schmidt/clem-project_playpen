@@ -48,6 +48,11 @@ If there is no explanation, there is a INVALID_FORMAT string. To avoid learning 
 ### Training Data
 Contains the datasets used for training the models found in hugging face.
 
+The naming of the datasets follows the pattern: <br>
+D[E][XXXX] where E referrs to the experiment number and XXXX is the sub experiment run within an experiment.<br>
+
+E.g: D10001, is a dataset of experiment 1 and refers to the sub-experiment-0001
+
 ### _old
 Refers to data from benchmark versions 0.9 and 1.0
 
@@ -104,3 +109,13 @@ one game episode, the next worse model will be checked.
 
 ### 6. Play only n games and observe impact on other games
 (Find reasonable choice of games to learn from)
+
+
+# Model Naming
+The model naming follows the pattern:<br>
+[model_name]-[Learning Technique]-E[number of episodes]-[Dataset Identifier] <br>
+**model name** is the name of the base-model<br>
+**Learning Technique** SFT for supervised fine tuning DPO for direct preference optimization<br>
+**E** is the number of trained episodes<br>
+**Dataset Identifier** is the dataset id that was introduced in the previous section<br><br>
+E.g. meta-llama-Meta-Llama-3.1-8B-Instruct-SFT-E1-D10001
