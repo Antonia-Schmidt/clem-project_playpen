@@ -13,6 +13,7 @@ import pandas as pd
 import datetime
 from unsloth import FastLanguageModel, unsloth_save_model
 from unsloth.chat_templates import get_chat_template
+import json
 
 import logging
 
@@ -52,12 +53,12 @@ class CustomTextToSqlModel:
     ):
         # get the current time for the run
         now = datetime.datetime.now()
-        run_name: str = now.strftime('%Y-%m-%dT%H-%M-%S') + f'_{model_name.replace("/", "-")}'
+        run_name: str = now.strftime('%Y-%m-%dT%H-%M-%S') + f'_{training_arguments.hub_model_id}'
 
         self.model_name: str = model_name
         self.chat_template = chat_template
         self.output_dir: str = output_dir
-        self.run_name: str = now.strftime('%Y-%m-%dT%H-%M-%S') + f'_{model_name.replace("/", "-")}'
+        self.run_name: str = run_name
         self.path_dataset_train: str = path_dataset_train
         self.path_dataset_inference: str = path_dataset_inference
         self.lora_config: CustomLoraConfiguration = lora_config
@@ -135,6 +136,14 @@ class CustomTextToSqlModel:
         # set model and tokenizer
         self.model = model
         self.tokenizer = tokenizer
+
+    def save_config(self):
+        file: str = self.directories['config_dir'] + '/configuration.txt'
+        with open(file, 'w') as convert_file:
+            convert_file.write(json.dumps(self.bnb_config.as_dict()))
+            convert_file.write(json.dumps(self.training_arguments.as_dict()))
+            convert_file.write(json.dumps(self.unsloth_config.as_dict()))
+            convert_file.write(json.dumps(self.lora_config.as_dict()))
 
     def load_adapter_model(self):
         del self.model
