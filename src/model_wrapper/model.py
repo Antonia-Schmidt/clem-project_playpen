@@ -52,12 +52,12 @@ class CustomTextToSqlModel:
     ):
         # get the current time for the run
         now = datetime.datetime.now()
-        run_name: str = now.strftime('%Y-%m-%dT%H-%M-%S') + f'_{model_name.replace("/", "-")}'
+        run_name: str = now.strftime('%Y-%m-%dT%H-%M-%S') + f'_{training_arguments.hub_model_id}'
 
         self.model_name: str = model_name
         self.chat_template = chat_template
         self.output_dir: str = output_dir
-        self.run_name: str = now.strftime('%Y-%m-%dT%H-%M-%S') + f'_{model_name.replace("/", "-")}'
+        self.run_name: str = run_name
         self.path_dataset_train: str = path_dataset_train
         self.path_dataset_inference: str = path_dataset_inference
         self.lora_config: CustomLoraConfiguration = lora_config
