@@ -26,7 +26,7 @@ class CustomLoraConfiguration:
                  lora_targets=None, use_rslora: bool = False, loftq_config: any = None):
 
         if lora_targets is None:
-            lora_targets = ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj", ]
+            lora_targets = 'all-linear’'
         self.lora_r: int = lora_r
         self.lora_alpha: int = lora_alpha
         self.lora_dropout: float = lora_dropout  # NOTE: must be 0 cause unsloth cannot handle other
