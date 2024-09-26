@@ -13,6 +13,7 @@ import pandas as pd
 import datetime
 from unsloth import FastLanguageModel, unsloth_save_model
 from unsloth.chat_templates import get_chat_template
+import json
 
 import logging
 
@@ -135,6 +136,14 @@ class CustomTextToSqlModel:
         # set model and tokenizer
         self.model = model
         self.tokenizer = tokenizer
+
+    def save_config(self):
+        file: str = self.directories['config_dir'] + '/configuration.txt'
+        with open(file, 'w') as convert_file:
+            convert_file.write(json.dumps(self.bnb_config.as_dict()))
+            convert_file.write(json.dumps(self.training_arguments.as_dict()))
+            convert_file.write(json.dumps(self.unsloth_config.as_dict()))
+            convert_file.write(json.dumps(self.lora_config.as_dict()))
 
     def load_adapter_model(self):
         del self.model

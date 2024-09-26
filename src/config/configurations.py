@@ -20,8 +20,16 @@ class CustomUnslothModelConfig:
         self.load_in_4_bit = load_in_4_bit
         self.use_gradient_checkpointing: bool = True
 
+    def as_dict(self):
+        return {
+            'max_seq_length': self.max_seq_length,
+            'dtype': self.dtype,
+            'load_in_4_bit': self.load_in_4_bit,
+            'use_gradient_checkpointing': self.use_gradient_checkpointing,
+        }
 
-class CustomLoraConfiguration:
+
+class CustomLoraConfiguration(object):
     def __init__(self, lora_r: int = 64, lora_alpha: int = 32, lora_dropout: int = 0,
                  lora_targets=None, use_rslora: bool = False, loftq_config: any = None):
 
@@ -45,6 +53,17 @@ class CustomLoraConfiguration:
             target_modules=self.target_modules,
         )
 
+    def as_dict(self):
+        return {
+            "lora_r": self.lora_r,
+            "lora_alpha": self.lora_alpha,
+            "lora_dropout": self.lora_dropout,
+            "lora_targets": self.target_modules,
+            "use_rslora": self.use_rslora,
+            "loftq_config": self.loftq_config,
+            "lora_bias": self.lora_bias,
+        }
+
 
 class CustomBitsAndBitesConfiguration:
     def __init__(self, use_4bit: bool = True, bnb_4bit_compute_dtype: str = "float16", bnb_4bit_quant_type: str = "nf4",
@@ -63,6 +82,14 @@ class CustomBitsAndBitesConfiguration:
             bnb_4bit_compute_dtype=compute_dtype,
             bnb_4bit_use_double_quant=self.use_nested_quant,
         )
+
+    def as_dict(self):
+        return {
+            "use_4bit": self.use_4bit,
+            "bnb_4bit_compute_dtype": self.bnb_4bit_compute_dtype,
+            "bnb_4bit_quant_type": self.bnb_4bit_quant_type,
+            "use_nested_quant": self.use_nested_quant,
+        }
 
 
 class CustomTrainingArguments:
@@ -134,6 +161,32 @@ class CustomTrainingArguments:
             run_name=self.run_name,
             hub_model_id=self.hub_model_id
         )
+
+    def as_dict(self):
+        return {
+            "save_steps": self.save_steps,
+            "optim": self.optim,
+            "learning_rate": self.learning_rate,
+            "logging_steps": self.logging_steps,
+            "weight_decay": self.weight_decay,
+            "group_by_length": self.group_by_length,
+            "output_dir": self.output_dir,
+            "num_train_epochs": self.num_train_epochs,
+            "per_device_train_batch_size": self.per_device_train_batch_size,
+            "gradient_accumulation_steps": self.gradient_accumulation_steps,
+            "fp16": self.fp16,
+            "bf16": self.bf16,
+            "max_grad_norm": self.max_grad_norm,
+            "max_steps": self.max_steps,
+            "warmup_ratio": self.warmup_ratio,
+            "warmup_steps": self.warmup_steps,
+            "lr_scheduler_type": self.lr_scheduler_type,
+            "report_to": self.report_to,
+            "seed": self.seed,
+            "run_name": self.run_name,
+            "hub_model_id": self.hub_model_id
+
+        }
 
 
 class CustomInferenceConfig:

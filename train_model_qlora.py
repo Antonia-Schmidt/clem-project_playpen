@@ -106,6 +106,9 @@ if __name__ == "__main__":
 
     training_arguments.hub_model_id = model_hub_id
 
+    # safe the configuration files
+    model.save_config()
+
     if train:
         model.train_model()
 
