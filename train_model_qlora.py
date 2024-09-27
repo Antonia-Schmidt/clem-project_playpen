@@ -35,7 +35,7 @@ def check_chat_template_mapping(model_name: str):
 
 
 def get_model_hub_id(base_model_name: str, learning_strategy: str, episodes: int, dataset_name) -> str:
-    return f'{base_model_name.replace("/", "-")}_{learning_strategy}_E{episodes}_{dataset_name.split("/")[-1].replace(".csv", "")}'
+    return f'clembench-playpen/{base_model_name.replace("/", "-")}_{learning_strategy}_E{episodes}_{dataset_name.split("/")[-1].replace(".csv", "")}'
 
 
 if __name__ == "__main__":
@@ -77,6 +77,17 @@ if __name__ == "__main__":
         max_new_tokens=200,
     )
 
+    # prepare the model hub ID according to the specified format.
+    model_hub_id: str = get_model_hub_id(
+        base_model_name=args.model_name,
+        episodes=training_arguments.num_train_epochs,
+        learning_strategy='SFT',
+        dataset_name=args.training_dataset
+    )
+
+    training_arguments.hub_model_id = model_hub_id
+    print(training_arguments.hub_model_id)
+
     # Initialize model
     model: CustomTextToSqlModel = CustomTextToSqlModel(
         model_name=args.model_name,
@@ -95,16 +106,6 @@ if __name__ == "__main__":
         model_adapter=args.model_adapter,
         chat_template=chat_template_mapping[args.model_name]
     )
-
-    # prepare the model hub ID according to the specified format.
-    model_hub_id: str = get_model_hub_id(
-        base_model_name=args.model_name,
-        episodes=training_arguments.num_train_epochs,
-        learning_strategy='SFT',
-        dataset_name=args.training_dataset
-    )
-
-    training_arguments.hub_model_id = model_hub_id
 
     # safe the configuration files
     model.save_config()
