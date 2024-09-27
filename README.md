@@ -61,7 +61,7 @@ Refers to data from benchmark version > 1.0
 
 # Experiments
 ### 1. Train on all Successful episodes of all models
-**Dataset:** [training_data.csv](./data/training_data/training_data.csv)
+**Dataset D10001:** [training_data_D10001.csv](./data/training_data/D10001.csv)
 
 ### 2. Train on all Successful episodes of the top n models
 Top 10 models (most successful episodes) in the benchmark versions 0.9 and 1.0 combined:
@@ -79,14 +79,26 @@ Top 10 models (most successful episodes) in the benchmark versions 0.9 and 1.0 c
 | 9 | gpt-3.5-turbo-1106-t0.0--gpt-3.5-turbo-1106-t0.0 |
 | 10 | gpt-3.5-turbo-0613-t0.0--gpt-3.5-turbo-0613-t0.0 |
 
-**Dataset n=10:** [training_data.csv](./data/training_data/clem_top_10_models_data_all_successful_episodes_no_preprocessing.csv) </br>
-**Dataset n=1**</br>
-**Dataset n=3**
+**Dataset n=10 D20001:** [training_data_D20001.csv](./data/training_data/D20001.csv) </br>
+**Dataset n=3 D20002:** [training_data_D20002.csv](./data/training_data/D20002.csv) </br>
+**Dataset n=1 D20003:**  [training_data_D20003.csv](./data/training_data/D20003.csv) </br>
+
 ### 3. Train on partial conversation pieces
 The previous experiments all take a whole interaction for an episode and provides only the final answer to learn for the model.
 This means that intermediate turns are not to be learned by the model. This experiment takes the whole interaction and splits it into n pieces.
 
-Each piece is on part of the interactions. THe last piece contains the whole conversation while the first only contains one instruction and one answer.
+Each piece is on part of the interactions. The last piece contains the whole conversation while the first only contains one instruction and one answer.
+
+Since in some games, the conversation starts with two user inputs before the fist assistant answer, the two consecutive user inputs will be merged into one 
+using clench utils functionality. This functionality is in [utils/utils.py](./src/utils/utils.py)
+
+The experimets are the following:
+**Dataset D30001:** [training_data_D30001.csv](./data/training_data/D30001.csv)  Contains the conversation pieces of all successful episodes of all models equivalent to D10001 without split conversations</br>
+**Dataset D30002:** [training_data_D30001.csv](./data/training_data/D30002.csv)  Contains the conversation pieces of all successful episodes of the top 10 models equivalent to D20001 without split conversations</br>
+**Dataset D30003:** [training_data_D30001.csv](./data/training_data/D30003.csv)  Contains the conversation pieces of all successful episodes of the top 3 models equivalent to D20002 without split conversations</br>
+**Dataset D30004:** [training_data_D30001.csv](./data/training_data/D30004.csv)  Contains the conversation pieces of all successful episodes of the top 1 equivalent to D20003 without split conversations</br>
+
+NOTE: The data was shuffled before it was split to mix the games. During training the data was not further split to keep the order of the conversatoin bits.
 
 ### 4. Balance the data:
 Currently, all data was used regardless of duplicate entries of game instances. This means, that if all models succeeded in on game, then

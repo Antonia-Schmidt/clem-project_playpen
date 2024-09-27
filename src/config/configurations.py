@@ -34,11 +34,11 @@ class CustomLoraConfiguration(object):
                  lora_targets=None, use_rslora: bool = False, loftq_config: any = None):
 
         if lora_targets is None:
-            lora_targets = 'all-linear’'
+            lora_targets="all-linear"
         self.lora_r: int = lora_r
         self.lora_alpha: int = lora_alpha
         self.lora_dropout: float = lora_dropout  # NOTE: must be 0 cause unsloth cannot handle other
-        self.target_modules: list = lora_targets
+        self.target_modules = lora_targets
         self.use_rslora: bool = use_rslora
         self.loftq_config: any = loftq_config
         self.lora_bias: any = "none"
