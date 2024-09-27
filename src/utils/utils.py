@@ -51,7 +51,8 @@ def ensure_alternating_roles(messages: List[Dict], cull_system_message: bool = T
             warn_msg = (f"Found consecutive role assignments. These will be merged into one:\n"
                         f"{prev_message}\n"
                         f"{message}")
-            logger.warning(warn_msg)
+            #logger.warning(warn_msg)
+            print("X")
             prev_message['content'] = join_content(prev_message, message)
             del _messages[msg_idx]
         else:
