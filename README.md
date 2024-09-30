@@ -104,7 +104,7 @@ NOTE: The data was shuffled before it was split to mix the games. During trainin
 Currently, all data was used regardless of duplicate entries of game instances. This means, that if all models succeeded in on game, then
 the same game instance, e.g. wordle with the same target word will be present as often as there are models in the benchmark and version.
 
-<img src="./Plots/Barchart_Top_k_Models_v0_9-1_0.png" alt="Stacked Bar Plot of Successful Episodes">
+<img src="./plots/Barchart_Top_k_Models_v0_9-1_0.png" alt="Stacked Bar Plot of Successful Episodes">
 
 Since some games are "easier" to play by the models than others, there is the situation, that for some games there are hundreds of samples, while for 
 others there are just ten to twenty.
