@@ -92,7 +92,7 @@ Each piece is on part of the interactions. The last piece contains the whole con
 Since in some games, the conversation starts with two user inputs before the fist assistant answer, the two consecutive user inputs will be merged into one 
 using clench utils functionality. This functionality is in [utils/utils.py](./src/utils/utils.py)
 
-The experimets are the following:
+The experimets are the following:</br>
 **Dataset D30001:** [training_data_D30001.csv](./data/training_data/D30001.csv)  Contains the conversation pieces of all successful episodes of all models equivalent to D10001 without split conversations</br>
 **Dataset D30002:** [training_data_D30001.csv](./data/training_data/D30002.csv)  Contains the conversation pieces of all successful episodes of the top 10 models equivalent to D20001 without split conversations</br>
 **Dataset D30003:** [training_data_D30001.csv](./data/training_data/D30003.csv)  Contains the conversation pieces of all successful episodes of the top 3 models equivalent to D20002 without split conversations</br>
