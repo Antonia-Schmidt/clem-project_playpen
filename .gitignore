@@ -8,3 +8,9 @@ __pycache__/
 # exclude model run metadata fil
 output
 wandb
+
+# cursor rules
+.cursorrules
+
+# test json
+test.json
