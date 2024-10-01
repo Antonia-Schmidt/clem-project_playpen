@@ -9,8 +9,12 @@ __pycache__/
 output
 wandb
 
+<<<<<<< HEAD
 # cursor rules
 .cursorrules
 
 # test json
 test.json
+=======
+.ipynb_checkpoints
+>>>>>>> 835793683b1623d83b39b7bb194eef41aa65b014

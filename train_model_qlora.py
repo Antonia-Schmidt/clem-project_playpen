@@ -13,15 +13,17 @@ import logging
 
 logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
 
-from src.config.configurations import CustomLoraConfiguration, CustomTrainingArguments, CustomBitsAndBitesConfiguration, CustomInferenceConfig, CustomUnslothModelConfig
+from src.config.configurations import CustomLoraConfiguration, CustomTrainingArguments, CustomBitsAndBitesConfiguration, \
+    CustomInferenceConfig, CustomUnslothModelConfig
 from src.model_wrapper.model import CustomTextToSqlModel
 
 # subprocess.Popen('huggingface-cli login --token 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 --add-to-git-credential ', shell=True)
 
 chat_template_mapping: dict = {
-    "meta-llama/Meta-Llama-3.1-8B-Instruct" :'llama-3',
+    "meta-llama/Meta-Llama-3.1-8B-Instruct": 'llama-3',
     "Nicohst/my_test_model": 'llama-3'
 }
+
 
 def check_chat_template_mapping(model_name: str):
     try:
@@ -30,7 +32,11 @@ def check_chat_template_mapping(model_name: str):
 
     except KeyError:
         print(f'For the model {model_name}, no suitable chat template was found.')
-        
+
+
+def get_model_hub_id(base_model_name: str, learning_strategy: str, episodes: int, dataset_name) -> str:
+    return f'clembench-playpen/{base_model_name.replace("/", "-")}_{learning_strategy}_E{episodes}_{dataset_name.split("/")[-1].replace(".csv", "")}'
+
 
 if __name__ == "__main__":
     # initilize argparser
@@ -39,7 +45,6 @@ if __name__ == "__main__":
     parser.add_argument("--output_dir", help="The Base directory where the output should be stored", default='./output')
     parser.add_argument("--training_dataset", help="The path to training dataset", default=None)
     parser.add_argument("--model_adapter", help="The path to training dataset", default=None)
-
 
     # get all the args
     args = parser.parse_args()
@@ -65,12 +70,23 @@ if __name__ == "__main__":
         fp16=not torch.cuda.is_bf16_supported(),
         bf16=torch.cuda.is_bf16_supported(),
         optim="adamw_8bit",
-        hub_model_id='clembench-playpen/Llama-3-Clembench-Runs-Successful-Episodes_Top_10_Models_Individual_QA_adapted_image_game'
+        hub_model_id=None
     )
     inference_config: CustomInferenceConfig = CustomInferenceConfig(
         do_sample=False,
         max_new_tokens=200,
     )
+
+    # prepare the model hub ID according to the specified format.
+    model_hub_id: str = get_model_hub_id(
+        base_model_name=args.model_name,
+        episodes=training_arguments.num_train_epochs,
+        learning_strategy='SFT',
+        dataset_name=args.training_dataset
+    )
+
+    training_arguments.hub_model_id = model_hub_id
+    print(training_arguments.hub_model_id)
 
     # Initialize model
     model: CustomTextToSqlModel = CustomTextToSqlModel(
@@ -80,7 +96,7 @@ if __name__ == "__main__":
         output_dir=args.output_dir,
         lora_config=lora_config,
         bnb_config=bnb_config,
-        unsloth_config = CustomUnslothModelConfig(max_seq_length=max_seq_length),
+        unsloth_config=CustomUnslothModelConfig(max_seq_length=max_seq_length),
         training_arguments=training_arguments,
         inference_config=inference_config,
         max_seq_length=max_seq_length,
@@ -90,6 +106,9 @@ if __name__ == "__main__":
         model_adapter=args.model_adapter,
         chat_template=chat_template_mapping[args.model_name]
     )
+
+    # safe the configuration files
+    model.save_config()
 
     if train:
         model.train_model()
