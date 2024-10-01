@@ -1,0 +1,10 @@
+torch==2.4
+huggingface_hub
+peft
+datasets
+trl
+huggingface_hub
+peft
+datasets
+trl
+unsloth

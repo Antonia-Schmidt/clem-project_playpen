@@ -12,6 +12,7 @@ wandb
 # cursor rules
 .cursorrules
 
-# test json
+# Massimo ignore
 test.json
 .ipynb_checkpoints
+.vscode
