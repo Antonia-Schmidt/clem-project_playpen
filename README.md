@@ -135,3 +135,9 @@ E.g. meta-llama-Meta-Llama-3.1-8B-Instruct-SFT-E1-D10001
 
 # Result Plots
 <img src="./plots/radar_chart_played.png"/>
+<br />
+<img src="./plots/success_abort_rate_taboo.png"/>
+<img src="./plots/success_abort_rate_imagegame.png"/>
+
+
+
