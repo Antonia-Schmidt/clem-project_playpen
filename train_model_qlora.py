@@ -27,6 +27,8 @@ from src.model_wrapper.model import CustomTextToSqlModel
 # subprocess.Popen('huggingface-cli login --token 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 --add-to-git-credential ', shell=True)
 
 chat_template_mapping: dict = {
+    "meta-llama/Meta-Llama-3.2-1B-Instruct": "llama-3",
+    "meta-llama/Meta-Llama-3.2-3B-Instruct": "llama-3",
     "meta-llama/Meta-Llama-3.1-8B-Instruct": "llama-3",
     "Nicohst/my_test_model": "llama-3",
 }
