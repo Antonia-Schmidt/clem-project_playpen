@@ -131,3 +131,13 @@ The model naming follows the pattern:<br>
 **E** is the number of trained episodes<br>
 **Dataset Identifier** is the dataset id that was introduced in the previous section<br><br>
 E.g. meta-llama-Meta-Llama-3.1-8B-Instruct-SFT-E1-D10001
+
+
+# Result Plots
+<img src="./plots/radar_chart_played.png"/>
+<br />
+<img src="./plots/success_abort_rate_taboo.png"/>
+<img src="./plots/success_abort_rate_imagegame.png"/>
+
+
+
