@@ -1,0 +1,3 @@
+[submodule "benchmarks/bbh"]
+	path = benchmarks/bbh
+	url = git@github.com:suzgunmirac/BIG-Bench-Hard.git
