@@ -9,3 +9,5 @@ datasets
 trl
 unsloth
 wandb
+deepeval
+transformers
