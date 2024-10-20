@@ -117,10 +117,11 @@ To address this issue there can be different strategies of sampling only partial
 2. Only Top k modes: This sampling tries to take as many episodes from one model as possible and of the model does not have any successful episodes from 
 one game episode, the next worse model will be checked.
 
-### 5. Only take data from the best model per game instance (can be duplicate with top n = 1)
-
-### 6. Play only n games and observe impact on other games
+### 5. Play only n games and observe impact on other games
 (Find reasonable choice of games to learn from)
+
+### 6. Only take data from the best model per game instance (can be duplicate with top n = 1)
+
 
 
 # Model Naming
