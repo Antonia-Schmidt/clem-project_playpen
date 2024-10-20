@@ -9,4 +9,11 @@ __pycache__/
 output
 wandb
 
+# cursor rules
+.cursorrules
+
+# Massimo ignore
+test.json
 .ipynb_checkpoints
+.vscode
+/benchmark_results/

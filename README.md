@@ -92,11 +92,11 @@ Each piece is on part of the interactions. The last piece contains the whole con
 Since in some games, the conversation starts with two user inputs before the fist assistant answer, the two consecutive user inputs will be merged into one 
 using clench utils functionality. This functionality is in [utils/utils.py](./src/utils/utils.py)
 
-The experimets are the following:
+The experimets are the following:</br>
 **Dataset D30001:** [training_data_D30001.csv](./data/training_data/D30001.csv)  Contains the conversation pieces of all successful episodes of all models equivalent to D10001 without split conversations</br>
-**Dataset D30002:** [training_data_D30001.csv](./data/training_data/D30002.csv)  Contains the conversation pieces of all successful episodes of the top 10 models equivalent to D20001 without split conversations</br>
-**Dataset D30003:** [training_data_D30001.csv](./data/training_data/D30003.csv)  Contains the conversation pieces of all successful episodes of the top 3 models equivalent to D20002 without split conversations</br>
-**Dataset D30004:** [training_data_D30001.csv](./data/training_data/D30004.csv)  Contains the conversation pieces of all successful episodes of the top 1 equivalent to D20003 without split conversations</br>
+**Dataset D30002:** [training_data_D30002.csv](./data/training_data/D30002.csv)  Contains the conversation pieces of all successful episodes of the top 10 models equivalent to D20001 without split conversations</br>
+**Dataset D30003:** [training_data_D30003.csv](./data/training_data/D30003.csv)  Contains the conversation pieces of all successful episodes of the top 3 models equivalent to D20002 without split conversations</br>
+**Dataset D30004:** [training_data_D30004.csv](./data/training_data/D30004.csv)  Contains the conversation pieces of all successful episodes of the top 1 equivalent to D20003 without split conversations</br>
 
 NOTE: The data was shuffled before it was split to mix the games. During training the data was not further split to keep the order of the conversatoin bits.
 
@@ -104,7 +104,7 @@ NOTE: The data was shuffled before it was split to mix the games. During trainin
 Currently, all data was used regardless of duplicate entries of game instances. This means, that if all models succeeded in on game, then
 the same game instance, e.g. wordle with the same target word will be present as often as there are models in the benchmark and version.
 
-<img src="./Plots/Barchart_Top_k_Models_v0_9-1_0.png" alt="Stacked Bar Plot of Successful Episodes">
+<img src="./plots/Barchart_Top_k_Models_v0_9-1_0.png" alt="Stacked Bar Plot of Successful Episodes">
 
 Since some games are "easier" to play by the models than others, there is the situation, that for some games there are hundreds of samples, while for 
 others there are just ten to twenty.
@@ -117,10 +117,11 @@ To address this issue there can be different strategies of sampling only partial
 2. Only Top k modes: This sampling tries to take as many episodes from one model as possible and of the model does not have any successful episodes from 
 one game episode, the next worse model will be checked.
 
-### 5. Only take data from the best model per game instance (can be duplicate with top n = 1)
-
-### 6. Play only n games and observe impact on other games
+### 5. Play only n games and observe impact on other games
 (Find reasonable choice of games to learn from)
+
+### 6. Only take data from the best model per game instance (can be duplicate with top n = 1)
+
 
 
 # Model Naming
@@ -131,3 +132,20 @@ The model naming follows the pattern:<br>
 **E** is the number of trained episodes<br>
 **Dataset Identifier** is the dataset id that was introduced in the previous section<br><br>
 E.g. meta-llama-Meta-Llama-3.1-8B-Instruct-SFT-E1-D10001
+
+
+# Result Plots
+<img src="./plots/radar_chart_played.png"/>
+<br />
+<img src="./plots/success_abort_rate_taboo.png"/>
+<img src="./plots/success_abort_rate_imagegame.png"/>
+<img src="./plots/success_abort_rate_wordle.png"/>
+<img src="./plots/success_abort_rate_wordle_withclue.png"/>
+<img src="./plots/success_abort_rate_wordle_withcritic.png"/>
+<img src="./plots/success_abort_rate_referencegame.png"/>
+<img src="./plots/success_abort_rate_privateshared.png"/>
+
+
+
+
+
