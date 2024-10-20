@@ -191,7 +191,11 @@ class CustomTextToSqlModel:
         df_data: DataFrame = pd.read_csv(self.path_dataset_train, index_col=0)
         ds: Dataset = Dataset.from_pandas(df=df_data)
 
-        return ds.shuffle()
+        # return ds.shuffle()
+
+        # return without shuffle
+        logging.warning("Loading Dataset without Shuffling, Ignore the warning if the dataset was shuffeled before running the traning!")
+        return ds
 
     def load_dataset_inference(self) -> Dataset:
         logging.info("Loading Dataset for inference")
