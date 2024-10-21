@@ -144,6 +144,10 @@ E.g. meta-llama-Meta-Llama-3.1-8B-Instruct-SFT-E1-D10001
 <img src="./plots/success_abort_rate_wordle_withcritic.png"/>
 <img src="./plots/success_abort_rate_referencegame.png"/>
 <img src="./plots/success_abort_rate_privateshared.png"/>
+<br />
+<img src="./plots/radar_chart_played_D5.png"/>
+
+
 
 
 
