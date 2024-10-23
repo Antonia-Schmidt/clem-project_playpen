@@ -1,9 +1,14 @@
 from dataclasses import dataclass
 
-from .base_eval import BaseEval
+from ..benchmark import Benchmark
+
+
+
+
+
 
 @dataclass
-class BbhEval(BaseEval):
-    
+class EwokBenchmark(Benchmark):
+
     def evaluate(self, llm) -> tuple:
         pass
