@@ -1,6 +1,7 @@
 import argparse
 import json
 from playpen_benchmarks import benchmark_list, find_benchmark, run_benchmarks
+from backends import get_model
 
 
 def main(args: argparse.Namespace):
@@ -8,9 +9,6 @@ def main(args: argparse.Namespace):
     benchmark_names = args.benchmarks
 
     model = get_model(model_name)
-
-    if model_name not in model_list:
-        return Exception(f"{model_name} is not in the list of available models.")
     if benchmark_names == 'all':
         benchmarks = [find_benchmark(name) for name in benchmark_list]
     else:
