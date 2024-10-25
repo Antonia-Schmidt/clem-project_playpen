@@ -2,10 +2,11 @@
   {
     "benchmark_name":  "ewok",
     "benchmark_id": "ewok-core/ewok-core-1.0",
-    "huggingface": true
+    "benchmark_class": "EwokBenchmark"
   },
   {
     "benchmark_name": "fantom",
-    "benchmark_id": "fantom"
+    "benchmark_id": "fantom",
+    "benchmark_class": "FantomBenchmark"
   }
 ]

@@ -1,0 +1,7 @@
+evaluate==0.4.0
+together==0.2.8
+typing-extensions==4.8.0
+pylint
+pycodestyle
+mypy
+sentence_transformers
