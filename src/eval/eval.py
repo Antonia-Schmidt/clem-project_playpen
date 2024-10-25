@@ -1,6 +1,6 @@
 import argparse
 import json
-from playpen_benchmarks import find_benchmark, run_benchmarks
+from playpen_benchmarks import get_benchmarks, run_benchmarks
 from backends import get_model
 
 
