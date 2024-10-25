@@ -1,15 +1,16 @@
+from typing import List
+import os
+import json
 from .benchmark import Benchmark
+
 
 __all__ = ["Benchmark"]
 
-benchmark_list = ['ewok-core/ewok-core-1.0']
+project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-def find_benchmark(benchmark_name: str):
-    for b_cls in Benchmark.__subclasses__():
-        b = b_cls()  # subclasses should only get the dialog_pair
-        if b.applies_to(benchmark_name):
-            return b
-    raise NotImplementedError("No game benchmark for:", benchmark_name)
+def get_benchmarks(benchmark_names: List[str]) -> List[Benchmark]:
+    pass
+    # TODO
 
-def run_benchmarks(model_name, benchmarks):
+def run_benchmarks(model, benchmarks):
     pass

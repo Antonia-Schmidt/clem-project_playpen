@@ -1,2 +1,2 @@
 #!/bin/bash
-python ../eval.py -m "Llama-3.1-8B" -b "ewok"
+python ../eval.py -m "Gemma-2-2B-Instruct" -b "ewok"

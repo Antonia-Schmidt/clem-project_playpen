@@ -4,7 +4,7 @@ from ..benchmark import HuggingfaceBenchmark
 
 
 @dataclass
-class EwokBenchmark(HuggingfaceBenchmark):
+class LLMBarBenchmark(HuggingfaceBenchmark):
 
     def evaluate(self, model):
         pass
