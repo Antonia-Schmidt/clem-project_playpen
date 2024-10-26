@@ -1,0 +1,22 @@
+[
+  {
+    "model_name": "Llama-3.1-8B-Instruct",
+    "model_id": "meta-llama/Meta-Llama-3-8B-Instruct",
+    "backend": "huggingface",
+    "requires_api_key": true
+  },
+  {
+    "model_name": "Gemma-2-27B-Instruct",
+    "model_id": "google/gemma-2-27b-it",
+    "backend": "huggingface",
+    "requires_api_key": true
+
+  },
+  {
+    "model_name": "Gemma-2-2B-Instruct",
+    "model_id": "google/gemma-2-2b-it",
+    "backend": "huggingface",
+    "requires_api_key": true
+
+  }
+]
