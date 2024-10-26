@@ -5,13 +5,14 @@ from datasets import load_dataset
 
 from src.eval.backends.base_model import Model
 
+
 class Benchmark(ABC):
-    def __init__(self, benchmark_name: str, benchmark_id:str):
+    def __init__(self, benchmark_name: str, benchmark_id: str) -> None:
         self.benchmark_name = benchmark_name
         self.benchmark_id = benchmark_id
 
     @abstractmethod
-    def evaluate(self, model:Model):
+    def evaluate(self, model: Model):
         pass
 
     def get_name(self):
@@ -19,9 +20,6 @@ class Benchmark(ABC):
 
 
 class HuggingfaceBenchmark(Benchmark, ABC):
-    def __init__(self, benchmark_name:str, benchmark_id:str):
+    def __init__(self, benchmark_name: str, benchmark_id: str) -> None:
         super().__init__(benchmark_name, benchmark_id)
         self.benchmark = load_dataset(self.benchmark_id)
-
-
-
