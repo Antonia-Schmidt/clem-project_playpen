@@ -2,8 +2,8 @@ import json
 import os
 from typing import List
 
-from src.eval.playpen_benchmarks import functional
-from src.eval.playpen_benchmarks.benchmark import Benchmark
+from src.eval.benchmarks import functional
+from src.eval.benchmarks.benchmark import Benchmark
 
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 

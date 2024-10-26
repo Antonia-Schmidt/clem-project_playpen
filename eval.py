@@ -1,7 +1,8 @@
 import argparse
 
 from src.eval.backends import get_model
-from src.eval.playpen_benchmarks import get_benchmarks, run_benchmarks
+
+# from src.eval.benchmarks import get_benchmarks, run_benchmarks
 
 
 def main(args: argparse.Namespace) -> None:
@@ -9,8 +10,9 @@ def main(args: argparse.Namespace) -> None:
     benchmark_names = args.benchmarks
 
     model = get_model(model_name)
-    benchmarks = get_benchmarks(benchmark_names)
-    run_benchmarks(model, benchmarks)
+    print(model)
+    # benchmarks = get_benchmarks(benchmark_names)
+    # run_benchmarks(model, benchmarks)
 
 
 if __name__ == "__main__":

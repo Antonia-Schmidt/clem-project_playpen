@@ -5,3 +5,4 @@ pylint
 pycodestyle
 mypy
 sentence_transformers
+colorful
