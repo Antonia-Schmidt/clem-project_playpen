@@ -1,6 +1,5 @@
 import json
 import os
-from json import JSONDecodeError
 from typing import Dict
 
 from src.eval.backends.huggingface_local import HuggingfaceModel
@@ -13,8 +12,8 @@ def load_credentials(backend, file_name="key.json") -> Dict:
     with open(key_file) as f:
         try:
             creds = json.load(f)
-        except:
-            raise JSONDecodeError("The key.json file is not a valid JSON.")
+        except json.JSONDecodeError:
+            raise ValueError("The key.json file is not a valid JSON.")
     assert backend in creds, f"No '{backend}' in {file_name}."
     assert "api_key" in creds[backend], f"No 'api_key' in {file_name}."
     return creds[backend]
