@@ -2,7 +2,7 @@ import json
 import os
 from typing import Dict
 
-from src.eval.backends.huggingface_local import HuggingfaceModel
+from .huggingface_model import HuggingfaceModel
 
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
