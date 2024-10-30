@@ -144,8 +144,111 @@ E.g. meta-llama-Meta-Llama-3.1-8B-Instruct-SFT-E1-D10001
 <img src="./plots/success_abort_rate_wordle_withcritic.png"/>
 <img src="./plots/success_abort_rate_referencegame.png"/>
 <img src="./plots/success_abort_rate_privateshared.png"/>
+<br />
+<img src="./plots/radar_chart_played_D5.png"/>
+
+
+## Game: imagegame
+| Model | Success Ratio | Lose Ratio | Abort Ratio |
+|-------|---------------|------------|-------------|
+| Unsloth-meta-llama-3.1-4bit-plain-t0.0--Unsloth-meta-llama-3.1-4bit-plain-t0.0 | 0.00 | 67.50 | 32.50 |
+| llama3.1-sft-e1-_E1_D10001-t0.0--llama3.1-sft-e1-_E1_D10001-t0.0 | 2.50 | 17.50 | 80.00 |
+| llama3.1-sft-e1-_E1_D20001-t0.0--llama3.1-sft-e1-_E1_D20001-t0.0 | 0.00 | 0.00 | 100.00 |
+| llama3.1-sft-e1-_E1_D20002-t0.0--llama3.1-sft-e1-_E1_D20002-t0.0 | 17.50 | 77.50 | 5.00 |
+| llama3.1-sft-e1-_E1_D20003-t0.0--llama3.1-sft-e1-_E1_D20003-t0.0 | 10.00 | 77.50 | 12.50 |
+| llama3.1-sft-e1-_E1_D30001-t0.0--llama3.1-sft-e1-_E1_D30001-t0.0 | 35.00 | 57.50 | 7.50 |
+| llama3.1-sft-e1-_E1_D30002-t0.0--llama3.1-sft-e1-_E1_D30002-t0.0 | 25.00 | 35.00 | 40.00 |
+| llama3.1-sft-e1-_E1_D30003-t0.0--llama3.1-sft-e1-_E1_D30003-t0.0 | 27.50 | 67.50 | 5.00 |
+| llama3.1-sft-e1-_E1_D30004-t0.0--llama3.1-sft-e1-_E1_D30004-t0.0 | 25.00 | 72.50 | 2.50 |
+
+### Findings:
+**Success Ratio:** Went up between 2.5% and 35% <br/>
+**Lose Ratio:** Went up 10% for some models and down 20% for others <br/>
+**Aborted Ratio:** Went down for most models except of D10001 and D20001 <br/><br/>
+**Trend**: Games shifted from Aborted to Lose and Success.
 
 
 
+## Game: privateshared
+| Model | Success Ratio | Lose Ratio | Abort Ratio |
+|-------|---------------|------------|-------------|
+| Unsloth-meta-llama-3.1-4bit-plain-t0.0--Unsloth-meta-llama-3.1-4bit-plain-t0.0 | 0.00 | 100.00 | 0.00 |
+| llama3.1-sft-e1-_E1_D10001-t0.0--llama3.1-sft-e1-_E1_D10001-t0.0 | 0.00 | 100.00 | 0.00 |
+| llama3.1-sft-e1-_E1_D20001-t0.0--llama3.1-sft-e1-_E1_D20001-t0.0 | 0.00 | 100.00 | 0.00 |
+| llama3.1-sft-e1-_E1_D20002-t0.0--llama3.1-sft-e1-_E1_D20002-t0.0 | 0.00 | 100.00 | 0.00 |
+| llama3.1-sft-e1-_E1_D20003-t0.0--llama3.1-sft-e1-_E1_D20003-t0.0 | 0.00 | 100.00 | 0.00 |
+| llama3.1-sft-e1-_E1_D30001-t0.0--llama3.1-sft-e1-_E1_D30001-t0.0 | 2.00 | 88.00 | 10.00 |
+| llama3.1-sft-e1-_E1_D30002-t0.0--llama3.1-sft-e1-_E1_D30002-t0.0 | 0.00 | 92.00 | 8.00 |
+| llama3.1-sft-e1-_E1_D30003-t0.0--llama3.1-sft-e1-_E1_D30003-t0.0 | 6.00 | 92.00 | 2.00 |
+| llama3.1-sft-e1-_E1_D30004-t0.0--llama3.1-sft-e1-_E1_D30004-t0.0 | 0.00 | 100.00 | 0.00 |
 
+### Findings:
+**Success Ratio:** Remained 0% for most models and went up 2-6% for two models <br/>
+**Lose Ratio:** Remained 100% for most models and decreased 2-12% for some models <br/>
+**Aborted Ratio:** Remained 0% for most models but went up  2-10% for some models <br/><br/>
+**Trend**: Lose Ratio decreased but Success went less up than Aborted ratio except of D30003
 
+## Game: referencegame
+| Model | Success Ratio | Lose Ratio | Abort Ratio |
+|-------|---------------|------------|-------------|
+| Unsloth-meta-llama-3.1-4bit-plain-t0.0--Unsloth-meta-llama-3.1-4bit-plain-t0.0 | 41.53 | 56.83 | 1.64 |
+| llama3.1-sft-e1-_E1_D10001-t0.0--llama3.1-sft-e1-_E1_D10001-t0.0 | 37.22 | 62.78 | 0.00 |
+| llama3.1-sft-e1-_E1_D20001-t0.0--llama3.1-sft-e1-_E1_D20001-t0.0 | 37.02 | 62.43 | 0.55 |
+| llama3.1-sft-e1-_E1_D20002-t0.0--llama3.1-sft-e1-_E1_D20002-t0.0 | 37.22 | 62.78 | 0.00 |
+| llama3.1-sft-e1-_E1_D20003-t0.0--llama3.1-sft-e1-_E1_D20003-t0.0 | 37.22 | 62.78 | 0.00 |
+| llama3.1-sft-e1-_E1_D30001-t0.0--llama3.1-sft-e1-_E1_D30001-t0.0 | 36.11 | 63.89 | 0.00 |
+| llama3.1-sft-e1-_E1_D30002-t0.0--llama3.1-sft-e1-_E1_D30002-t0.0 | 40.00 | 60.00 | 0.00 |
+| llama3.1-sft-e1-_E1_D30003-t0.0--llama3.1-sft-e1-_E1_D30003-t0.0 | 34.44 | 65.56 | 0.00 |
+| llama3.1-sft-e1-_E1_D30004-t0.0--llama3.1-sft-e1-_E1_D30004-t0.0 | 38.33 | 61.67 | 0.00 |
+
+## Game: taboo
+| Model | Success Ratio | Lose Ratio | Abort Ratio |
+|-------|---------------|------------|-------------|
+| Unsloth-meta-llama-3.1-4bit-plain-t0.0--Unsloth-meta-llama-3.1-4bit-plain-t0.0 | 50.00 | 50.00 | 0.00 |
+| llama3.1-sft-e1-_E1_D10001-t0.0--llama3.1-sft-e1-_E1_D10001-t0.0 | 66.67 | 33.33 | 0.00 |
+| llama3.1-sft-e1-_E1_D20001-t0.0--llama3.1-sft-e1-_E1_D20001-t0.0 | 68.33 | 31.67 | 0.00 |
+| llama3.1-sft-e1-_E1_D20002-t0.0--llama3.1-sft-e1-_E1_D20002-t0.0 | 68.33 | 31.67 | 0.00 |
+| llama3.1-sft-e1-_E1_D20003-t0.0--llama3.1-sft-e1-_E1_D20003-t0.0 | 61.67 | 38.33 | 0.00 |
+| llama3.1-sft-e1-_E1_D30001-t0.0--llama3.1-sft-e1-_E1_D30001-t0.0 | 53.33 | 46.67 | 0.00 |
+| llama3.1-sft-e1-_E1_D30002-t0.0--llama3.1-sft-e1-_E1_D30002-t0.0 | 61.67 | 38.33 | 0.00 |
+| llama3.1-sft-e1-_E1_D30003-t0.0--llama3.1-sft-e1-_E1_D30003-t0.0 | 61.67 | 38.33 | 0.00 |
+| llama3.1-sft-e1-_E1_D30004-t0.0--llama3.1-sft-e1-_E1_D30004-t0.0 | 53.33 | 46.67 | 0.00 |
+
+## Game: wordle
+| Model | Success Ratio | Lose Ratio | Abort Ratio |
+|-------|---------------|------------|-------------|
+| Unsloth-meta-llama-3.1-4bit-plain-t0.0--Unsloth-meta-llama-3.1-4bit-plain-t0.0 | 0.00 | 100.00 | 0.00 |
+| llama3.1-sft-e1-_E1_D10001-t0.0--llama3.1-sft-e1-_E1_D10001-t0.0 | 0.00 | 93.33 | 6.67 |
+| llama3.1-sft-e1-_E1_D20001-t0.0--llama3.1-sft-e1-_E1_D20001-t0.0 | 3.33 | 90.00 | 6.67 |
+| llama3.1-sft-e1-_E1_D20002-t0.0--llama3.1-sft-e1-_E1_D20002-t0.0 | 0.00 | 90.00 | 10.00 |
+| llama3.1-sft-e1-_E1_D20003-t0.0--llama3.1-sft-e1-_E1_D20003-t0.0 | 3.33 | 86.67 | 10.00 |
+| llama3.1-sft-e1-_E1_D30001-t0.0--llama3.1-sft-e1-_E1_D30001-t0.0 | 3.33 | 93.33 | 3.33 |
+| llama3.1-sft-e1-_E1_D30002-t0.0--llama3.1-sft-e1-_E1_D30002-t0.0 | 10.00 | 90.00 | 0.00 |
+| llama3.1-sft-e1-_E1_D30003-t0.0--llama3.1-sft-e1-_E1_D30003-t0.0 | 3.33 | 80.00 | 16.67 |
+| llama3.1-sft-e1-_E1_D30004-t0.0--llama3.1-sft-e1-_E1_D30004-t0.0 | 0.00 | 100.00 | 0.00 |
+
+## Game: wordle_withclue
+| Model | Success Ratio | Lose Ratio | Abort Ratio |
+|-------|---------------|------------|-------------|
+| Unsloth-meta-llama-3.1-4bit-plain-t0.0--Unsloth-meta-llama-3.1-4bit-plain-t0.0 | 20.00 | 63.33 | 16.67 |
+| llama3.1-sft-e1-_E1_D10001-t0.0--llama3.1-sft-e1-_E1_D10001-t0.0 | 26.67 | 60.00 | 13.33 |
+| llama3.1-sft-e1-_E1_D20001-t0.0--llama3.1-sft-e1-_E1_D20001-t0.0 | 30.00 | 56.67 | 13.33 |
+| llama3.1-sft-e1-_E1_D20002-t0.0--llama3.1-sft-e1-_E1_D20002-t0.0 | 30.00 | 40.00 | 30.00 |
+| llama3.1-sft-e1-_E1_D20003-t0.0--llama3.1-sft-e1-_E1_D20003-t0.0 | 30.00 | 46.67 | 23.33 |
+| llama3.1-sft-e1-_E1_D30001-t0.0--llama3.1-sft-e1-_E1_D30001-t0.0 | 26.67 | 60.00 | 13.33 |
+| llama3.1-sft-e1-_E1_D30002-t0.0--llama3.1-sft-e1-_E1_D30002-t0.0 | 16.67 | 73.33 | 10.00 |
+| llama3.1-sft-e1-_E1_D30003-t0.0--llama3.1-sft-e1-_E1_D30003-t0.0 | 23.33 | 56.67 | 20.00 |
+| llama3.1-sft-e1-_E1_D30004-t0.0--llama3.1-sft-e1-_E1_D30004-t0.0 | 30.00 | 53.33 | 16.67 |
+
+## Game: wordle_withcritic
+| Model | Success Ratio | Lose Ratio | Abort Ratio |
+|-------|---------------|------------|-------------|
+| Unsloth-meta-llama-3.1-4bit-plain-t0.0--Unsloth-meta-llama-3.1-4bit-plain-t0.0 | 16.67 | 43.33 | 40.00 |
+| llama3.1-sft-e1-_E1_D10001-t0.0--llama3.1-sft-e1-_E1_D10001-t0.0 | 26.67 | 56.67 | 16.67 |
+| llama3.1-sft-e1-_E1_D20001-t0.0--llama3.1-sft-e1-_E1_D20001-t0.0 | 20.00 | 63.33 | 16.67 |
+| llama3.1-sft-e1-_E1_D20002-t0.0--llama3.1-sft-e1-_E1_D20002-t0.0 | 16.67 | 40.00 | 43.33 |
+| llama3.1-sft-e1-_E1_D20003-t0.0--llama3.1-sft-e1-_E1_D20003-t0.0 | 20.00 | 53.33 | 26.67 |
+| llama3.1-sft-e1-_E1_D30001-t0.0--llama3.1-sft-e1-_E1_D30001-t0.0 | 26.67 | 60.00 | 13.33 |
+| llama3.1-sft-e1-_E1_D30002-t0.0--llama3.1-sft-e1-_E1_D30002-t0.0 | 16.67 | 76.67 | 6.67 |
+| llama3.1-sft-e1-_E1_D30003-t0.0--llama3.1-sft-e1-_E1_D30003-t0.0 | 23.33 | 46.67 | 30.00 |
+| llama3.1-sft-e1-_E1_D30004-t0.0--llama3.1-sft-e1-_E1_D30004-t0.0 | 16.67 | 70.00 | 13.33 |
