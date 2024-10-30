@@ -137,11 +137,61 @@ E.g. meta-llama-Meta-Llama-3.1-8B-Instruct-SFT-E1-D10001
 # Result Plots
 <img src="./plots/radar_chart_played.png"/>
 <br />
+
+## Taboo
 <img src="./plots/success_abort_rate_taboo.png"/>
+
+### Words that changed from Success into Lose
+| Model              | Word        | num models | word type          |
+|--------------------|-------------|------------|--------------------|
+| all but D20002     | None        | 7          | concept            |
+| D1_1, D2_3, D3_1,2 | Myth        | 4          | concept (Cultural) |
+| D1_1, D2_1,2, D3_1 | Autograph   | 4          | concept            |
+| D1_1, D3_1,2,3     | Designation | 4          | concept            |
+| D2_1,3 D3_3,4      | Sear        | 4          | concept            |
+| D3_1,3,4           | Envelope    | 3          | Object             |
+| D2_3, D3_2         | Array       | 2          | concept            |
+| D2_3, D3_1         | Recorder    | 2          | Object             |
+| D3_2,4             | Orient      | 2          | Place (Cultural)   |
+| D2_1 D3_2          | Plaza       | 2          | Object             |
+
 <img src="./plots/success_abort_rate_imagegame.png"/>
 <img src="./plots/success_abort_rate_wordle.png"/>
+
+### Words that changed from Lose into Aborted
+| Model            | Word                   | num models | word type          | Abort Reason         |
+|------------------|------------------------|------------|--------------------|----------------------|
+| D1_1, D2_1, D3_3 | Photo (high_fre ep3)   | 3          | Object             | No real words        |
+| D2_2,3           | Share (high_fre ep1)   | 2          | concept (Cultural) | Invalid word length  |
+| D2_2,3           | Swash   (med_fre ep14) | 2          |                    | No real words  ahale |
+| D2_1,2           | Trial                  | 2          | concept            |                      |
+
 <img src="./plots/success_abort_rate_wordle_withclue.png"/>
+
+### Words that changed from Lose into Aborted
+| Model            | Word   | num models | word type    |
+|------------------|--------|------------|--------------|
+| D2_2,3, D3_3,4   | newly  | 4          |              |
+| D2_2,3, D3_1,3   | nerdy  | 4          |              |
+| D1_1, D2_1, D3_4 | Rifle  | 3          |              |
+| D2_2,3           | Carper | 2          |              |
+| D2_1,2           | Swash  | 2          | aspid, aspir |
+| D2_2, D3_3       | fiery  | 2          |              |
+| D2_2, D3_3       | unfed  | 2          |              |
+| D2_1, D3_4       | cacao  | 2          |              |
+
 <img src="./plots/success_abort_rate_wordle_withcritic.png"/>
+
+### Words that changed from Lose into Aborted
+| Model             | Word   | num models | word type |
+|-------------------|--------|------------|-----------|
+| D1_1 D2_2,3, D3_3 | fiery  | 3          |           |
+| D1_1, D2_2,3      | newly  | 3          |           |
+| D2_2,3            | Carper | 2          |           |
+| D2_2 D3_3         | Share  | 2          |           |
+
+
+
 <img src="./plots/success_abort_rate_referencegame.png"/>
 <img src="./plots/success_abort_rate_privateshared.png"/>
 <br />
@@ -201,6 +251,13 @@ E.g. meta-llama-Meta-Llama-3.1-8B-Instruct-SFT-E1-D10001
 | llama3.1-sft-e1-_E1_D30003-t0.0--llama3.1-sft-e1-_E1_D30003-t0.0 | 34.44 | 65.56 | 0.00 |
 | llama3.1-sft-e1-_E1_D30004-t0.0--llama3.1-sft-e1-_E1_D30004-t0.0 | 38.33 | 61.67 | 0.00 |
 
+### Findings:
+**Success Ratio:** Dropped between 1 and 4% for each model <br/>
+**Lose Ratio:** Went up for all models <br/>
+**Aborted Ratio:** Dropped from 1.64% in the baseline to 0% for all models <br/><br/>
+**Trend**: Success  rate dropped and Aborted rate went down while the Lose rate increased
+
+
 ## Game: taboo
 | Model | Success Ratio | Lose Ratio | Abort Ratio |
 |-------|---------------|------------|-------------|
@@ -213,6 +270,13 @@ E.g. meta-llama-Meta-Llama-3.1-8B-Instruct-SFT-E1-D10001
 | llama3.1-sft-e1-_E1_D30002-t0.0--llama3.1-sft-e1-_E1_D30002-t0.0 | 61.67 | 38.33 | 0.00 |
 | llama3.1-sft-e1-_E1_D30003-t0.0--llama3.1-sft-e1-_E1_D30003-t0.0 | 61.67 | 38.33 | 0.00 |
 | llama3.1-sft-e1-_E1_D30004-t0.0--llama3.1-sft-e1-_E1_D30004-t0.0 | 53.33 | 46.67 | 0.00 |
+
+### Findings:
+**Success Ratio:** Went up 3-18% for each model <br/>
+**Lose Ratio:** Went down the same amount <br/>
+**Aborted Ratio:** remained 0% <br/><br/>
+**Trend**: Success rate went up while the Lose rate dropped the same amount
+
 
 ## Game: wordle
 | Model | Success Ratio | Lose Ratio | Abort Ratio |
@@ -227,6 +291,13 @@ E.g. meta-llama-Meta-Llama-3.1-8B-Instruct-SFT-E1-D10001
 | llama3.1-sft-e1-_E1_D30003-t0.0--llama3.1-sft-e1-_E1_D30003-t0.0 | 3.33 | 80.00 | 16.67 |
 | llama3.1-sft-e1-_E1_D30004-t0.0--llama3.1-sft-e1-_E1_D30004-t0.0 | 0.00 | 100.00 | 0.00 |
 
+### Findings:
+**Success Ratio:** Mostly 0 but in some cases went up 3 - 10% <br/>
+**Lose Ratio:** Went down 7-20% <br/>
+**Aborted Ratio:** Went up 3 - 16% <br/><br/>
+**Trend**: Success rate went up while the Lose rate dropped the same amount
+
+
 ## Game: wordle_withclue
 | Model | Success Ratio | Lose Ratio | Abort Ratio |
 |-------|---------------|------------|-------------|
@@ -240,6 +311,12 @@ E.g. meta-llama-Meta-Llama-3.1-8B-Instruct-SFT-E1-D10001
 | llama3.1-sft-e1-_E1_D30003-t0.0--llama3.1-sft-e1-_E1_D30003-t0.0 | 23.33 | 56.67 | 20.00 |
 | llama3.1-sft-e1-_E1_D30004-t0.0--llama3.1-sft-e1-_E1_D30004-t0.0 | 30.00 | 53.33 | 16.67 |
 
+### Findings:
+**Success Ratio:** Went up 3 - 10% <br/>
+**Lose Ratio:** Went down 3-23% <br/>
+**Aborted Ratio:** Went up some y 10-14% times and down other times by 3% <br/><br/>
+**Trend**: Success rate went up while the Lose rate dropped while the aborted rate went up.
+
 ## Game: wordle_withcritic
 | Model | Success Ratio | Lose Ratio | Abort Ratio |
 |-------|---------------|------------|-------------|
@@ -252,3 +329,9 @@ E.g. meta-llama-Meta-Llama-3.1-8B-Instruct-SFT-E1-D10001
 | llama3.1-sft-e1-_E1_D30002-t0.0--llama3.1-sft-e1-_E1_D30002-t0.0 | 16.67 | 76.67 | 6.67 |
 | llama3.1-sft-e1-_E1_D30003-t0.0--llama3.1-sft-e1-_E1_D30003-t0.0 | 23.33 | 46.67 | 30.00 |
 | llama3.1-sft-e1-_E1_D30004-t0.0--llama3.1-sft-e1-_E1_D30004-t0.0 | 16.67 | 70.00 | 13.33 |
+
+### Findings:
+**Success Ratio:** Went up 0% - 10% <br/>
+**Lose Ratio:** Went up 3 - 33%% <br/>
+**Aborted Ratio:** Dropped 10% - 27% <br/><br/>
+**Trend** Success and Lose rate went up while there is a great decrease for most models in aborted rate
