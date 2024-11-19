@@ -87,7 +87,7 @@ if __name__ == "__main__":
     training_arguments: CustomTrainingArguments = CustomTrainingArguments(
         per_device_train_batch_size=4,
         gradient_accumulation_steps=1,
-        num_train_epochs=1,
+        num_train_epochs=2,
         fp16=not torch.cuda.is_bf16_supported(),
         bf16=torch.cuda.is_bf16_supported(),
         optim="adamw_8bit",
