@@ -29,6 +29,9 @@ from src.model_wrapper.model import CustomTextToSqlModel
 chat_template_mapping: dict = {
     "meta-llama/Meta-Llama-3.1-8B-Instruct": "llama-3",
     "Nicohst/my_test_model": "llama-3",
+    "meta-llama/Llama-3.1-70B": "llama-3",
+    "unsloth/Meta-Llama-3.1-70B-bnb-4bit": "llama-3",
+    "unsloth/Meta-Llama-3.1-70B-bnb-4bit": "llama-3",
 }
 
 
@@ -85,9 +88,9 @@ if __name__ == "__main__":
         use_4bit=True
     )
     training_arguments: CustomTrainingArguments = CustomTrainingArguments(
-        per_device_train_batch_size=4,
+        per_device_train_batch_size=8,
         gradient_accumulation_steps=1,
-        num_train_epochs=2,
+        num_train_epochs=1,
         fp16=not torch.cuda.is_bf16_supported(),
         bf16=torch.cuda.is_bf16_supported(),
         optim="adamw_8bit",
