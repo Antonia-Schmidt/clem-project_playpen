@@ -87,7 +87,7 @@ if __name__ == "__main__":
     optimizers = ['sgd_32bit', 'adamw_32bit']
     learningRates = [1e-1, 1e-3, 1e-5]
     episodes = [1, 2, 4]
-    loraRandA = [(32, 64), (128, 256), (256, 512)]
+    loraRandA = [(256, 512), (128, 256), (32, 64),]
     dropouts = [0, 0.1]
 
     run_number = 1
@@ -112,7 +112,7 @@ if __name__ == "__main__":
                                 bnb_config: CustomBitsAndBitesConfiguration = CustomBitsAndBitesConfiguration(use_4bit=True)
 
                                 training_arguments: CustomTrainingArguments = CustomTrainingArguments(
-                                    per_device_train_batch_size=8,
+                                    per_device_train_batch_size=12,
                                     gradient_accumulation_steps=1,
                                     num_train_epochs=ep,
                                     fp16=not torch.cuda.is_bf16_supported(),
