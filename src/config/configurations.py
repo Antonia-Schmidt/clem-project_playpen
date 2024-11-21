@@ -112,7 +112,7 @@ class CustomTrainingArguments:
             warmup_ratio: float = 0.03,
             group_by_length: bool = True,
             save_steps: int = 0,
-            logging_steps: int = 50,
+            logging_steps: int = 10,
             warmup_steps: int = 5,
             hub_model_id: str = None
     ):

@@ -31,7 +31,7 @@ chat_template_mapping: dict = {
     "Nicohst/my_test_model": "llama-3",
     "meta-llama/Llama-3.1-70B": "llama-3",
     "unsloth/Meta-Llama-3.1-70B-bnb-4bit": "llama-3",
-    "unsloth/Meta-Llama-3.1-70B-bnb-4bit": "llama-3",
+    "unsloth/Meta-Llama-3.1-8B-Instruct-bnb-4bit": "llama-3",
 }
 
 
@@ -79,21 +79,21 @@ if __name__ == "__main__":
     max_seq_length = (
         2048  # Maximum sequence length to use can be adapted depending on the input
     )
-    packing = False  # Pack multiple short examples in the same input sequence to increase efficiency
+    packing = True  # Pack multiple short examples in the same input sequence to increase efficiency
     device_map = {"": 0}  # Load the entire model on the GPU 0
 
     ##### PARAMTERS FOR SEARCH
     schedulers = ['cosine', 'linear']
-    optimizers = ['sgd_32bit', 'adamw_32bit']
-    learningRates = [1e-1, 1e-3, 1e-5]
+    optimizers = ['sgd', 'adamw_8bit',]
+    learningRates = [2e-4, 2e-6, 2e-8]  
     episodes = [1, 2, 4]
     loraRandA = [(256, 512), (128, 256), (32, 64),]
     dropouts = [0, 0.1]
 
-    run_number = 1
+    run_number = 1 # 73, 145
     for scheduler in schedulers:
         for optimizer in optimizers:
-            for learningRate in learningRates:
+            for leraning_rate in learningRates:
                 for ep in episodes:
                     for loraR, loraA in loraRandA:
                         for dropout in dropouts:
@@ -104,67 +104,68 @@ if __name__ == "__main__":
                             else:
                                 experiment_name = f'D70{run_number}'
 
-                                # set lora confing
-                                lora_config: CustomLoraConfiguration = CustomLoraConfiguration(
-                                    lora_r=loraR, lora_alpha=loraA, lora_dropout=dropout
-                                )
+                            # set lora confing
+                            lora_config: CustomLoraConfiguration = CustomLoraConfiguration(
+                                lora_r=loraR, lora_alpha=loraA, lora_dropout=dropout
+                            )
 
-                                bnb_config: CustomBitsAndBitesConfiguration = CustomBitsAndBitesConfiguration(use_4bit=True)
+                            bnb_config: CustomBitsAndBitesConfiguration = CustomBitsAndBitesConfiguration(use_4bit=True)
 
-                                training_arguments: CustomTrainingArguments = CustomTrainingArguments(
-                                    per_device_train_batch_size=12,
-                                    gradient_accumulation_steps=1,
-                                    num_train_epochs=ep,
-                                    fp16=not torch.cuda.is_bf16_supported(),
-                                    bf16=torch.cuda.is_bf16_supported(),
-                                    optim=optimizer,
-                                    lr_scheduler_type=scheduler,
-                                    hub_model_id=None,
-                                )
-                                inference_config: CustomInferenceConfig = CustomInferenceConfig(
-                                    do_sample=False,
-                                    max_new_tokens=200,
-                                )
+                            training_arguments: CustomTrainingArguments = CustomTrainingArguments(
+                                per_device_train_batch_size=8,
+                                gradient_accumulation_steps=1,
+                                num_train_epochs=ep,
+                                fp16=not torch.cuda.is_bf16_supported(),
+                                bf16=torch.cuda.is_bf16_supported(),
+                                optim=optimizer,
+                                lr_scheduler_type=scheduler,
+                                hub_model_id=None,
+                                learning_rate=leraning_rate
+                            )
+                            inference_config: CustomInferenceConfig = CustomInferenceConfig(
+                                do_sample=False,
+                                max_new_tokens=200,
+                            )
 
-                                # prepare the model hub ID according to the specified format.
-                                model_hub_id: str = get_model_hub_id(
-                                    base_model_name=args.model_name,
-                                    learning_strategy="SFT",
-                                    experiment_name=experiment_name,
-                                )
+                            # prepare the model hub ID according to the specified format.
+                            model_hub_id: str = get_model_hub_id(
+                                base_model_name=args.model_name,
+                                learning_strategy="SFT",
+                                experiment_name=experiment_name,
+                            )
 
-                                training_arguments.hub_model_id = model_hub_id
-                                print(training_arguments.hub_model_id)
+                            training_arguments.hub_model_id = model_hub_id
+                            print(training_arguments.hub_model_id)
 
-                                # Initialize model
-                                model: CustomTextToSqlModel = CustomTextToSqlModel(
-                                    model_name=args.model_name,
-                                    path_dataset_train=args.training_dataset,
-                                    path_dataset_inference="UNUSED RN",  # since this is used as training script only
-                                    output_dir=args.output_dir,
-                                    lora_config=lora_config,
-                                    bnb_config=bnb_config,
-                                    unsloth_config=CustomUnslothModelConfig(max_seq_length=max_seq_length),
-                                    training_arguments=training_arguments,
-                                    inference_config=inference_config,
-                                    max_seq_length=max_seq_length,
-                                    packing=packing,
-                                    device_map=device_map,
-                                    train=train,
-                                    model_adapter=args.model_adapter,
-                                    chat_template=chat_template_mapping[args.model_name],
-                                )
+                            # Initialize model
+                            model: CustomTextToSqlModel = CustomTextToSqlModel(
+                                model_name=args.model_name,
+                                path_dataset_train=args.training_dataset,
+                                path_dataset_inference="UNUSED RN",  # since this is used as training script only
+                                output_dir=args.output_dir,
+                                lora_config=lora_config,
+                                bnb_config=bnb_config,
+                                unsloth_config=CustomUnslothModelConfig(max_seq_length=max_seq_length),
+                                training_arguments=training_arguments,
+                                inference_config=inference_config,
+                                max_seq_length=max_seq_length,
+                                packing=packing,
+                                device_map=device_map,
+                                train=train,
+                                model_adapter=args.model_adapter,
+                                chat_template=chat_template_mapping[args.model_name],
+                            )
 
-                                # safe the configuration files
-                                model.save_config()
+                            # safe the configuration files
+                            model.save_config()
 
-                                if train:
-                                    model.train_model()
+                            if train:
+                                model.train_model()
 
-                                    # save the model
-                                    # model.save_model()
+                                # save the model
+                                # model.save_model()
 
-                                # free the memory that the model used
-                                del model
+                            # free the memory that the model used
+                            del model
 
-                                run_number += 1
+                            run_number += 1
