@@ -156,44 +156,102 @@ E.g. meta-llama-Meta-Llama-3.1-8B-Instruct-SFT-E1-D10001
 | D2_1 D3_2          | Plaza       | 2          | Object             |
 
 <img src="./plots/success_abort_rate_imagegame.png"/>
+
+### Words that changed from Lose into Aborted
+
+D200001 is always aborted and thus, it won't appear in the table
+
+| Model                | experiment    | num models | Abort Reason |
+|----------------------|---------------|------------|--------------|
+| D1_1, D2_1,3, D3_2,3 | comp_grids 12 | 5          |              |
+| D1_1, D2_1,3, D3_2,3 | comp_grids 11 | 4          |              |
+| D1_1, D2_1,3, D3_2,3 | comp_grids 15 | 4          |              |
+| D1_1, D2_1,3, D3_2,3 | comp_grids 16 | 4          |              |
+| D1_1,         D3_2   | comp_grids 0  | 3          |              |
+| D1_1,         D3_2   | comp_grids 1  | 3          |              |
+| D1_1,         D3_2   | comp_grids 2  | 3          |              |
+| D1_1, D2_2           | comp_grids 5  | 3          |              |
+| D1_1,         D3_2   | comp_grids 7  | 3          |              |
+| D1_1,         D3_2   | comp_grids 8  | 3          |              |
+| D1_1,         D3_2   | rand_grids 10 | 3          |              |
+| D1_1,         D3_2   | rand_grids 16 | 3          |              |
+| D1_1,         D3_2   | rand_grids 7  | 3          |              |
+| D1_1,         D3_2   | comp_grids 14 | 3          |              |
+| D1_1,         D3_4   | comp_grids 17 | 3          |              |
+| D1_1,         D3_1   | comp_grids 19 | 3          |              |
+| ,     D2_2           | comp_grids 4  | 2          |              |
+| ,             D3_2   | comp_grids 6  | 2          |              |
+
+
+
+
 <img src="./plots/success_abort_rate_wordle.png"/>
 
 ### Words that changed from Lose into Aborted
-| Model            | Word                   | num models | word type          | Abort Reason         |
-|------------------|------------------------|------------|--------------------|----------------------|
-| D1_1, D2_1, D3_3 | Photo (high_fre ep3)   | 3          | Object             | No real words        |
-| D2_2,3           | Share (high_fre ep1)   | 2          | concept (Cultural) | Invalid word length  |
-| D2_2,3           | Swash   (med_fre ep14) | 2          |                    | No real words  ahale |
-| D2_1,2           | Trial                  | 2          | concept            |                      |
+| Model            | Word                 | num models | word type          | Abort Reason         |
+|------------------|----------------------|------------|--------------------|----------------------|
+| D1_1, D2_1, D3_3 | Photo (high_fre ep3) | 3          | Object             | No real words        |
+| D2_2,3           | Share (high_fre ep1) | 2          | concept (Cultural) | Invalid word length  |
+| D2_2,3           | Swash (med_fre ep14) | 2          |                    | No real words  ahale |
+| D2_1,2           | Trial (med_fre ep8)  | 2          | concept            |                      |
 
 <img src="./plots/success_abort_rate_wordle_withclue.png"/>
 
 ### Words that changed from Lose into Aborted
-| Model            | Word   | num models | word type    |
-|------------------|--------|------------|--------------|
-| D2_2,3, D3_3,4   | newly  | 4          |              |
-| D2_2,3, D3_1,3   | nerdy  | 4          |              |
-| D1_1, D2_1, D3_4 | Rifle  | 3          |              |
-| D2_2,3           | Carper | 2          |              |
-| D2_1,2           | Swash  | 2          | aspid, aspir |
-| D2_2, D3_3       | fiery  | 2          |              |
-| D2_2, D3_3       | unfed  | 2          |              |
-| D2_1, D3_4       | cacao  | 2          |              |
+| Model            | Word                 | num models | word type    |
+|------------------|----------------------|------------|--------------|
+| D2_2,3, D3_3,4   | newly (med_fre ep7)  | 4          |              |
+| D2_2,3, D3_1,3   | nerdy (med_fre ep4)  | 4          |              |
+| D1_1, D2_1, D3_4 | Rifle (med_fre ep13) | 3          |              |
+| D2_2,3           | Caper (med_fre ep10) | 2          |              |
+| D2_1,2           | Swash (med_fre ep14) | 2          | aspid, aspir |
+| D2_2, D3_3       | fiery (med_fre ep12) | 2          |              |
+| D2_2, D3_3       | unfed (med_fre ep17) | 2          |              |
+| D2_1, D3_4       | cacao (med_fre ep19) | 2          |              |
+
+### Words that changed from Success into Loss
+| Model                     | Word                 | num models | word type |
+|---------------------------|----------------------|------------|-----------|
+| D1_1, D_2_1,3, D3_1,2,3   | smart (med_fre ep18) | 6          |           |
+| ,              D3_1,2,3,4 | grout (med_fre ep5)  | 4          |           |
+| ,     D2_2,    D3_2,3     | reign (med_fre ep9)  | 3          | v         |
+
 
 <img src="./plots/success_abort_rate_wordle_withcritic.png"/>
 
 ### Words that changed from Lose into Aborted
-| Model             | Word   | num models | word type |
-|-------------------|--------|------------|-----------|
-| D1_1 D2_2,3, D3_3 | fiery  | 3          |           |
-| D1_1, D2_2,3      | newly  | 3          |           |
-| D2_2,3            | Carper | 2          |           |
-| D2_2 D3_3         | Share  | 2          |           |
+| Model             | Word                  | num models | word type |
+|-------------------|-----------------------|------------|-----------|
+| D1_1 D2_2,3, D3_3 | fiery (med_fre ep12)  | 3          |           |
+| D1_1, D2_2,3      | newly (med_fre ep7)   | 3          |           |
+| D2_2,3            | Caper (med_fre ep10)  | 2          |           |
+| D2_2 D3_3         | Share (high_fre ep1)  | 2          |           |
 
+### Words that changed from Success into Aborted
+| Model          | Word                 | num models | word type |
+|----------------|----------------------|------------|-----------|
+| D2_1,2,3, D3_3 | photo (high_fre ep3) | 3          |           |
+| D2_2,     D3_4 | axial (med_fre ep0)  | 2          |           |
+
+### Words that changed from Success into Loss
+| Model                     | Word                 | num models | word type |
+|---------------------------|----------------------|------------|-----------|
+| D1_1, D_2_1,3, D3_1,2,3   | axial (med_fre ep0)  | 6          |           |
+| ,              D3_1,2,3,4 | small (high_fre ep9) | 4          |           |
+| ,     D2_2,    D3_2,3     | grout (med_fre ep5)  | 3          |           |
 
 
 <img src="./plots/success_abort_rate_referencegame.png"/>
+
 <img src="./plots/success_abort_rate_privateshared.png"/>
+
+### Words that changed from Lose into Aborted
+| Model    | Domain              | num models | Abort Reason         |
+|----------|---------------------|------------|----------------------|
+| D3_1,2,3 | Restaurant ep8      | 3          | No real words        |
+| D3_1,2   | Jobinterview ep3    | 2          | Invalid word length  |
+| D3_1,2   | Jobinterview ep4    | 2          | Invalid word length  |
+
 <br />
 <img src="./plots/radar_chart_played_D5.png"/>
 
