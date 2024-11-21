@@ -162,7 +162,7 @@ if __name__ == "__main__":
                                     model.train_model()
 
                                     # save the model
-                                    model.save_model()
+                                    # model.save_model()
 
                                 # free the memory that the model used
                                 del model
