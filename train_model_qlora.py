@@ -47,7 +47,7 @@ def check_chat_template_mapping(model_name: str):
 def get_model_hub_id(
     base_model_name: str, learning_strategy: str, episodes: int, dataset_name
 ) -> str:
-    return f'clembench-playpen/{base_model_name.replace("/", "-")}_{learning_strategy}_E{episodes}_{dataset_name.split("/")[-1].replace(".csv", "")}'
+    return f'clembench-playpen/{base_model_name.replace("/", "-")}_{learning_strategy}_E{episodes}_{dataset_name.split("/")[-1].replace(".csv", "")}_REV'
 
 
 if __name__ == "__main__":
@@ -77,7 +77,7 @@ if __name__ == "__main__":
 
     # SFT Trainer parameters
     max_seq_length = (
-        2048  # Maximum sequence length to use can be adapted depending on the input
+        1024  # Maximum sequence length to use can be adapted depending on the input
     )
     packing = False  # Pack multiple short examples in the same input sequence to increase efficiency
     device_map = {"": 0}  # Load the entire model on the GPU 0
@@ -88,7 +88,7 @@ if __name__ == "__main__":
         use_4bit=True
     )
     training_arguments: CustomTrainingArguments = CustomTrainingArguments(
-        per_device_train_batch_size=8,
+        per_device_train_batch_size=12,
         gradient_accumulation_steps=1,
         num_train_epochs=1,
         fp16=not torch.cuda.is_bf16_supported(),
