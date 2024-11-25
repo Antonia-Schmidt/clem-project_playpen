@@ -77,7 +77,7 @@ if __name__ == "__main__":
 
     # SFT Trainer parameters
     max_seq_length = (
-        2048  # Maximum sequence length to use can be adapted depending on the input
+        1024  # Maximum sequence length to use can be adapted depending on the input
     )
     packing = True  # Pack multiple short examples in the same input sequence to increase efficiency
     device_map = {"": 0}  # Load the entire model on the GPU 0
@@ -85,7 +85,7 @@ if __name__ == "__main__":
     ##### PARAMTERS FOR SEARCH
     schedulers = ['cosine', 'linear']
     optimizers = ['sgd', 'adamw_8bit',]
-    learningRates = [2e-4, 2e-6, 2e-8]  
+    learningRates = [2e-2]  # 2e-6, 2e-8
     episodes = [1, 2, 4]
     loraRandA = [(256, 512), (128, 256), (32, 64),]
     dropouts = [0, 0.1]
@@ -97,12 +97,16 @@ if __name__ == "__main__":
                 for ep in episodes:
                     for loraR, loraA in loraRandA:
                         for dropout in dropouts:
+                            print("RUN NUMBER: ", run_number)
                             if run_number <= 9:
                                 experiment_name = f'D7000{run_number}'
                             elif run_number <= 99:
                                 experiment_name = f'D700{run_number}'
                             else:
                                 experiment_name = f'D70{run_number}'
+
+                            if run_number <= 2:
+                                continue
 
                             # set lora confing
                             lora_config: CustomLoraConfiguration = CustomLoraConfiguration(
@@ -163,7 +167,7 @@ if __name__ == "__main__":
                                 model.train_model()
 
                                 # save the model
-                                # model.save_model()
+                                model.save_model()
 
                             # free the memory that the model used
                             del model
