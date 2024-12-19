@@ -120,7 +120,15 @@ one game episode, the next worse model will be checked.
 ### 5. Play only n games and observe impact on other games
 (Find reasonable choice of games to learn from)
 
+### 4. Balanced data
+
 ### 6. Only take data from the best model per game instance (can be duplicate with top n = 1)
+
+### 7. Leave one out
+
+### 8. Collection of test experiments
+
+
 
 
 
