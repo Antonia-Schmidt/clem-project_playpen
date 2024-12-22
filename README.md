@@ -120,7 +120,14 @@ one game episode, the next worse model will be checked.
 ### 5. Play only n games and observe impact on other games
 (Find reasonable choice of games to learn from)
 
-### 6. Only take data from the best model per game instance (can be duplicate with top n = 1)
+### 6. Leave one out
+
+### 7. Experiment of improving single games by changing input (lessons learned from 5 and 6)
+Only on data from one game is trained
+
+### 8. Collection of test experiments
+
+
 
 
 
