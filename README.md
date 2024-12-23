@@ -109,7 +109,7 @@ the same game instance, e.g. wordle with the same target word will be present as
 Since some games are "easier" to play by the models than others, there is the situation, that for some games there are hundreds of samples, while for 
 others there are just ten to twenty.
 
-The aboce image already indicates that there even in the top 10 models, some games are only Successfully played by the top 5 a.g. privateshared.
+The above image already indicates that there even in the top 10 models, some games are only Successfully played by the top 5 a.g. privateshared.
 
 To address this issue there can be different strategies of sampling only partial data from the games that are over represented.
 
@@ -126,6 +126,8 @@ one game episode, the next worse model will be checked.
 Only on data from one game is trained
 
 ### 8. Collection of test experiments
+
+### 9. Hyperparameter Tuning
 
 
 
