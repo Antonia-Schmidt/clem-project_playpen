@@ -247,6 +247,62 @@ class CustomTextToSqlModel:
         logging.info("Start Model Training")
         self.trainer.train()
 
+    def train_model_with_periodic_save(self, start_index: int, output_base_path: str):
+        self.initialize_training()
+        logging.info("Start Model Training")
+    
+        # Access the training arguments for number of epochs
+        num_epochs = self.training_arguments.num_train_epochs
+    
+        for epoch in range(int(num_epochs)):
+            print("RUN NUMBER: ", start_index)
+            if start_index <= 9:
+                experiment_name = f'DT000{start_index}'
+            elif start_index <= 99:
+                experiment_name = f'DT00{start_index}'
+            else:
+                experiment_name = f'DT0{start_index}'
+
+            logging.info(f"Starting Epoch {epoch + 1}/{num_epochs}")
+
+            # generate the model hub ID
+            model_hub_id: str = f'clembench-playpen/{self.model_name.replace("/", "-")}_SFT_E{epoch + 1}_{experiment_name}'
+            print("Training model with hub_id: ", model_hub_id)
+
+            # set model hub ID
+            self.trainer.hub_model_id = model_hub_id
+
+            # create sub directory for model
+            save_dir = output_base_path + f'/{experiment_name}'
+            config_dir = save_dir + '/config'
+            if not os.path.exists(save_dir):
+                os.makedirs(save_dir, exist_ok=True)
+                os.makedirs(config_dir, exist_ok=True)
+
+            # save the configurations
+            file: str = config_dir + "/configuration.txt"
+            with open(file, "w") as convert_file:
+                convert_file.write(json.dumps(self.bnb_config.as_dict()))
+                convert_file.write(json.dumps(self.training_arguments.as_dict()))
+                convert_file.write(json.dumps(self.unsloth_config.as_dict()))
+                convert_file.write(json.dumps(self.lora_config.as_dict()))
+    
+            # Train for one epoch
+            self.trainer.train(resume_from_checkpoint=None)
+
+            # save the model
+            unsloth_save_model(
+                self.trainer.model,
+                self.trainer.tokenizer,
+                save_dir,
+                push_to_hub=False,
+                token=None,
+            )
+            self.trainer.push_to_hub()
+
+            logging.info(f"Model saved at {save_dir}")
+
+
     def save_model(self):
         unsloth_save_model(
             self.trainer.model,

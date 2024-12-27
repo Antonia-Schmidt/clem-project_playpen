@@ -85,17 +85,18 @@ if __name__ == "__main__":
     ##### PARAMTERS FOR SEARCH
     schedulers = ['cosine', 'linear']
     optimizers = ['sgd', 'adamw_8bit',]
-    learningRates = [2e-2, 2e-6, 2e-8]
-    episodes = [1]
-    loraRandA = [(32, 64), (64, 128), (128, 256),]
+    learningRates = [2e-2, 2e-4, 2e-6]
+    episodes = [3]
+    loraRandA = [(32, 64), (64, 128), (128, 256)]
     dropouts = [0, 0.1]
 
     total_runs = len(schedulers) * len(optimizers) * len(learningRates) * len(loraRandA) * len(dropouts)
+    print(total_runs)
 
-    run_number = 1 # 73, 145
+    run_number = 1
     for scheduler in schedulers:
         for optimizer in optimizers:
-            for leraning_rate in learningRates:
+            for learning_rate in learningRates:
                 for ep in episodes:
                     for loraR, loraA in loraRandA:
                         for dropout in dropouts:
@@ -106,7 +107,6 @@ if __name__ == "__main__":
                                 experiment_name = f'D900{run_number}'
                             else:
                                 experiment_name = f'D90{run_number}'
-
 
                             # set lora confing
                             lora_config: CustomLoraConfiguration = CustomLoraConfiguration(
@@ -124,7 +124,7 @@ if __name__ == "__main__":
                                 optim=optimizer,
                                 lr_scheduler_type=scheduler,
                                 hub_model_id=None,
-                                learning_rate=leraning_rate
+                                learning_rate=learning_rate,
                             )
                             inference_config: CustomInferenceConfig = CustomInferenceConfig(
                                 do_sample=False,
@@ -160,16 +160,11 @@ if __name__ == "__main__":
                                 chat_template=chat_template_mapping[args.model_name],
                             )
 
-                            # safe the configuration files
-                            model.save_config()
-
                             if train:
-                                model.train_model()
-
-                                # save the model
-                                model.save_model()
+                                model.train_model_with_periodic_save(start_index=run_number, output_base_path='./output')
 
                             # free the memory that the model used
                             del model
 
-                            run_number += 1
+                            # increment with episodes amount since each model will be saved after each episode.
+                            run_number += ep
