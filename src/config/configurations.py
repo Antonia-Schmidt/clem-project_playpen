@@ -114,7 +114,7 @@ class CustomTrainingArguments:
             save_steps: int = 0,
             logging_steps: int = 10,
             warmup_steps: int = 5,
-            hub_model_id: str = None
+            hub_model_id: str = None,
     ):
         self.output_dir: str = output_dir
         self.num_train_epochs: int = num_train_epochs
@@ -160,7 +160,9 @@ class CustomTrainingArguments:
             warmup_steps=self.warmup_steps,
             seed=self.seed,
             run_name=self.run_name,
-            hub_model_id=self.hub_model_id
+            hub_model_id=self.hub_model_id,
+            save_strategy=self.save_strategy,
+            save_total_limit=self.save_total_limit
         )
 
     def as_dict(self):
