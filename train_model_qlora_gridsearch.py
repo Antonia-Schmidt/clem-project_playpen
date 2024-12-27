@@ -85,10 +85,12 @@ if __name__ == "__main__":
     ##### PARAMTERS FOR SEARCH
     schedulers = ['cosine', 'linear']
     optimizers = ['sgd', 'adamw_8bit',]
-    learningRates = [2e-2]  # 2e-6, 2e-8
-    episodes = [1, 2, 4]
-    loraRandA = [(256, 512), (128, 256), (32, 64),]
+    learningRates = [2e-2, 2e-6, 2e-8]
+    episodes = [1]
+    loraRandA = [(32, 64), (64, 128), (128, 256),]
     dropouts = [0, 0.1]
+
+    total_runs = len(schedulers) * len(optimizers) * len(learningRates) * len(loraRandA) * len(dropouts)
 
     run_number = 1 # 73, 145
     for scheduler in schedulers:
@@ -99,14 +101,12 @@ if __name__ == "__main__":
                         for dropout in dropouts:
                             print("RUN NUMBER: ", run_number)
                             if run_number <= 9:
-                                experiment_name = f'D7000{run_number}'
+                                experiment_name = f'D9000{run_number}'
                             elif run_number <= 99:
-                                experiment_name = f'D700{run_number}'
+                                experiment_name = f'D900{run_number}'
                             else:
-                                experiment_name = f'D70{run_number}'
+                                experiment_name = f'D90{run_number}'
 
-                            if run_number <= 2:
-                                continue
 
                             # set lora confing
                             lora_config: CustomLoraConfiguration = CustomLoraConfiguration(
