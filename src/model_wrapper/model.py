@@ -23,6 +23,8 @@ from trl import SFTTrainer
 from unsloth import FastLanguageModel, unsloth_save_model
 from unsloth.chat_templates import get_chat_template
 
+from huggingface_hub import create_repo
+
 logging.basicConfig(format="%(levelname)s:%(message)s", level=logging.INFO)
 
 # set Environment variables
@@ -255,19 +257,24 @@ class CustomTextToSqlModel:
         num_epochs = self.training_arguments.num_train_epochs
     
         for epoch in range(int(num_epochs)):
-            print("RUN NUMBER: ", start_index)
-            if start_index <= 9:
-                experiment_name = f'DT000{start_index}'
-            elif start_index <= 99:
-                experiment_name = f'DT00{start_index}'
+            run_number = start_index + epoch
+
+            print("RUN NUMBER: ", run_number)
+            if run_number <= 9:
+                experiment_name = f'DT000{run_number}'
+            elif run_number <= 99:
+                experiment_name = f'DT00{run_number}'
             else:
-                experiment_name = f'DT0{start_index}'
+                experiment_name = f'DT0{run_number}'
 
             logging.info(f"Starting Epoch {epoch + 1}/{num_epochs}")
 
             # generate the model hub ID
             model_hub_id: str = f'clembench-playpen/{self.model_name.replace("/", "-")}_SFT_E{epoch + 1}_{experiment_name}'
             print("Training model with hub_id: ", model_hub_id)
+
+            # create repo
+            create_repo(repo_id=model_hub_id, repo_type="model", private=False, exist_ok=True)
 
             # set model hub ID
             self.trainer.hub_model_id = model_hub_id

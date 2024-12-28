@@ -161,8 +161,6 @@ class CustomTrainingArguments:
             seed=self.seed,
             run_name=self.run_name,
             hub_model_id=self.hub_model_id,
-            save_strategy=self.save_strategy,
-            save_total_limit=self.save_total_limit
         )
 
     def as_dict(self):
