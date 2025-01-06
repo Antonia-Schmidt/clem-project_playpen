@@ -4,6 +4,8 @@ import json
 import logging
 import os
 import re
+from huggingface_hub import create_repo
+
 
 import pandas as pd
 import torch
@@ -22,6 +24,8 @@ from transformers.pipelines.pt_utils import KeyDataset
 from trl import SFTTrainer
 from unsloth import FastLanguageModel, unsloth_save_model
 from unsloth.chat_templates import get_chat_template
+
+from huggingface_hub import create_repo
 
 logging.basicConfig(format="%(levelname)s:%(message)s", level=logging.INFO)
 
@@ -246,6 +250,67 @@ class CustomTextToSqlModel:
 
         logging.info("Start Model Training")
         self.trainer.train()
+
+    def train_model_with_periodic_save(self, start_index: int, output_base_path: str):
+        self.initialize_training()
+        logging.info("Start Model Training")
+    
+        # Access the training arguments for number of epochs
+        num_epochs = self.training_arguments.num_train_epochs
+    
+        for epoch in range(int(num_epochs)):
+            run_number = start_index + epoch
+
+            print("RUN NUMBER: ", run_number)
+            if run_number <= 9:
+                experiment_name = f'DT000{run_number}'
+            elif run_number <= 99:
+                experiment_name = f'DT00{run_number}'
+            else:
+                experiment_name = f'DT0{run_number}'
+
+            logging.info(f"Starting Epoch {epoch + 1}/{num_epochs}")
+
+            # generate the model hub ID
+            model_hub_id: str = f'clembench-playpen/{self.model_name.replace("/", "-")}_SFT_E{epoch + 1}_{experiment_name}'
+            print("Training model with hub_id: ", model_hub_id)
+
+            # create repo
+            create_repo(repo_id=model_hub_id, repo_type="model", private=False, exist_ok=True)
+
+            # set model hub ID
+            self.trainer.hub_model_id = model_hub_id
+
+            # create sub directory for model
+            save_dir = output_base_path + f'/{experiment_name}'
+            config_dir = save_dir + '/config'
+            if not os.path.exists(save_dir):
+                os.makedirs(save_dir, exist_ok=True)
+                os.makedirs(config_dir, exist_ok=True)
+
+            # save the configurations
+            file: str = config_dir + "/configuration.txt"
+            with open(file, "w") as convert_file:
+                convert_file.write(json.dumps(self.bnb_config.as_dict()))
+                convert_file.write(json.dumps(self.training_arguments.as_dict()))
+                convert_file.write(json.dumps(self.unsloth_config.as_dict()))
+                convert_file.write(json.dumps(self.lora_config.as_dict()))
+    
+            # Train for one epoch
+            self.trainer.train(resume_from_checkpoint=None)
+
+            # save the model
+            unsloth_save_model(
+                self.trainer.model,
+                self.trainer.tokenizer,
+                save_dir,
+                push_to_hub=False,
+                token=None,
+            )
+            self.trainer.push_to_hub()
+
+            logging.info(f"Model saved at {save_dir}")
+
 
     def save_model(self):
         unsloth_save_model(

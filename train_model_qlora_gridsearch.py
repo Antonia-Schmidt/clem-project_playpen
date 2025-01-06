@@ -83,93 +83,86 @@ if __name__ == "__main__":
     device_map = {"": 0}  # Load the entire model on the GPU 0
 
     ##### PARAMTERS FOR SEARCH
-    schedulers = ['cosine', 'linear']
-    optimizers = ['sgd', 'adamw_8bit',]
-    learningRates = [2e-2]  # 2e-6, 2e-8
-    episodes = [1, 2, 4]
-    loraRandA = [(256, 512), (128, 256), (32, 64),]
-    dropouts = [0, 0.1]
+    schedulers = ['linear', 'cosine']
+    optimizers = ['adamw_8bit', 'sgd']
+    learningRates = [2e-4, 2e-2, 2e-6]
+    loraRandA = [(32, 64), (64, 128), (128, 256), (256, 512)]
+    decays = [0.01, 0.001]
 
-    run_number = 1 # 73, 145
+
+    run_number = 1
     for scheduler in schedulers:
         for optimizer in optimizers:
-            for leraning_rate in learningRates:
-                for ep in episodes:
+            for learning_rate in learningRates:
+                for decay in decays:
                     for loraR, loraA in loraRandA:
-                        for dropout in dropouts:
-                            print("RUN NUMBER: ", run_number)
-                            if run_number <= 9:
-                                experiment_name = f'D7000{run_number}'
-                            elif run_number <= 99:
-                                experiment_name = f'D700{run_number}'
-                            else:
-                                experiment_name = f'D70{run_number}'
+                        print("RUN NUMBER: ", run_number)
+                        if run_number <= 9:
+                            experiment_name = f'D9000{run_number}'
+                        elif run_number <= 99:
+                            experiment_name = f'D900{run_number}'
+                        else:
+                            experiment_name = f'D90{run_number}'
 
-                            if run_number <= 2:
-                                continue
+                        # set lora confing
+                        lora_config: CustomLoraConfiguration = CustomLoraConfiguration(
+                            lora_r=loraR, lora_alpha=loraA
+                        )
 
-                            # set lora confing
-                            lora_config: CustomLoraConfiguration = CustomLoraConfiguration(
-                                lora_r=loraR, lora_alpha=loraA, lora_dropout=dropout
-                            )
+                        bnb_config: CustomBitsAndBitesConfiguration = CustomBitsAndBitesConfiguration(use_4bit=True)
 
-                            bnb_config: CustomBitsAndBitesConfiguration = CustomBitsAndBitesConfiguration(use_4bit=True)
+                        training_arguments: CustomTrainingArguments = CustomTrainingArguments(
+                            per_device_train_batch_size=4,
+                            gradient_accumulation_steps=1,
+                            num_train_epochs=1,
+                            fp16=not torch.cuda.is_bf16_supported(),
+                            bf16=torch.cuda.is_bf16_supported(),
+                            optim=optimizer,
+                            lr_scheduler_type=scheduler,
+                            hub_model_id=None,
+                            learning_rate=learning_rate,
+                            weight_decay=decay
+                        )
+                        inference_config: CustomInferenceConfig = CustomInferenceConfig(
+                            do_sample=False,
+                            max_new_tokens=200,
+                        )
 
-                            training_arguments: CustomTrainingArguments = CustomTrainingArguments(
-                                per_device_train_batch_size=8,
-                                gradient_accumulation_steps=1,
-                                num_train_epochs=ep,
-                                fp16=not torch.cuda.is_bf16_supported(),
-                                bf16=torch.cuda.is_bf16_supported(),
-                                optim=optimizer,
-                                lr_scheduler_type=scheduler,
-                                hub_model_id=None,
-                                learning_rate=leraning_rate
-                            )
-                            inference_config: CustomInferenceConfig = CustomInferenceConfig(
-                                do_sample=False,
-                                max_new_tokens=200,
-                            )
+                        # prepare the model hub ID according to the specified format.
+                        model_hub_id: str = get_model_hub_id(
+                            base_model_name=args.model_name,
+                            learning_strategy="SFT",
+                            experiment_name=experiment_name,
+                        )
 
-                            # prepare the model hub ID according to the specified format.
-                            model_hub_id: str = get_model_hub_id(
-                                base_model_name=args.model_name,
-                                learning_strategy="SFT",
-                                experiment_name=experiment_name,
-                            )
+                        training_arguments.hub_model_id = model_hub_id
+                        print(training_arguments.hub_model_id)
 
-                            training_arguments.hub_model_id = model_hub_id
-                            print(training_arguments.hub_model_id)
+                        # Initialize model
+                        model: CustomTextToSqlModel = CustomTextToSqlModel(
+                            model_name=args.model_name,
+                            path_dataset_train=args.training_dataset,
+                            path_dataset_inference="UNUSED RN",  # since this is used as training script only
+                            output_dir=args.output_dir,
+                            lora_config=lora_config,
+                            bnb_config=bnb_config,
+                            unsloth_config=CustomUnslothModelConfig(max_seq_length=max_seq_length),
+                            training_arguments=training_arguments,
+                            inference_config=inference_config,
+                            max_seq_length=max_seq_length,
+                            packing=packing,
+                            device_map=device_map,
+                            train=train,
+                            model_adapter=args.model_adapter,
+                            chat_template=chat_template_mapping[args.model_name],
+                        )
 
-                            # Initialize model
-                            model: CustomTextToSqlModel = CustomTextToSqlModel(
-                                model_name=args.model_name,
-                                path_dataset_train=args.training_dataset,
-                                path_dataset_inference="UNUSED RN",  # since this is used as training script only
-                                output_dir=args.output_dir,
-                                lora_config=lora_config,
-                                bnb_config=bnb_config,
-                                unsloth_config=CustomUnslothModelConfig(max_seq_length=max_seq_length),
-                                training_arguments=training_arguments,
-                                inference_config=inference_config,
-                                max_seq_length=max_seq_length,
-                                packing=packing,
-                                device_map=device_map,
-                                train=train,
-                                model_adapter=args.model_adapter,
-                                chat_template=chat_template_mapping[args.model_name],
-                            )
+                        if train:
+                            model.train()
+                            model.save()
 
-                            # safe the configuration files
-                            model.save_config()
+                        # free the memory that the model used
+                        del model
 
-                            if train:
-                                model.train_model()
-
-                                # save the model
-                                model.save_model()
-
-                            # free the memory that the model used
-                            del model
-
-                            run_number += 1
+                        # increment with episodes amount since each model will be saved after each episode.
+                        run_number += 1
