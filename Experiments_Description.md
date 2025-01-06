@@ -65,6 +65,7 @@ NOTE: The data was shuffled before it was split to mix the games. During trainin
 
 ## D8000X
 ### Collection of test experiments
+**Dataset D8000X:** [training_data_D8000X.csv](./data/training_data/D30001.csv)  For every game, the data from the best performing experiments for the particular game was used. </br>
 
 ## D9000X
 ### Hyperparameter tuning experiments
