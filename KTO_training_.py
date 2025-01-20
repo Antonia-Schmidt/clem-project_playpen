@@ -66,7 +66,7 @@ entity = "wandb"
 wandb.init(project=project_name, name = "llama3.1_kto_playpen")
 
 training_arguments = KTOConfig(
-        per_device_train_batch_size = 4,
+        per_device_train_batch_size = 8,
         gradient_accumulation_steps = 2,
         warmup_ratio = 0.1,
         num_train_epochs = 1,
