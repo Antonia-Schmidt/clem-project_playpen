@@ -65,7 +65,7 @@ if __name__ == "__main__":
         "--training_dataset", help="The path to training dataset", default=None
     )
     parser.add_argument(
-        "--model_adapter", help="The path to training dataset", default=None
+        "--model_adapter", help="The path to the adapter", default=None
     )
 
     # get all the args
@@ -79,7 +79,7 @@ if __name__ == "__main__":
     max_seq_length = (
         1024  # Maximum sequence length to use can be adapted depending on the input
     )
-    packing = True  # Pack multiple short examples in the same input sequence to increase efficiency
+    packing = False  # Pack multiple short examples in the same input sequence to increase efficiency
     device_map = {"": 0}  # Load the entire model on the GPU 0
 
     ##### PARAMTERS FOR SEARCH
@@ -103,13 +103,19 @@ if __name__ == "__main__":
                             experiment_name = f'D900{run_number}'
                         else:
                             experiment_name = f'D90{run_number}'
+                        
+                        if run_number != 28:
+                            print('skipped_run ', run_number)
+                            run_number += 1
+                            continue
 
                         # set lora confing
                         lora_config: CustomLoraConfiguration = CustomLoraConfiguration(
                             lora_r=loraR, lora_alpha=loraA
                         )
-
-                        bnb_config: CustomBitsAndBitesConfiguration = CustomBitsAndBitesConfiguration(use_4bit=True)
+                        bnb_config: CustomBitsAndBitesConfiguration = CustomBitsAndBitesConfiguration(
+                            use_4bit=True
+                            )
 
                         training_arguments: CustomTrainingArguments = CustomTrainingArguments(
                             per_device_train_batch_size=4,
@@ -158,8 +164,10 @@ if __name__ == "__main__":
                         )
 
                         if train:
-                            model.train()
-                            model.save()
+                            model.train_model()
+
+                            # save the models
+                            model.save_model()
 
                         # free the memory that the model used
                         del model

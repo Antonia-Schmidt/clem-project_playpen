@@ -37,11 +37,13 @@ chat_template_mapping: dict = {
 
 def check_chat_template_mapping(model_name: str):
     try:
-        mapping: str = chat_template_mapping[model_name]
-        logging.info(f"found chat template {mapping} for model {args.model_name}")
+        #mapping: str = chat_template_mapping[model_name]
+        #logging.info(f"found chat template {mapping} for model {args.model_name}")
+        return "llama-3"
 
     except KeyError:
-        print(f"For the model {model_name}, no suitable chat template was found.")
+        print(f"For the model {model_name}, no suitable chat template was found returning default llama-3.")
+        return "llama-3"
 
 
 def get_model_hub_id(
@@ -96,6 +98,7 @@ if __name__ == "__main__":
         optim="adamw_8bit",
         hub_model_id=None,
     )
+
     inference_config: CustomInferenceConfig = CustomInferenceConfig(
         do_sample=False,
         max_new_tokens=200,

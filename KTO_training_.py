@@ -6,11 +6,11 @@ from huggingface_hub import HfApi, login
 from trl import KTOTrainer, KTOConfig
 import wandb
 
-login("")
-os.environ['WANDB_API_KEY'] = ""
+# login("")
+# os.environ['WANDB_API_KEY'] = ""
 cache_dir_models = ""
 
-wandb.login()
+# wandb.login()
 max_seq_length = 1024
 dtype = None
 load_in_4bit = True

@@ -7,6 +7,9 @@ __pycache__/
 
 # exclude model run metadata fil
 output
+outputs
+models--mazzaqq--SFT-base_merged_fp16
+kto_trained
 wandb
 
 # cursor rules

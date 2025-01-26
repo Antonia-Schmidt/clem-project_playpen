@@ -32,8 +32,7 @@ logging.basicConfig(format="%(levelname)s:%(message)s", level=logging.INFO)
 # set Environment variables
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 os.environ["WANDB_PROJECT"] = "clembench-playpen-sft"  # name your W&B project
-os.environ["WANDB_LOG_MODEL"] = "checkpoint"  # log all model checkpoints
-
+os.environ["WANDB_LOG_MODEL"] = "false"  # log all model checkpoints
 
 from src.config.configurations import (
     CustomBitsAndBitesConfiguration,
