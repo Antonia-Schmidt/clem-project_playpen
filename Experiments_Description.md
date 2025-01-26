@@ -44,24 +44,23 @@ NOTE: The data was shuffled before it was split to mix the games. During trainin
 ## D4000X
 ## D5000X
 ### Train on one game and evaluate
-**Dataset D50001:** [training_data_D50001.csv](./data/training_data/D30001.csv)  Contains only data from </br>
-**Dataset D50002:** [training_data_D50002.csv](./data/training_data/D30002.csv)  Contains only data from </br>
-**Dataset D50003:** [training_data_D50003.csv](./data/training_data/D30003.csv)  Contains only data from </br>
-**Dataset D50004:** [training_data_D50004.csv](./data/training_data/D30004.csv)  Contains only data from </br>
-**Dataset D50005:** [training_data_D50005.csv](./data/training_data/D30004.csv)  Contains only data from </br>
-**Dataset D50006:** [training_data_D50006.csv](./data/training_data/D30004.csv)  Contains only data from </br>
-**Dataset D50007:** [training_data_D50007.csv](./data/training_data/D30004.csv)  Contains only data from </br>
+**Dataset D50001:** [training_data_D50001.csv](./data/training_data/D50001.csv)  Contains only data from wordle (v0.9 & v1.0)</br>
+**Dataset D50002:** [training_data_D50002.csv](./data/training_data/D50002.csv)  Contains only data from wordle-withclue (v0.9 & v1.0)</br>
+**Dataset D50003:** [training_data_D50003.csv](./data/training_data/D50003.csv)  Contains only data from wordle-withcritic (v0.9 & v1.0)</br>
+**Dataset D50004:** [training_data_D50004.csv](./data/training_data/D50004.csv)  Contains only data from taboo (v0.9 & v1.0)</br>
+**Dataset D50005:** [training_data_D50005.csv](./data/training_data/D50005.csv)  Contains only data from imagegame (v0.9 & v1.0)</br>
+**Dataset D50006:** [training_data_D50006.csv](./data/training_data/D50006.csv)  Contains only data from privateshared (v0.9 & v1.0)</br>
+**Dataset D50007:** [training_data_D50007.csv](./data/training_data/D50007.csv)  Contains only data from referencegame (v0.9 & v1.0)</br>
 
 ## D6000X
 ### Leave one out
 ## D7000X
 ### Experiments of improving single games by changing input (lessons learned from 5 and 6)
-**Dataset D70001:** [training_data_D70001.csv](./data/training_data/D30001.csv)  Privateshared, but all probe questions are in one block and not in separate instances </br>
-**Dataset D70002:** [training_data_D70002.csv](./data/training_data/D30002.csv)  Provateshared but from each probe question block random questions are removed (50% of all probe questions were removed)</br>
-**Dataset D70003:** [training_data_D70003.csv](./data/training_data/D30003.csv)  Privateshared but complete probe </br>
-**Dataset D70004:** [training_data_D70004.csv](./data/training_data/D30004.csv)  Referencegame (v0.9 + v1) removed "Shaped as T" and "Shaped as Cross" </br>
-**Dataset D70005:** [training_data_D70005.csv](./data/training_data/D30004.csv)  Referencegame (v1.6)  all data from benchmark version 1.6 with some instances left out for evaluation</br>
-**Dataset D70005_Light:** [training_data_D70005_Light.csv](./data/training_data/D30004.csv)  Referencegame (v1.6) data from top 10 models benchmark version 1.6 with some instances left out for evaluation top 10 models were from older versions (0.9 + 1.0) to match with other experiments. Data however was taken from benchmark version 1.6</br>
+**Dataset D70001:** [training_data_D70001.csv](./data/training_data/D70001.csv)  Privateshared, but all probe questions are in one block and not in separate instances </br>
+**Dataset D70002:** [training_data_D70002.csv](./data/training_data/D70002.csv)  Provateshared but from each probe question block random questions are removed (50% of all probe questions were removed)</br>
+**Dataset D70003:** [training_data_D70003.csv](./data/training_data/D70003.csv)  Privateshared but complete probe </br>
+**Dataset D70004:** [training_data_D70004.csv](./data/training_data/D70004.csv)  Referencegame (v0.9 + v1) removed "Shaped as T" and "Shaped as Cross" </br>
+**Dataset D70005:** [training_data_D70005.csv](./data/training_data/D70005.csv)  Referencegame (v1.6)  all data from benchmark version 1.6 with some instances left out for evaluation</br>
 
 ## D8000X
 ### Collection of test experiments
@@ -69,3 +68,15 @@ NOTE: The data was shuffled before it was split to mix the games. During trainin
 
 ## D9000X
 ### Hyperparameter tuning experiments
+**Dataset D90000:** [training_data_D90000.csv](./data/training_data/D90000.csv)  The dataset containing the improvements gained from D70000 
+it contains the following data from each game:</br>
+
+| Game              | Benchmark-Version | Comment                                                                                                                                                                            |
+|-------------------|-------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| referencegame     | V1.6              | contains the same data as [D70005](./data/training_data/D70005.csv) (all successful games of reference game)                                                                       |
+| Taboo             | V0.9 & v1.0       | same data as for [D30001](./data/training_data/D30001.csv) (using all successful games)                                                                                            |
+| wordle            | V0.9 & v1.0       | same data as for [D30001](./data/training_data/D30001.csv) (using all successful games)                                                                                            |
+| wordle-withclue   | V0.9 & v1.0       | same data as for [D30001](./data/training_data/D30001.csv) (using all successful games)                                                                                            |
+| wordle-withcritic | V0.9 & v1.0       | same data as for [D30001](./data/training_data/D30001.csv) (using all successful games)                                                                                            |
+| privateshared     | V0.9 & v1.0       | same data as for [D30001](./data/training_data/D30001.csv) (using all successful games) but data is adapted with the adjustments made in [D70003](./data/training_data/D70003.csv) |
+| imagegame         | V0.9 & v1.0       | same data as for [D30001](./data/training_data/D30001.csv) (using all successful games)                                                                                            |
