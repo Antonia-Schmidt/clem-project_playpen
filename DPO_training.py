@@ -7,7 +7,7 @@ from trl import DPOTrainer, DPOConfig
 import wandb
 import argparse
 
-def load_hf_dataset():
+def load_hf_dataset(tokenizer):
     dataset = load_dataset(f"{args.hf_repo}/DPO_{args.neg}neg", split = "train")
     dataset_dict = dataset.train_test_split(test_size=0.04)
     dataset_new = {'chosen':[], 'rejected':[]}
@@ -51,7 +51,7 @@ if __name__ == "__main__":
         load_in_4bit=load_in_4bit,
     )
 
-    dataset_dict = load_hf_dataset()
+    dataset_dict = load_hf_dataset(tokenizer)
 
     model = FastLanguageModel.get_peft_model(
         model,
