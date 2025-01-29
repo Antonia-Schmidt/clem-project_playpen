@@ -78,4 +78,4 @@ if __name__ == "__main__":
     login(f"{args.hf_login}")
     success_and_lose_all_games = matches_all_files(file_paths_old, match_count=args.neg, model_condition=args.model_condition)
     hf_dataset = Dataset.from_dict(success_and_lose_all_games)
-    hf_dataset.push_to_hub(f"{args.hf_repo}/DPO_{args.neg if args.neg != float(inf) else 'all'}neg{'_'+args.model_condition if args.model_condition else None}")
+    hf_dataset.push_to_hub(f"{args.hf_repo}/DPO_{args.neg if args.neg != float(inf) else 'all'}neg{'_'+args.model_condition if args.model_condition else ''}")

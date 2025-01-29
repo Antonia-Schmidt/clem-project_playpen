@@ -8,7 +8,7 @@ import wandb
 import argparse
 
 def load_hf_dataset(tokenizer):
-    dataset = load_dataset(f"{args.hf_repo}/DPO_{args.neg}neg", split = "train")
+    dataset = load_dataset(f"{args.hf_repo}/DPO_{args.neg}neg{'_'+args.model_condition if args.model_condition else None}", split = "train")
     dataset_dict = dataset.train_test_split(test_size=0.04)
     dataset_new = {'chosen':[], 'rejected':[]}
     #TODO: reduce to one line the following (one function)
@@ -26,10 +26,12 @@ def load_hf_dataset(tokenizer):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='DPO training')
-    parser.add_argument('--neg', default=1, type=int, help='number of negative samples per every positive one in the dataset')
+    parser.add_argument('--neg', default='all', choices=[1,2,3,6,'all'], help='number of negative samples per every positive one in the dataset')
+    parser.add_argument('--model_condition', default=False, choices=[False, 'best_models', 'same_family_model'], help='restriction to the negative samples to be from best models or from the family of the model to train (llama)')
     #TODO: take this out in common with DPO_training.py and KTO_training.py
-    parser.add_argument('--hf_login', help='hf login token')
-    parser.add_argument('--wandb_login', help='wandb login token')
+    parser.add_argument('--hf_login', default="", help='hf login token')
+    parser.add_argument('--wandb_login', default="", help='wandb login token')
+    parser.add_argument('--base_model', default="SFT-base_merged_fp16_D90053", help='base model for training')
     parser.add_argument('--cache_dir', default = '/mnt/cimec-storage6/shared/hf_llms_checkpoints/', help='cache directory to store models')
     parser.add_argument('--hf_repo', default='clembench-playpen', help='huggingface repository to store the created datasets')
     args = parser.parse_args()
@@ -44,7 +46,7 @@ if __name__ == "__main__":
     load_in_4bit = True
 
     model, tokenizer = FastLanguageModel.from_pretrained(
-        model_name="unsloth/Meta-Llama-3.1-8B-Instruct-bnb-4bit",
+        model_name=f"{args.hf_repo}/{args.base_model}",
         cache_dir=cache_dir_models,
         max_seq_length=max_seq_length,
         dtype=dtype,
@@ -104,4 +106,4 @@ if __name__ == "__main__":
 
     dpo_trainer.train()
     model.save_pretrained("playpen_lora")
-    model.push_to_hub(f"{args.hf_repo}/meta-llama-Meta-Llama-3.1-8B-Instruct_DPO_{args.neg}neg")
+    model.push_to_hub(f"{args.hf_repo}/meta-llama-Meta-Llama-3.1-8B-Instruct_DPO_{args.neg}neg{'_'+args.model_condition if args.model_condition else ''}")
