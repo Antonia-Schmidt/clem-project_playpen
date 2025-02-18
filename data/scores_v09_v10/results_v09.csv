@@ -1,0 +1,12 @@
+,"-, clemscore","all, Average % Played","all, Average Quality Score","imagegame, % Played","imagegame, Quality Score","imagegame, Quality Score (std)","privateshared, % Played","privateshared, Quality Score","privateshared, Quality Score (std)","referencegame, % Played","referencegame, Quality Score","referencegame, Quality Score (std)","taboo, % Played","taboo, Quality Score","taboo, Quality Score (std)","wordle, % Played","wordle, Quality Score","wordle, Quality Score (std)","wordle_withclue, % Played","wordle_withclue, Quality Score","wordle_withclue, Quality Score (std)","wordle_withcritic, % Played","wordle_withcritic, Quality Score","wordle_withcritic, Quality Score (std)"
+claude-v1.3-t0.0--claude-v1.3-t0.0,37.07,74.76,49.58,0.0,,,100.0,84.87,18.87,100.0,82.5,38.48,76.92,68.75,38.71,100.0,0.0,0.0,100.0,30.56,40.13,46.43,30.77,48.04
+falcon-40b-t0.0--falcon-40b-t0.0,0.71,0.95,75.0,0.0,,,0.0,,,0.0,,,0.0,,,0.0,,,3.33,50.0,,3.33,100.0,
+gpt-3.5-turbo-t0.0--gpt-3.5-turbo-t0.0,37.02,85.86,43.12,97.5,60.28,25.95,64.0,72.83,13.07,100.0,55.0,50.38,69.49,71.95,44.79,100.0,0.0,0.0,93.33,28.57,46.0,76.67,13.19,30.16
+gpt-3.5-turbo-t0.0--gpt-4-t0.0,42.39,86.75,48.87,97.5,64.95,25.45,,,,100.0,57.5,50.06,69.49,62.6,45.15,,,,,,,80.0,10.42,17.42
+gpt-4-t0.0--gpt-3.5-turbo-t0.0,55.62,82.78,67.19,65.0,81.0,21.54,,,,100.0,47.5,50.57,66.1,93.59,23.45,,,,,,,100.0,46.67,42.92
+gpt-4-t0.0--gpt-4-t0.0,59.49,96.06,61.93,77.5,89.06,22.28,100.0,90.79,8.2,100.0,75.0,43.85,94.92,76.19,37.45,100.0,3.67,8.4,100.0,49.67,42.09,100.0,49.11,38.46
+koala-13b-t0.0--koala-13b-t0.0,1.48,14.76,10.0,0.0,,,0.0,,,0.0,,,0.0,,,86.67,0.0,0.0,16.67,20.0,44.72,0.0,,
+luminous-supreme-t0.0--luminous-supreme-t0.0,0.0,16.24,0.0,0.0,,,0.0,,,0.0,,,0.0,,,100.0,0.0,0.0,3.33,0.0,,10.34,0.0,0.0
+oasst-12b-t0.0--oasst-12b-t0.0,1.74,20.85,8.33,0.0,,,0.0,,,15.0,33.33,51.64,0.0,,,100.0,0.0,0.0,16.67,0.0,0.0,14.29,0.0,0.0
+text-davinci-003-t0.0--text-davinci-003-t0.0,15.78,44.5,35.46,57.5,38.7,27.78,16.0,14.1,25.21,82.5,36.36,48.85,28.81,76.47,43.72,66.67,1.25,5.59,36.67,31.36,38.99,23.33,50.0,50.0
+vicuna-13b-t0.0--vicuna-13b-t0.0,4.24,13.58,31.25,0.0,,,0.0,,,0.0,,,5.08,100.0,0.0,56.67,0.0,0.0,13.33,25.0,50.0,20.0,0.0,0.0
