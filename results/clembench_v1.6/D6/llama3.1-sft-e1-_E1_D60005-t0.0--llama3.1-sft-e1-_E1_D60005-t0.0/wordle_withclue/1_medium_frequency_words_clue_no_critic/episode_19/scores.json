@@ -1,0 +1,1 @@
+{"turn scores": {"1": {"closeness score": NaN, "strategy score": NaN}}, "episode scores": {"Aborted": 1, "Lose": 0, "Success": 0, "Request Count": 7, "Parsed Request Count": 6, "Violated Request Count": 1, "Request Success Ratio": 0.86, "Main Score": NaN, "repeats guess": NaN, "total guess repetitions": NaN}}

@@ -1,0 +1,324 @@
+
+\documentclass{article}
+\usepackage{colortbl}
+\usepackage{makecell}
+\usepackage{multirow}
+\usepackage{supertabular}
+
+\begin{document}
+
+\newcounter{utterance}
+
+\twocolumn
+
+{ \footnotesize  \setcounter{utterance}{1}
+\setlength{\tabcolsep}{0pt}
+\begin{supertabular}{c@{$\;$}|p{.15\linewidth}@{}p{.15\linewidth}p{.15\linewidth}p{.15\linewidth}p{.15\linewidth}p{.15\linewidth}}
+
+    \# & $\;$A & \multicolumn{4}{c}{Game Master} & $\;\:$B\\
+    \hline 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 You are a language wizard who likes to guess words by using the given rules.\\ \tt \\ \tt Welcome to Wordle! You have six attempts to guess the target word, a valid English word of five lowercase letters (a-z). Please use the tags "guess:" and "explanation:" to provide a concise explanation for each guess.\\ \tt \\ \tt  To help you make an informed guess, you will receive a clue for the word, such as\\ \tt clue: snowy white.\\ \tt \\ \tt Here is an example guess based on the clue:\\ \tt guess: apple\\ \tt explanation: In the fairy tail Snow White, the girl is killed because she eats a poisoned apple. And the word apple has 5 letters.\\ \tt \\ \tt After each guess, your answer will be validated, and you will receive feedback indicating which letters are correct (green), which letters are correct but in the wrong position (yellow), and which letters are incorrect (red). This feedback can be useful in determining which letters to include or exclude in your next guess.\\ \tt \\ \tt For example, the feedback for "apple" might be:\\ \tt guess_feedback: a<yellow> p<yellow> p<green> l<yellow> e<red>\\ \tt \\ \tt The explanation should contain details about how both the guess_feedback and clue work together in tandem to formulate a new guess.\\ \tt \\ \tt Let's begin with your first guess.\\ \tt clue:pic\\ \tt  
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess: apple\\ \tt explanation: The clue "pic" suggests a word related to pictures or images. "Apple" is a five-letter word that could be related to images, as in an apple being a subject of a photograph. Additionally, "apple" is a common word that could help to narrow down the possibilities for the target word. 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'apple', 'explanation': 'The clue "pic" suggests a word related to pictures or images. "Apple" is a five-letter word that could be related to images, as in an apple being a subject of a photograph. Additionally, "apple" is a common word that could help to narrow down the possibilities for the target word.'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 attempts: 1\\ \tt target_word = photo\\ \tt target_word_clue = pic\\ \tt guess: apple\\ \tt guess_feedback: a<red> p<yellow> p<red> l<red> e<red> 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 guess_feedback: a<red> p<yellow> p<red> l<red> e<red> 
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess:grape\\ \tt explanation:The clue "pic" suggests a word related to pictures or images. "Grape" is a five-letter word that could be related to images, as in a grape being a subject of a photograph. Additionally, "grape" is a common word that could help to narrow down the possibilities for the target word. 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'grape', 'explanation': 'The clue "pic" suggests a word related to pictures or images. "Grape" is a five-letter word that could be related to images, as in a grape being a subject of a photograph. Additionally, "grape" is a common word that could help to narrow down the possibilities for the target word.'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 attempts: 2\\ \tt target_word = photo\\ \tt target_word_clue = pic\\ \tt guess: grape\\ \tt guess_feedback: g<red> r<red> a<red> p<yellow> e<red> 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 guess_feedback: g<red> r<red> a<red> p<yellow> e<red> 
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess:crane\\ \tt explanation:The clue "pic" suggests a word related to pictures or images. "Crane" is a five-letter word that could be related to images, as in a crane being used to create a picture or design. Additionally, "crane" is a common word that could help to narrow down the possibilities for the target word. 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'crane', 'explanation': 'The clue "pic" suggests a word related to pictures or images. "Crane" is a five-letter word that could be related to images, as in a crane being used to create a picture or design. Additionally, "crane" is a common word that could help to narrow down the possibilities for the target word.'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 attempts: 3\\ \tt target_word = photo\\ \tt target_word_clue = pic\\ \tt guess: crane\\ \tt guess_feedback: c<red> r<red> a<red> n<red> e<red> 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 guess_feedback: c<red> r<red> a<red> n<red> e<red> 
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess:peace\\ \tt explanation:The clue "pic" suggests a word related to pictures or images. "Peace" is a five-letter word that could be related to images, as in a peace sign being used in a photograph. Additionally, "peace" is a common word that could help to narrow down the possibilities for the target word. 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'peace', 'explanation': 'The clue "pic" suggests a word related to pictures or images. "Peace" is a five-letter word that could be related to images, as in a peace sign being used in a photograph. Additionally, "peace" is a common word that could help to narrow down the possibilities for the target word.'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 attempts: 4\\ \tt target_word = photo\\ \tt target_word_clue = pic\\ \tt guess: peace\\ \tt guess_feedback: p<green> e<red> a<red> c<red> e<red> 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 guess_feedback: p<green> e<red> a<red> c<red> e<red> 
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess:place\\ \tt explanation:The clue "pic" suggests a word related to pictures or images. "Place" is a five-letter word that could be related to images, as in a place being the subject of a photograph. Additionally, "place" is a common word that could help to narrow down the possibilities for the target word. 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'place', 'explanation': 'The clue "pic" suggests a word related to pictures or images. "Place" is a five-letter word that could be related to images, as in a place being the subject of a photograph. Additionally, "place" is a common word that could help to narrow down the possibilities for the target word.'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 attempts: 5\\ \tt target_word = photo\\ \tt target_word_clue = pic\\ \tt guess: place\\ \tt guess_feedback: p<green> l<red> a<red> c<red> e<red> 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 guess_feedback: p<green> l<red> a<red> c<red> e<red> 
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess:piece\\ \tt explanation:The clue "pic" suggests a word related to pictures or images. "Piece" is a five-letter word that could be related to images, as in a piece of a photograph. Additionally, "piece" is a common word that could help to narrow down the possibilities for the target word. 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'piece', 'explanation': 'The clue "pic" suggests a word related to pictures or images. "Piece" is a five-letter word that could be related to images, as in a piece of a photograph. Additionally, "piece" is a common word that could help to narrow down the possibilities for the target word.'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 attempts: 6\\ \tt target_word = photo\\ \tt target_word_clue = pic\\ \tt guess: piece\\ \tt guess_feedback: p<green> i<red> e<red> c<red> e<red> 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 game_result = LOSS 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+\end{supertabular}
+}
+
+\end{document}

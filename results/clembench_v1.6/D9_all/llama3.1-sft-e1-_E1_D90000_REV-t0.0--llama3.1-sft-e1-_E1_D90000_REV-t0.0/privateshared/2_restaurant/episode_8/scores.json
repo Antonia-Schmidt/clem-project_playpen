@@ -1,0 +1,1 @@
+{"turn scores": {}, "episode scores": {"Accuracy": NaN, "Kappa": NaN, "Truncated Kappa": NaN, "Slot-Filling-Accuracy": NaN, "Main Score": NaN, "Aborted": 1, "Lose": 0, "Success": 0, "Request Count": 10, "Parsed Request Count": 3, "Violated Request Count": 7, "Request Success Ratio": 0.3}}

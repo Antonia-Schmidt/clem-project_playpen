@@ -1,0 +1,468 @@
+
+\documentclass{article}
+\usepackage{colortbl}
+\usepackage{makecell}
+\usepackage{multirow}
+\usepackage{supertabular}
+
+\begin{document}
+
+\newcounter{utterance}
+
+\twocolumn
+
+{ \footnotesize  \setcounter{utterance}{1}
+\setlength{\tabcolsep}{0pt}
+\begin{supertabular}{c@{$\;$}|p{.15\linewidth}@{}p{.15\linewidth}p{.15\linewidth}p{.15\linewidth}p{.15\linewidth}p{.15\linewidth}}
+
+    \# & $\;$A & \multicolumn{4}{c}{Game Master} & $\;\:$B\\
+    \hline 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 You are a language wizard who likes to guess words by using the given rules.\\ \tt \\ \tt Welcome to Wordle! You have six attempts to guess the target word, a valid English word of five lowercase letters (a-z). Please use the tags "guess:" and "explanation:" to provide a concise explanation for each guess.\\ \tt \\ \tt  To help you make an informed guess, you will receive a clue for the word, such as\\ \tt clue: snowy white.\\ \tt \\ \tt Here is an example guess based on the clue:\\ \tt guess: apple\\ \tt explanation: In the fairy tail Snow White, the girl is killed because she eats a poisoned apple. And the word apple has 5 letters.\\ \tt \\ \tt After each guess, your answer will be validated, and you will receive feedback indicating which letters are correct (green), which letters are correct but in the wrong position (yellow), and which letters are incorrect (red). This feedback can be useful in determining which letters to include or exclude in your next guess.\\ \tt \\ \tt For example, the feedback for "apple" might be:\\ \tt guess_feedback: a<yellow> p<yellow> p<green> l<yellow> e<red>\\ \tt \\ \tt The explanation should contain details about how both the guess_feedback and clue work together in tandem to formulate a new guess.\\ \tt \\ \tt Let's begin with your first guess.\\ \tt clue:embark\\ \tt  
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess: board\\ \tt explanation: The clue "embark" suggests a word related to setting out or beginning a journey. The word "board" is a valid English word of five lowercase letters that fits this description, as it can refer to a board of directors or a board game, which one might play while on a journey. Additionally, the word "board" has the letter "b" and "o" in it, which are common letters in many English words. 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'board', 'explanation': 'The clue "embark" suggests a word related to setting out or beginning a journey. The word "board" is a valid English word of five lowercase letters that fits this description, as it can refer to a board of directors or a board game, which one might play while on a journey. Additionally, the word "board" has the letter "b" and "o" in it, which are common letters in many English words.'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 attempts: 1\\ \tt target_word = start\\ \tt target_word_clue = embark\\ \tt guess: board\\ \tt guess_feedback: b<red> o<red> a<green> r<green> d<red> 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 guess_feedback: b<red> o<red> a<green> r<green> d<red> 
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess:carry\\ \tt explanation:The clue "embark" suggests a word related to setting out or beginning a journey. The word "carry" is a valid English word of five lowercase letters that fits this description, as it can refer to carrying luggage or supplies while traveling. Additionally, the feedback from the previous guess indicates that the letters "a" and "r" are correct and in the right position, so "carry" maintains these correct letters while introducing new ones to better fit the 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'carry', 'explanation': 'The clue "embark" suggests a word related to setting out or beginning a journey. The word "carry" is a valid English word of five lowercase letters that fits this description, as it can refer to carrying luggage or supplies while traveling. Additionally, the feedback from the previous guess indicates that the letters "a" and "r" are correct and in the right position, so "carry" maintains these correct letters while introducing new ones to better fit the'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 attempts: 2\\ \tt target_word = start\\ \tt target_word_clue = embark\\ \tt guess: carry\\ \tt guess_feedback: c<red> a<yellow> r<red> r<green> y<red> 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 guess_feedback: c<red> a<yellow> r<red> r<green> y<red> 
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess:adhere\\ \tt explanation:The clue "embark" suggests a word related to setting out or beginning a journey. The word "adhere" is a valid English word of five lowercase letters that fits this description, as it can refer to adhering to a schedule or itinerary while traveling. Additionally, the feedback from the previous guess indicates that the letters "a" and "r" are correct and in the right position, so "adhere" maintains these correct letters while introducing new ones 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'adhere', 'explanation': 'The clue "embark" suggests a word related to setting out or beginning a journey. The word "adhere" is a valid English word of five lowercase letters that fits this description, as it can refer to adhering to a schedule or itinerary while traveling. Additionally, the feedback from the previous guess indicates that the letters "a" and "r" are correct and in the right position, so "adhere" maintains these correct letters while introducing new ones'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 Guesser Error: INVALID_WORD_LENGTH while parsing Player 1's (model: llama3.1-sft-e1-_E1_D40007) response 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 the word should have exactly 5 letters. Please try again 
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess:abide\\ \tt explanation:The clue "embark" suggests a word related to setting out or beginning a journey. The word "abide" is a valid English word of five lowercase letters that fits this description, as it can refer to abiding by rules or regulations while traveling. Additionally, the feedback from the previous guess indicates that the letters "a" and "r" are correct and in the right position, so "abide" maintains these correct letters while introducing new ones 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'abide', 'explanation': 'The clue "embark" suggests a word related to setting out or beginning a journey. The word "abide" is a valid English word of five lowercase letters that fits this description, as it can refer to abiding by rules or regulations while traveling. Additionally, the feedback from the previous guess indicates that the letters "a" and "r" are correct and in the right position, so "abide" maintains these correct letters while introducing new ones'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 attempts: 3\\ \tt target_word = start\\ \tt target_word_clue = embark\\ \tt guess: abide\\ \tt guess_feedback: a<yellow> b<red> i<red> d<red> e<red> 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 guess_feedback: a<yellow> b<red> i<red> d<red> e<red> 
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess:amass\\ \tt explanation:The clue "embark" suggests a word related to setting out or beginning a journey. The word "amass" is a valid English word of five lowercase letters that fits this description, as it can refer to amassing wealth or resources while traveling. Additionally, the feedback from the previous guess indicates that the letter "a" is correct but in the wrong position, so "amass" introduces a new first letter while maintaining the correct "a" in the 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'amass', 'explanation': 'The clue "embark" suggests a word related to setting out or beginning a journey. The word "amass" is a valid English word of five lowercase letters that fits this description, as it can refer to amassing wealth or resources while traveling. Additionally, the feedback from the previous guess indicates that the letter "a" is correct but in the wrong position, so "amass" introduces a new first letter while maintaining the correct "a" in the'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 attempts: 4\\ \tt target_word = start\\ \tt target_word_clue = embark\\ \tt guess: amass\\ \tt guess_feedback: a<red> m<red> a<green> s<yellow> s<red> 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 guess_feedback: a<red> m<red> a<green> s<yellow> s<red> 
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess:ascent\\ \tt explanation:The clue "embark" suggests a word related to setting out or beginning a journey. The word "ascent" is a valid English word of five lowercase letters that fits this description, as it can refer to the ascent of a mountain or hill while traveling. Additionally, the feedback from the previous guess indicates that the letters "a" and "s" are correct and in the right position, so "ascent" maintains these correct letters while introducing new ones 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'ascent', 'explanation': 'The clue "embark" suggests a word related to setting out or beginning a journey. The word "ascent" is a valid English word of five lowercase letters that fits this description, as it can refer to the ascent of a mountain or hill while traveling. Additionally, the feedback from the previous guess indicates that the letters "a" and "s" are correct and in the right position, so "ascent" maintains these correct letters while introducing new ones'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 Guesser Error: INVALID_WORD_LENGTH while parsing Player 1's (model: llama3.1-sft-e1-_E1_D40007) response 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 the word should have exactly 5 letters. Please try again 
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess:ascend\\ \tt explanation:The clue "embark" suggests a word related to setting out or beginning a journey. The word "ascend" is a valid English word of five lowercase letters that fits this description, as it can refer to the ascent of a mountain or hill while traveling. Additionally, the feedback from the previous guess indicates that the letters "a" and "s" are correct and in the right position, so "ascend" maintains these correct letters while introducing new ones 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'ascend', 'explanation': 'The clue "embark" suggests a word related to setting out or beginning a journey. The word "ascend" is a valid English word of five lowercase letters that fits this description, as it can refer to the ascent of a mountain or hill while traveling. Additionally, the feedback from the previous guess indicates that the letters "a" and "s" are correct and in the right position, so "ascend" maintains these correct letters while introducing new ones'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 Guesser Error: INVALID_WORD_LENGTH while parsing Player 1's (model: llama3.1-sft-e1-_E1_D40007) response 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 the word should have exactly 5 letters. Please try again 
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess:amass\\ \tt explanation:The clue "embark" suggests a word related to setting out or beginning a journey. The word "amass" is a valid English word of five lowercase letters that fits this description, as it can refer to amassing wealth or resources while traveling. Additionally, the feedback from the previous guess indicates that the letter "a" is correct but in the wrong position, so "amass" introduces a new first letter while maintaining the correct "a" in the 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'amass', 'explanation': 'The clue "embark" suggests a word related to setting out or beginning a journey. The word "amass" is a valid English word of five lowercase letters that fits this description, as it can refer to amassing wealth or resources while traveling. Additionally, the feedback from the previous guess indicates that the letter "a" is correct but in the wrong position, so "amass" introduces a new first letter while maintaining the correct "a" in the'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 attempts: 5\\ \tt target_word = start\\ \tt target_word_clue = embark\\ \tt guess: amass\\ \tt guess_feedback: a<red> m<red> a<green> s<yellow> s<red> 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 guess_feedback: a<red> m<red> a<green> s<yellow> s<red> 
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess:assay\\ \tt explanation:The clue "embark" suggests a word related to setting out or beginning a journey. The word "assay" is a valid English word of five lowercase letters that fits this description, as it can refer to conducting an assay or test while traveling. Additionally, the feedback from the previous guess indicates that the letters "a" and "s" are correct and in the right position, so "assay" maintains these correct letters while introducing new ones 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'assay', 'explanation': 'The clue "embark" suggests a word related to setting out or beginning a journey. The word "assay" is a valid English word of five lowercase letters that fits this description, as it can refer to conducting an assay or test while traveling. Additionally, the feedback from the previous guess indicates that the letters "a" and "s" are correct and in the right position, so "assay" maintains these correct letters while introducing new ones'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 attempts: 6\\ \tt target_word = start\\ \tt target_word_clue = embark\\ \tt guess: assay\\ \tt guess_feedback: a<yellow> s<yellow> s<red> a<red> y<red> 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 game_result = LOSS 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+\end{supertabular}
+}
+
+\end{document}

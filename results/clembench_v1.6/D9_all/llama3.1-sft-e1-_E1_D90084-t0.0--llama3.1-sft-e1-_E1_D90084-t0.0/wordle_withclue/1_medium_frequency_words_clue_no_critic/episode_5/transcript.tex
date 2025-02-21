@@ -1,0 +1,516 @@
+
+\documentclass{article}
+\usepackage{colortbl}
+\usepackage{makecell}
+\usepackage{multirow}
+\usepackage{supertabular}
+
+\begin{document}
+
+\newcounter{utterance}
+
+\twocolumn
+
+{ \footnotesize  \setcounter{utterance}{1}
+\setlength{\tabcolsep}{0pt}
+\begin{supertabular}{c@{$\;$}|p{.15\linewidth}@{}p{.15\linewidth}p{.15\linewidth}p{.15\linewidth}p{.15\linewidth}p{.15\linewidth}}
+
+    \# & $\;$A & \multicolumn{4}{c}{Game Master} & $\;\:$B\\
+    \hline 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 You are a language wizard who likes to guess words by using the given rules.\\ \tt \\ \tt Welcome to Wordle! You have six attempts to guess the target word, a valid English word of five lowercase letters (a-z). Please use the tags "guess:" and "explanation:" to provide a concise explanation for each guess.\\ \tt \\ \tt  To help you make an informed guess, you will receive a clue for the word, such as\\ \tt clue: snowy white.\\ \tt \\ \tt Here is an example guess based on the clue:\\ \tt guess: apple\\ \tt explanation: In the fairy tail Snow White, the girl is killed because she eats a poisoned apple. And the word apple has 5 letters.\\ \tt \\ \tt After each guess, your answer will be validated, and you will receive feedback indicating which letters are correct (green), which letters are correct but in the wrong position (yellow), and which letters are incorrect (red). This feedback can be useful in determining which letters to include or exclude in your next guess.\\ \tt \\ \tt For example, the feedback for "apple" might be:\\ \tt guess_feedback: a<yellow> p<yellow> p<green> l<yellow> e<red>\\ \tt \\ \tt The explanation should contain details about how both the guess_feedback and clue work together in tandem to formulate a new guess.\\ \tt \\ \tt Let's begin with your first guess.\\ \tt clue:passionate\\ \tt  
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess: fire\\ \tt explanation: The clue "passionate" suggests a strong and intense emotion. The word "fire" is a five-letter word that matches this description, and it is often associated with passion and intensity. 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'fire', 'explanation': 'The clue "passionate" suggests a strong and intense emotion. The word "fire" is a five-letter word that matches this description, and it is often associated with passion and intensity.'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 Guesser Error: INVALID_WORD_LENGTH while parsing Player 1's (model: llama3.1-sft-e1-_E1_D90084) response 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 the word should have exactly 5 letters. Please try again 
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess:heart\\ \tt explanation:The clue "passionate" suggests a strong and intense emotion. The word "heart" is a five-letter word that matches this description, and it is often associated with passion and love. 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'heart', 'explanation': 'The clue "passionate" suggests a strong and intense emotion. The word "heart" is a five-letter word that matches this description, and it is often associated with passion and love.'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 attempts: 1\\ \tt target_word = fiery\\ \tt target_word_clue = passionate\\ \tt guess: heart\\ \tt guess_feedback: h<red> e<yellow> a<red> r<green> t<red> 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 guess_feedback: h<red> e<yellow> a<red> r<green> t<red> 
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess:spart\\ \tt explanation:The clue "passionate" suggests a strong and intense emotion. The guess_feedback indicates that the letter "t" is correct, and the letter "a" is also correct but in the wrong position. The word "spart" is a five-letter word that matches this description, and it is often associated with passion and intensity. 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'spart', 'explanation': 'The clue "passionate" suggests a strong and intense emotion. The guess_feedback indicates that the letter "t" is correct, and the letter "a" is also correct but in the wrong position. The word "spart" is a five-letter word that matches this description, and it is often associated with passion and intensity.'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 attempts: 2\\ \tt target_word = fiery\\ \tt target_word_clue = passionate\\ \tt guess: spart\\ \tt guess_feedback: s<red> p<red> a<red> r<green> t<red> 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 guess_feedback: s<red> p<red> a<red> r<green> t<red> 
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess:arist\\ \tt explanation:The clue "passionate" suggests a strong and intense emotion. The guess_feedback indicates that the letter "t" is correct, and the letter "r" is also correct but in the wrong position. The word "arist" is a five-letter word that matches this description, and it is often associated with passion and intensity. 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'arist', 'explanation': 'The clue "passionate" suggests a strong and intense emotion. The guess_feedback indicates that the letter "t" is correct, and the letter "r" is also correct but in the wrong position. The word "arist" is a five-letter word that matches this description, and it is often associated with passion and intensity.'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 Guesser Error: NOT_VALID_ENGLISH_WORD while parsing Player 1's (model: llama3.1-sft-e1-_E1_D90084) response 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 your guess is not a valid word for this game. Please try again 
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess:arist\\ \tt explanation: The clue "passionate" suggests a strong and intense emotion. The guess_feedback indicates that the letter "t" is correct, and the letter "r" is also correct but in the wrong position. The word "arist" is a five-letter word that matches this description, and it is often associated with passion and intensity. 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'arist', 'explanation': 'The clue "passionate" suggests a strong and intense emotion. The guess_feedback indicates that the letter "t" is correct, and the letter "r" is also correct but in the wrong position. The word "arist" is a five-letter word that matches this description, and it is often associated with passion and intensity.'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 Guesser Error: NOT_VALID_ENGLISH_WORD while parsing Player 1's (model: llama3.1-sft-e1-_E1_D90084) response 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 your guess is not a valid word for this game. Please try again 
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess:artist\\ \tt explanation:The clue "passionate" suggests a strong and intense emotion. The guess_feedback indicates that the letter "t" is correct, and the letter "r" is also correct but in the wrong position. The word "artist" is a five-letter word that matches this description, and it is often associated with passion and creativity. 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'artist', 'explanation': 'The clue "passionate" suggests a strong and intense emotion. The guess_feedback indicates that the letter "t" is correct, and the letter "r" is also correct but in the wrong position. The word "artist" is a five-letter word that matches this description, and it is often associated with passion and creativity.'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 Guesser Error: INVALID_WORD_LENGTH while parsing Player 1's (model: llama3.1-sft-e1-_E1_D90084) response 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 the word should have exactly 5 letters. Please try again 
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess:heart\\ \tt explanation:The clue "passionate" suggests a strong and intense emotion. The guess_feedback indicates that the letter "t" is correct, and the letter "r" is also correct but in the wrong position. The word "heart" is a five-letter word that matches this description, and it is often associated with passion and love. 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'heart', 'explanation': 'The clue "passionate" suggests a strong and intense emotion. The guess_feedback indicates that the letter "t" is correct, and the letter "r" is also correct but in the wrong position. The word "heart" is a five-letter word that matches this description, and it is often associated with passion and love.'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 attempts: 3\\ \tt target_word = fiery\\ \tt target_word_clue = passionate\\ \tt guess: heart\\ \tt guess_feedback: h<red> e<yellow> a<red> r<green> t<red> 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 guess_feedback: h<red> e<yellow> a<red> r<green> t<red> 
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess:teary\\ \tt explanation:The clue "passionate" suggests a strong and intense emotion. The guess_feedback indicates that the letter "t" is correct, and the letter "r" is also correct but in the wrong position. The word "teary" is a five-letter word that matches this description, and it is often associated with passion and emotional expression. 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'teary', 'explanation': 'The clue "passionate" suggests a strong and intense emotion. The guess_feedback indicates that the letter "t" is correct, and the letter "r" is also correct but in the wrong position. The word "teary" is a five-letter word that matches this description, and it is often associated with passion and emotional expression.'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 attempts: 4\\ \tt target_word = fiery\\ \tt target_word_clue = passionate\\ \tt guess: teary\\ \tt guess_feedback: t<red> e<yellow> a<red> r<green> y<green> 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 guess_feedback: t<red> e<yellow> a<red> r<green> y<green> 
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess:teary\\ \tt explanation:The clue "passionate" suggests a strong and intense emotion. The guess_feedback indicates that the letters "r", "y" are correct, and the letters "t" and "e" are also correct but in the wrong position. The word "teary" is a five-letter word that matches this description, and it is often associated with passion and emotional expression. 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'teary', 'explanation': 'The clue "passionate" suggests a strong and intense emotion. The guess_feedback indicates that the letters "r", "y" are correct, and the letters "t" and "e" are also correct but in the wrong position. The word "teary" is a five-letter word that matches this description, and it is often associated with passion and emotional expression.'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 attempts: 5\\ \tt target_word = fiery\\ \tt target_word_clue = passionate\\ \tt guess: teary\\ \tt guess_feedback: t<red> e<yellow> a<red> r<green> y<green> 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 guess_feedback: t<red> e<yellow> a<red> r<green> y<green> 
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess:teary\\ \tt explanation:The clue "passionate" suggests a strong and intense emotion. The guess_feedback indicates that the letters "r", "y" are correct, and the letters "t" and "e" are also correct but in the wrong position. The word "teary" is a five-letter word that matches this description, and it is often associated with passion and emotional expression. 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'teary', 'explanation': 'The clue "passionate" suggests a strong and intense emotion. The guess_feedback indicates that the letters "r", "y" are correct, and the letters "t" and "e" are also correct but in the wrong position. The word "teary" is a five-letter word that matches this description, and it is often associated with passion and emotional expression.'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 attempts: 6\\ \tt target_word = fiery\\ \tt target_word_clue = passionate\\ \tt guess: teary\\ \tt guess_feedback: t<red> e<yellow> a<red> r<green> y<green> 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 game_result = LOSS 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+\end{supertabular}
+}
+
+\end{document}

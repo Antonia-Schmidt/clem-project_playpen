@@ -1,0 +1,900 @@
+
+\documentclass{article}
+\usepackage{colortbl}
+\usepackage{makecell}
+\usepackage{multirow}
+\usepackage{supertabular}
+
+\begin{document}
+
+\newcounter{utterance}
+
+\twocolumn
+
+{ \footnotesize  \setcounter{utterance}{1}
+\setlength{\tabcolsep}{0pt}
+\begin{supertabular}{c@{$\;$}|p{.15\linewidth}@{}p{.15\linewidth}p{.15\linewidth}p{.15\linewidth}p{.15\linewidth}p{.15\linewidth}}
+
+    \# & $\;$A & \multicolumn{4}{c}{Game Master} & $\;\:$B\\
+    \hline 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 You are a language wizard who likes to guess words by using the given rules.\\ \tt \\ \tt Welcome to Wordle! You have six attempts to guess the target word, a valid English word of five lowercase letters (a-z). Please use the tags "guess:" and "explanation:" to provide a concise explanation for each guess.\\ \tt \\ \tt To help you make an informed guess, you will receive a clue for the word, such as\\ \tt clue: "snowy white"\\ \tt \\ \tt Here is an example guess based on the clue:\\ \tt guess: apple\\ \tt explanation: In the fairy tail Snow White, the girl is killed because she eats a poisoned apple. And the word apple has 5 letters.\\ \tt \\ \tt I will then indicate whether I agree or disagree with your guess and provide rationale, but agreeing with a guess does not confirm its correctness. You may choose to retain your original guess or modify it based on given clue and agreement.\\ \tt \\ \tt After each guess, your answer will be validated, and you will receive feedback indicating which letters are correct (green), which letters are correct but in the wrong position (yellow), and which letters are incorrect (red). This feedback can be useful in determining which letters to include or exclude in your next guess.\\ \tt \\ \tt For example, the feedback for "apple" might be:\\ \tt guess_feedback: a<yellow> p<yellow> p<green> l<yellow> e<red>\\ \tt \\ \tt Here are some rules to keep in mind:\\ \tt 1. Please do not generate any guess feedback or clue on your own\\ \tt 2. Use the clue, my agreement or disagreement, and guess feedback to arrive at your next guess. This should be reflected in your explanation as well.\\ \tt \\ \tt Let's begin with your first guess.\\ \tt \\ \tt clue:woo\\ \tt  
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess: dance\\ \tt explanation: The clue "woo" could be related to the sound of cheering or applause, which is often associated with dance performances. The word "dance" has five letters. 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'dance', 'explanation': 'The clue "woo" could be related to the sound of cheering or applause, which is often associated with dance performances. The word "dance" has five letters.'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$\rangle$B]}  
+	 I need your assistance with a word game in which we need to find a 5-letter word using a clue, a guess and an explanation for the guess.\\ \tt \\ \tt For example, if the clue is "snow white" and the guess is "apple", you will get the information like this:\\ \tt clue:snow white\\ \tt guess:apple\\ \tt explanation:the fairy tale Snow White involves the girl eating a poisoned apple, which has 5 letters.\\ \tt \\ \tt Your task is to either agree or disagree with my guess based on the given clue.\\ \tt \\ \tt If you disagree, I will make another guess, and if you agree, I will proceed in the game using the same guess.\\ \tt \\ \tt Initially, guess feedback is not available, but as the game proceeds, it becomes available. The guess feedback is not for current guess, but rather an indication of what letters can be present in the current guess. A letter highlighted in green indicates that it is a correct letter in the correct position, while yellow indicates that it is a correct letter in the wrong position, and red indicates a wrong letter. At this point, you should use all the provided information, including the clue, guess, explanation, and guess feedback, to decide whether the given guess matches the clue, and also stick to guess feedback or not.\\ \tt \\ \tt Please respond in lowercase letters and stick to this format:\\ \tt agreement:yes or no\\ \tt explanation:your reason for doing so\\ \tt \\ \tt Please note that you must not guess any word based on the riddle clue and stick to the given format while responding.\\ \tt \\ \tt Let's begin!\\ \tt \\ \tt clue:woo\\ \tt guess:dance\\ \tt explanation:The clue "woo" could be related to the sound of cheering or applause, which is often associated with dance performances. The word "dance" has five letters.\\ \tt  
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{1,0.85,0.72}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$\langle$B]}  
+	 agreement:yes\\ \tt explanation:the word "dance" is a suitable guess for the clue "woo" as it is a five-letter word and the sound "woo" is often associated with dance performances. 
+	  } 
+	   } 
+	   } 
+	  \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'agreement': 'yes', 'explanation': 'the word "dance" is a suitable guess for the clue "woo" as it is a five-letter word and the sound "woo" is often associated with dance performances.'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 Critic agrees with the Guesser -- Sharing the critic's explanation with the guesser 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 clue:woo\\ \tt guess_agreement:yes\\ \tt agreement_explanation:the word "dance" is a suitable guess for the clue "woo" as it is a five-letter word and the sound "woo" is often associated with dance performances.\\ \tt  
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess:dance\\ \tt explanation:The clue "woo" could be related to the sound of cheering or applause, which is often associated with dance performances. The word "dance" has five letters. 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'dance', 'explanation': 'The clue "woo" could be related to the sound of cheering or applause, which is often associated with dance performances. The word "dance" has five letters.'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 No change in player1's guess\\ \tt guess_before_critic_opinion: dance\\ \tt                                                 critic_agreement: yes\\ \tt guess_after_critic_opinion: dance\\ \tt                                                 Proceeding with guess validation 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 attempts: 1\\ \tt target_word = court\\ \tt target_word_clue = woo\\ \tt guess: dance\\ \tt guess_feedback: d<red> a<red> n<red> c<yellow> e<red> 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 guess_feedback: d<red> a<red> n<red> c<yellow> e<red> 
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess:clink\\ \tt explanation:Based on the feedback, the letter "c" is in the word but not in the correct position. The word "clink" has five letters and is related to the sound of glasses clinking, which could be associated with the clue "woo". 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'clink', 'explanation': 'Based on the feedback, the letter "c" is in the word but not in the correct position. The word "clink" has five letters and is related to the sound of glasses clinking, which could be associated with the clue "woo".'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$\rangle$B]}  
+	 clue:woo\\ \tt guess:clink\\ \tt explanation:Based on the feedback, the letter "c" is in the word but not in the correct position. The word "clink" has five letters and is related to the sound of glasses clinking, which could be associated with the clue "woo".\\ \tt guess_feedback: d<red> a<red> n<red> c<yellow> e<red> 
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{1,0.85,0.72}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$\langle$B]}  
+	 agreement: no\\ \tt explanation: The guess "clink" does not match the clue "woo" as it is not related to the sound of cheering or applause. The feedback also indicates that the letter "c" is in the word but not in the correct position, which does not match the guess "clink". 
+	  } 
+	   } 
+	   } 
+	  \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'agreement': 'no', 'explanation': 'The guess "clink" does not match the clue "woo" as it is not related to the sound of cheering or applause. The feedback also indicates that the letter "c" is in the word but not in the correct position, which does not match the guess "clink".'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 Critic disagrees with the Guesser -- Sharing the critic's explanation with the guesser 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 clue:woo\\ \tt guess_agreement:no\\ \tt agreement_explanation:The guess "clink" does not match the clue "woo" as it is not related to the sound of cheering or applause. The feedback also indicates that the letter "c" is in the word but not in the correct position, which does not match the guess "clink".\\ \tt  
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess:cheer\\ \tt explanation:Based on the feedback, the letter "c" is in the word but not in the correct position. The word "cheer" has five letters and is related to the sound of cheering or applause, which could be associated with the clue "woo". 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'cheer', 'explanation': 'Based on the feedback, the letter "c" is in the word but not in the correct position. The word "cheer" has five letters and is related to the sound of cheering or applause, which could be associated with the clue "woo".'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 Change in player1's guess\\ \tt guess_before_critic_opinion: clink\\ \tt                                                 critic_agreement: no\\ \tt guess_after_critic_opinion: cheer\\ \tt                                                 Proceeding with guess validation 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 attempts: 2\\ \tt target_word = court\\ \tt target_word_clue = woo\\ \tt guess: cheer\\ \tt guess_feedback: c<green> h<red> e<red> e<red> r<yellow> 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 guess_feedback: c<green> h<red> e<red> e<red> r<yellow> 
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess:chore\\ \tt explanation:Based on the feedback, the letter "c" is in the correct position and the letter "r" is in the word but not in the correct position. The word "chore" has five letters and is related to the sound of cheering or applause, which could be associated with the clue "woo". 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'chore', 'explanation': 'Based on the feedback, the letter "c" is in the correct position and the letter "r" is in the word but not in the correct position. The word "chore" has five letters and is related to the sound of cheering or applause, which could be associated with the clue "woo".'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$\rangle$B]}  
+	 clue:woo\\ \tt guess:chore\\ \tt explanation:Based on the feedback, the letter "c" is in the correct position and the letter "r" is in the word but not in the correct position. The word "chore" has five letters and is related to the sound of cheering or applause, which could be associated with the clue "woo".\\ \tt guess_feedback: c<green> h<red> e<red> e<red> r<yellow> 
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{1,0.85,0.72}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$\langle$B]}  
+	 agreement: no\\ \tt explanation: The guess "chore" does not match the clue "woo" as it is not related to the sound of cheering or applause. The word "chore" is more related to tasks or duties, which does not fit the clue. 
+	  } 
+	   } 
+	   } 
+	  \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'agreement': 'no', 'explanation': 'The guess "chore" does not match the clue "woo" as it is not related to the sound of cheering or applause. The word "chore" is more related to tasks or duties, which does not fit the clue.'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 Critic disagrees with the Guesser -- Sharing the critic's explanation with the guesser 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 clue:woo\\ \tt guess_agreement:no\\ \tt agreement_explanation:The guess "chore" does not match the clue "woo" as it is not related to the sound of cheering or applause. The word "chore" is more related to tasks or duties, which does not fit the clue.\\ \tt  
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess:crush\\ \tt explanation:Based on the feedback, the letter "c" is in the correct position and the letter "r" is in the word but not in the correct position. The word "crush" has five letters and is related to the sound of cheering or applause, which could be associated with the clue "woo". 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'crush', 'explanation': 'Based on the feedback, the letter "c" is in the correct position and the letter "r" is in the word but not in the correct position. The word "crush" has five letters and is related to the sound of cheering or applause, which could be associated with the clue "woo".'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 Change in player1's guess\\ \tt guess_before_critic_opinion: chore\\ \tt                                                 critic_agreement: no\\ \tt guess_after_critic_opinion: crush\\ \tt                                                 Proceeding with guess validation 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 attempts: 3\\ \tt target_word = court\\ \tt target_word_clue = woo\\ \tt guess: crush\\ \tt guess_feedback: c<green> r<yellow> u<green> s<red> h<red> 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 guess_feedback: c<green> r<yellow> u<green> s<red> h<red> 
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess:crump\\ \tt explanation:Based on the feedback, the letter "c" is in the correct position, the letter "r" is in the word but not in the correct position, and the letter "u" is in the correct position. The word "crump" has five letters and is related to the sound of cheering or applause, which could be associated with the clue "woo". 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'crump', 'explanation': 'Based on the feedback, the letter "c" is in the correct position, the letter "r" is in the word but not in the correct position, and the letter "u" is in the correct position. The word "crump" has five letters and is related to the sound of cheering or applause, which could be associated with the clue "woo".'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$\rangle$B]}  
+	 clue:woo\\ \tt guess:crump\\ \tt explanation:Based on the feedback, the letter "c" is in the correct position, the letter "r" is in the word but not in the correct position, and the letter "u" is in the correct position. The word "crump" has five letters and is related to the sound of cheering or applause, which could be associated with the clue "woo".\\ \tt guess_feedback: c<green> r<yellow> u<green> s<red> h<red> 
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{1,0.85,0.72}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$\langle$B]}  
+	 agreement: no\\ \tt explanation: The guess "crump" does not match the clue "woo" as it is not related to the sound of cheering or applause. The word "crump" is more related to the sound of eating or breaking something. 
+	  } 
+	   } 
+	   } 
+	  \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'agreement': 'no', 'explanation': 'The guess "crump" does not match the clue "woo" as it is not related to the sound of cheering or applause. The word "crump" is more related to the sound of eating or breaking something.'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 Critic disagrees with the Guesser -- Sharing the critic's explanation with the guesser 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 clue:woo\\ \tt guess_agreement:no\\ \tt agreement_explanation:The guess "crump" does not match the clue "woo" as it is not related to the sound of cheering or applause. The word "crump" is more related to the sound of eating or breaking something.\\ \tt  
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess:croon\\ \tt explanation:Based on the feedback, the letter "c" is in the correct position, the letter "r" is in the word but not in the correct position, and the letter "u" is in the correct position. The word "croon" has five letters and is related to the sound of singing or humming, which could be associated with the clue "woo". 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'croon', 'explanation': 'Based on the feedback, the letter "c" is in the correct position, the letter "r" is in the word but not in the correct position, and the letter "u" is in the correct position. The word "croon" has five letters and is related to the sound of singing or humming, which could be associated with the clue "woo".'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 Change in player1's guess\\ \tt guess_before_critic_opinion: crump\\ \tt                                                 critic_agreement: no\\ \tt guess_after_critic_opinion: croon\\ \tt                                                 Proceeding with guess validation 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 attempts: 4\\ \tt target_word = court\\ \tt target_word_clue = woo\\ \tt guess: croon\\ \tt guess_feedback: c<green> r<yellow> o<yellow> o<red> n<red> 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 guess_feedback: c<green> r<yellow> o<yellow> o<red> n<red> 
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess:croak\\ \tt explanation:Based on the feedback, the letter "c" is in the correct position, the letter "r" is in the word but not in the correct position, and the letter "o" is in the word but not in the correct position. The word "croak" has five letters and is related to the sound of a frog, which could be associated with the clue "woo". 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'croak', 'explanation': 'Based on the feedback, the letter "c" is in the correct position, the letter "r" is in the word but not in the correct position, and the letter "o" is in the word but not in the correct position. The word "croak" has five letters and is related to the sound of a frog, which could be associated with the clue "woo".'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$\rangle$B]}  
+	 clue:woo\\ \tt guess:croak\\ \tt explanation:Based on the feedback, the letter "c" is in the correct position, the letter "r" is in the word but not in the correct position, and the letter "o" is in the word but not in the correct position. The word "croak" has five letters and is related to the sound of a frog, which could be associated with the clue "woo".\\ \tt guess_feedback: c<green> r<yellow> o<yellow> o<red> n<red> 
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{1,0.85,0.72}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$\langle$B]}  
+	 agreement: no\\ \tt explanation: The guess "croak" does not match the clue "woo" as it is related to the sound of a frog, which is not associated with the clue. 
+	  } 
+	   } 
+	   } 
+	  \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'agreement': 'no', 'explanation': 'The guess "croak" does not match the clue "woo" as it is related to the sound of a frog, which is not associated with the clue.'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 Critic disagrees with the Guesser -- Sharing the critic's explanation with the guesser 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 clue:woo\\ \tt guess_agreement:no\\ \tt agreement_explanation:The guess "croak" does not match the clue "woo" as it is related to the sound of a frog, which is not associated with the clue.\\ \tt  
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess:crore\\ \tt explanation:Based on the feedback, the letter "c" is in the correct position, the letter "r" is in the word but not in the correct position, and the letter "o" is in the word but not in the correct position. The word "crore" has five letters and is related to the sound of cheering or applause, which could be associated with the clue "woo". 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'crore', 'explanation': 'Based on the feedback, the letter "c" is in the correct position, the letter "r" is in the word but not in the correct position, and the letter "o" is in the word but not in the correct position. The word "crore" has five letters and is related to the sound of cheering or applause, which could be associated with the clue "woo".'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 Change in player1's guess\\ \tt guess_before_critic_opinion: croak\\ \tt                                                 critic_agreement: no\\ \tt guess_after_critic_opinion: crore\\ \tt                                                 Proceeding with guess validation 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 attempts: 5\\ \tt target_word = court\\ \tt target_word_clue = woo\\ \tt guess: crore\\ \tt guess_feedback: c<green> r<red> o<yellow> r<green> e<red> 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 guess_feedback: c<green> r<red> o<yellow> r<green> e<red> 
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess:corer\\ \tt explanation:Based on the feedback, the letter "c" is in the correct position, the letter "r" is in the word but not in the correct position, and the letter "o" is in the word but not in the correct position. The letter "r" is also in the correct position. The word "corer" has five letters and is related to the sound of cheering or applause, which could be associated with the clue "woo". 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'corer', 'explanation': 'Based on the feedback, the letter "c" is in the correct position, the letter "r" is in the word but not in the correct position, and the letter "o" is in the word but not in the correct position. The letter "r" is also in the correct position. The word "corer" has five letters and is related to the sound of cheering or applause, which could be associated with the clue "woo".'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$\rangle$B]}  
+	 clue:woo\\ \tt guess:corer\\ \tt explanation:Based on the feedback, the letter "c" is in the correct position, the letter "r" is in the word but not in the correct position, and the letter "o" is in the word but not in the correct position. The letter "r" is also in the correct position. The word "corer" has five letters and is related to the sound of cheering or applause, which could be associated with the clue "woo".\\ \tt guess_feedback: c<green> r<red> o<yellow> r<green> e<red> 
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{1,0.85,0.72}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$\langle$B]}  
+	 agreement: no\\ \tt explanation: The guess "corer" does not match the clue "woo" as it is not related to the sound of cheering or applause. The word "corer" is also not a common term associated with the sound "woo". 
+	  } 
+	   } 
+	   } 
+	  \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'agreement': 'no', 'explanation': 'The guess "corer" does not match the clue "woo" as it is not related to the sound of cheering or applause. The word "corer" is also not a common term associated with the sound "woo".'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 Critic disagrees with the Guesser -- Sharing the critic's explanation with the guesser 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 clue:woo\\ \tt guess_agreement:no\\ \tt agreement_explanation:The guess "corer" does not match the clue "woo" as it is not related to the sound of cheering or applause. The word "corer" is also not a common term associated with the sound "woo".\\ \tt  
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess:corer\\ \tt explanation:Based on the feedback, the letter "c" is in the correct position, the letter "r" is in the word but not in the correct position, and the letter "o" is in the word but not in the correct position. The letter "r" is also in the correct position. The word "corer" has five letters and is related to the sound of cheering or applause, which could be associated with the clue "woo". 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'corer', 'explanation': 'Based on the feedback, the letter "c" is in the correct position, the letter "r" is in the word but not in the correct position, and the letter "o" is in the word but not in the correct position. The letter "r" is also in the correct position. The word "corer" has five letters and is related to the sound of cheering or applause, which could be associated with the clue "woo".'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 No change in player1's guess\\ \tt guess_before_critic_opinion: corer\\ \tt                                                 critic_agreement: no\\ \tt guess_after_critic_opinion: corer\\ \tt                                                 Proceeding with guess validation 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 attempts: 6\\ \tt target_word = court\\ \tt target_word_clue = woo\\ \tt guess: corer\\ \tt guess_feedback: c<green> o<green> r<yellow> e<red> r<red> 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 game_result = LOSS 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+\end{supertabular}
+}
+
+\end{document}

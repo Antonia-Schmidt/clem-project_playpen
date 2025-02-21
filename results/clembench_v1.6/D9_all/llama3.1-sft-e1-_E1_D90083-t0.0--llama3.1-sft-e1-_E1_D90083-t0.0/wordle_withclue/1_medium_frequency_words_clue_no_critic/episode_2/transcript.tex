@@ -1,0 +1,324 @@
+
+\documentclass{article}
+\usepackage{colortbl}
+\usepackage{makecell}
+\usepackage{multirow}
+\usepackage{supertabular}
+
+\begin{document}
+
+\newcounter{utterance}
+
+\twocolumn
+
+{ \footnotesize  \setcounter{utterance}{1}
+\setlength{\tabcolsep}{0pt}
+\begin{supertabular}{c@{$\;$}|p{.15\linewidth}@{}p{.15\linewidth}p{.15\linewidth}p{.15\linewidth}p{.15\linewidth}p{.15\linewidth}}
+
+    \# & $\;$A & \multicolumn{4}{c}{Game Master} & $\;\:$B\\
+    \hline 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 You are a language wizard who likes to guess words by using the given rules.\\ \tt \\ \tt Welcome to Wordle! You have six attempts to guess the target word, a valid English word of five lowercase letters (a-z). Please use the tags "guess:" and "explanation:" to provide a concise explanation for each guess.\\ \tt \\ \tt  To help you make an informed guess, you will receive a clue for the word, such as\\ \tt clue: snowy white.\\ \tt \\ \tt Here is an example guess based on the clue:\\ \tt guess: apple\\ \tt explanation: In the fairy tail Snow White, the girl is killed because she eats a poisoned apple. And the word apple has 5 letters.\\ \tt \\ \tt After each guess, your answer will be validated, and you will receive feedback indicating which letters are correct (green), which letters are correct but in the wrong position (yellow), and which letters are incorrect (red). This feedback can be useful in determining which letters to include or exclude in your next guess.\\ \tt \\ \tt For example, the feedback for "apple" might be:\\ \tt guess_feedback: a<yellow> p<yellow> p<green> l<yellow> e<red>\\ \tt \\ \tt The explanation should contain details about how both the guess_feedback and clue work together in tandem to formulate a new guess.\\ \tt \\ \tt Let's begin with your first guess.\\ \tt clue:chin indentation\\ \tt  
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess: smile\\ \tt explanation: The clue "chin indentation" suggests a physical characteristic, and the word "smile" has 5 letters. In the feedback, if "m" is green, it means the word "smile" is correct in the correct position. If "i" is yellow, it means the letter "i" is correct but in the wrong position. If "l" is red, it means the letter "l" is incorrect. 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'smile', 'explanation': 'The clue "chin indentation" suggests a physical characteristic, and the word "smile" has 5 letters. In the feedback, if "m" is green, it means the word "smile" is correct in the correct position. If "i" is yellow, it means the letter "i" is correct but in the wrong position. If "l" is red, it means the letter "l" is incorrect.'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 attempts: 1\\ \tt target_word = cleft\\ \tt target_word_clue = chin indentation\\ \tt guess: smile\\ \tt guess_feedback: s<red> m<red> i<red> l<yellow> e<yellow> 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 guess_feedback: s<red> m<red> i<red> l<yellow> e<yellow> 
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess: smile\\ \tt explanation: The clue "chin indentation" suggests a physical characteristic, and the word "smile" has 5 letters. In the feedback, "s" and "m" are red, indicating they are incorrect. "l" is yellow, indicating it is correct but in the wrong position. The word "smile" is a good starting point, but we need to adjust the letters. 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'smile', 'explanation': 'The clue "chin indentation" suggests a physical characteristic, and the word "smile" has 5 letters. In the feedback, "s" and "m" are red, indicating they are incorrect. "l" is yellow, indicating it is correct but in the wrong position. The word "smile" is a good starting point, but we need to adjust the letters.'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 attempts: 2\\ \tt target_word = cleft\\ \tt target_word_clue = chin indentation\\ \tt guess: smile\\ \tt guess_feedback: s<red> m<red> i<red> l<yellow> e<yellow> 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 guess_feedback: s<red> m<red> i<red> l<yellow> e<yellow> 
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess:slime\\ \tt explanation:The clue "chin indentation" suggests a physical characteristic, and the word "slime" has 5 letters. In the feedback, "s" and "m" are red, indicating they are incorrect. "l" is yellow, indicating it is correct but in the wrong position. The word "slime" is a good starting point, and we can adjust the letters to fit the clue. 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'slime', 'explanation': 'The clue "chin indentation" suggests a physical characteristic, and the word "slime" has 5 letters. In the feedback, "s" and "m" are red, indicating they are incorrect. "l" is yellow, indicating it is correct but in the wrong position. The word "slime" is a good starting point, and we can adjust the letters to fit the clue.'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 attempts: 3\\ \tt target_word = cleft\\ \tt target_word_clue = chin indentation\\ \tt guess: slime\\ \tt guess_feedback: s<red> l<green> i<red> m<red> e<yellow> 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 guess_feedback: s<red> l<green> i<red> m<red> e<yellow> 
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess:limey\\ \tt explanation:The clue "chin indentation" suggests a physical characteristic, and the word "limey" has 5 letters. In the feedback, "l" is green, indicating it is correct in the correct position. "e" is yellow, indicating it is correct but in the wrong position. The word "limey" is a good starting point, and we can adjust the letters to fit the clue. 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'limey', 'explanation': 'The clue "chin indentation" suggests a physical characteristic, and the word "limey" has 5 letters. In the feedback, "l" is green, indicating it is correct in the correct position. "e" is yellow, indicating it is correct but in the wrong position. The word "limey" is a good starting point, and we can adjust the letters to fit the clue.'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 attempts: 4\\ \tt target_word = cleft\\ \tt target_word_clue = chin indentation\\ \tt guess: limey\\ \tt guess_feedback: l<yellow> i<red> m<red> e<yellow> y<red> 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 guess_feedback: l<yellow> i<red> m<red> e<yellow> y<red> 
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess:limey\\ \tt explanation:The clue "chin indentation" suggests a physical characteristic, and the word "limey" has 5 letters. In the feedback, "l" is yellow, indicating it is correct but in the wrong position. "i" and "m" are red, indicating they are incorrect. "e" is yellow, indicating it is correct but in the wrong position. "y" is red, indicating it is incorrect. The word "limey" is a 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'limey', 'explanation': 'The clue "chin indentation" suggests a physical characteristic, and the word "limey" has 5 letters. In the feedback, "l" is yellow, indicating it is correct but in the wrong position. "i" and "m" are red, indicating they are incorrect. "e" is yellow, indicating it is correct but in the wrong position. "y" is red, indicating it is incorrect. The word "limey" is a'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 attempts: 5\\ \tt target_word = cleft\\ \tt target_word_clue = chin indentation\\ \tt guess: limey\\ \tt guess_feedback: l<yellow> i<red> m<red> e<yellow> y<red> 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 guess_feedback: l<yellow> i<red> m<red> e<yellow> y<red> 
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess:limey\\ \tt explanation:The clue "chin indentation" suggests a physical characteristic, and the word "limey" has 5 letters. In the feedback, "l" is yellow, indicating it is correct but in the wrong position. "i" and "m" are red, indicating they are incorrect. "e" is yellow, indicating it is correct but in the wrong position. "y" is red, indicating it is incorrect. The word "limey" is a 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'limey', 'explanation': 'The clue "chin indentation" suggests a physical characteristic, and the word "limey" has 5 letters. In the feedback, "l" is yellow, indicating it is correct but in the wrong position. "i" and "m" are red, indicating they are incorrect. "e" is yellow, indicating it is correct but in the wrong position. "y" is red, indicating it is incorrect. The word "limey" is a'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 attempts: 6\\ \tt target_word = cleft\\ \tt target_word_clue = chin indentation\\ \tt guess: limey\\ \tt guess_feedback: l<yellow> i<red> m<red> e<yellow> y<red> 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 game_result = LOSS 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+\end{supertabular}
+}
+
+\end{document}

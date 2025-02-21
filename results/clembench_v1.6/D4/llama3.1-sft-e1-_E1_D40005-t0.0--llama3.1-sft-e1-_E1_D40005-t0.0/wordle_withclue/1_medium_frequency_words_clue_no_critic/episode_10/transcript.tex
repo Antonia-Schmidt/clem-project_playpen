@@ -1,0 +1,468 @@
+
+\documentclass{article}
+\usepackage{colortbl}
+\usepackage{makecell}
+\usepackage{multirow}
+\usepackage{supertabular}
+
+\begin{document}
+
+\newcounter{utterance}
+
+\twocolumn
+
+{ \footnotesize  \setcounter{utterance}{1}
+\setlength{\tabcolsep}{0pt}
+\begin{supertabular}{c@{$\;$}|p{.15\linewidth}@{}p{.15\linewidth}p{.15\linewidth}p{.15\linewidth}p{.15\linewidth}p{.15\linewidth}}
+
+    \# & $\;$A & \multicolumn{4}{c}{Game Master} & $\;\:$B\\
+    \hline 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 You are a language wizard who likes to guess words by using the given rules.\\ \tt \\ \tt Welcome to Wordle! You have six attempts to guess the target word, a valid English word of five lowercase letters (a-z). Please use the tags "guess:" and "explanation:" to provide a concise explanation for each guess.\\ \tt \\ \tt  To help you make an informed guess, you will receive a clue for the word, such as\\ \tt clue: snowy white.\\ \tt \\ \tt Here is an example guess based on the clue:\\ \tt guess: apple\\ \tt explanation: In the fairy tail Snow White, the girl is killed because she eats a poisoned apple. And the word apple has 5 letters.\\ \tt \\ \tt After each guess, your answer will be validated, and you will receive feedback indicating which letters are correct (green), which letters are correct but in the wrong position (yellow), and which letters are incorrect (red). This feedback can be useful in determining which letters to include or exclude in your next guess.\\ \tt \\ \tt For example, the feedback for "apple" might be:\\ \tt guess_feedback: a<yellow> p<yellow> p<green> l<yellow> e<red>\\ \tt \\ \tt The explanation should contain details about how both the guess_feedback and clue work together in tandem to formulate a new guess.\\ \tt \\ \tt Let's begin with your first guess.\\ \tt clue:sandwich decoration\\ \tt  
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess: pickles\\ \tt explanation: The clue "sandwich decoration" suggests that the target word is related to something that is placed on a sandwich. Pickles are a common sandwich decoration, and the word "pickles" has 7 letters, which is more than the 5-letter limit for the target word. However, the feedback for "pickles" might indicate which letters are correct or in the wrong position, allowing us to make a more informed 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'pickles', 'explanation': 'The clue "sandwich decoration" suggests that the target word is related to something that is placed on a sandwich. Pickles are a common sandwich decoration, and the word "pickles" has 7 letters, which is more than the 5-letter limit for the target word. However, the feedback for "pickles" might indicate which letters are correct or in the wrong position, allowing us to make a more informed'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 Guesser Error: INVALID_WORD_LENGTH while parsing Player 1's (model: llama3.1-sft-e1-_E1_D40005) response 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 the word should have exactly 5 letters. Please try again 
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess:grape\\ \tt explanation:The clue "sandwich decoration" suggests that the target word is related to something that is placed on a sandwich. Grapes are a type of fruit that can be used as a sandwich decoration, and the word "grape" has 5 letters, which is within the limit for the target word. The feedback for "grape" might indicate which letters are correct or in the wrong position, allowing us to make a more informed 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'grape', 'explanation': 'The clue "sandwich decoration" suggests that the target word is related to something that is placed on a sandwich. Grapes are a type of fruit that can be used as a sandwich decoration, and the word "grape" has 5 letters, which is within the limit for the target word. The feedback for "grape" might indicate which letters are correct or in the wrong position, allowing us to make a more informed'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 attempts: 1\\ \tt target_word = caper\\ \tt target_word_clue = sandwich decoration\\ \tt guess: grape\\ \tt guess_feedback: g<red> r<yellow> a<yellow> p<yellow> e<yellow> 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 guess_feedback: g<red> r<yellow> a<yellow> p<yellow> e<yellow> 
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess:crane\\ \tt explanation:The feedback for "grape" indicates that the letters 'r', 'a', 'p', and 'e' are correct but in the wrong position, while 'g' is incorrect. The clue "sandwich decoration" suggests that the target word is related to something that is placed on a sandwich. Crane is a type of bird that can be used as a sandwich decoration, and the word "crane" has 5 letters, which is within the 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'crane', 'explanation': 'The feedback for "grape" indicates that the letters \'r\', \'a\', \'p\', and \'e\' are correct but in the wrong position, while \'g\' is incorrect. The clue "sandwich decoration" suggests that the target word is related to something that is placed on a sandwich. Crane is a type of bird that can be used as a sandwich decoration, and the word "crane" has 5 letters, which is within the'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 attempts: 2\\ \tt target_word = caper\\ \tt target_word_clue = sandwich decoration\\ \tt guess: crane\\ \tt guess_feedback: c<green> r<yellow> a<yellow> n<red> e<yellow> 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 guess_feedback: c<green> r<yellow> a<yellow> n<red> e<yellow> 
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess:cramp\\ \tt explanation:The feedback for "crane" indicates that the letters 'c', 'r', 'a', and 'e' are correct but in the wrong position, while 'n' is incorrect. The clue "sandwich decoration" suggests that the target word is related to something that is placed on a sandwich. Cramp is a type of muscle cramp that can occur when eating a sandwich, and the word "cramp" has 5 letters, which is 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'cramp', 'explanation': 'The feedback for "crane" indicates that the letters \'c\', \'r\', \'a\', and \'e\' are correct but in the wrong position, while \'n\' is incorrect. The clue "sandwich decoration" suggests that the target word is related to something that is placed on a sandwich. Cramp is a type of muscle cramp that can occur when eating a sandwich, and the word "cramp" has 5 letters, which is'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 attempts: 3\\ \tt target_word = caper\\ \tt target_word_clue = sandwich decoration\\ \tt guess: cramp\\ \tt guess_feedback: c<green> r<yellow> a<yellow> m<red> p<yellow> 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 guess_feedback: c<green> r<yellow> a<yellow> m<red> p<yellow> 
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess:craps\\ \tt explanation:The feedback for "cramp" indicates that the letters 'c', 'r', 'a', and 'p' are correct but in the wrong position, while'm' is incorrect. The clue "sandwich decoration" suggests that the target word is related to something that is placed on a sandwich. Craps is a type of dice game that can be played while eating a sandwich, and the word "craps" has 5 letters, which is 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'craps', 'explanation': 'The feedback for "cramp" indicates that the letters \'c\', \'r\', \'a\', and \'p\' are correct but in the wrong position, while\'m\' is incorrect. The clue "sandwich decoration" suggests that the target word is related to something that is placed on a sandwich. Craps is a type of dice game that can be played while eating a sandwich, and the word "craps" has 5 letters, which is'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 attempts: 4\\ \tt target_word = caper\\ \tt target_word_clue = sandwich decoration\\ \tt guess: craps\\ \tt guess_feedback: c<green> r<yellow> a<yellow> p<yellow> s<red> 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 guess_feedback: c<green> r<yellow> a<yellow> p<yellow> s<red> 
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess:cray\\ \tt explanation:The feedback for "craps" indicates that the letters 'c', 'r', 'a', and 'p' are correct but in the wrong position, while's' is incorrect. The clue "sandwich decoration" suggests that the target word is related to something that is placed on a sandwich. Cray is a type of crayon that can be used to draw on a sandwich, and the word "cray" has 4 letters, which 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'cray', 'explanation': 'The feedback for "craps" indicates that the letters \'c\', \'r\', \'a\', and \'p\' are correct but in the wrong position, while\'s\' is incorrect. The clue "sandwich decoration" suggests that the target word is related to something that is placed on a sandwich. Cray is a type of crayon that can be used to draw on a sandwich, and the word "cray" has 4 letters, which'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 Guesser Error: INVALID_WORD_LENGTH while parsing Player 1's (model: llama3.1-sft-e1-_E1_D40005) response 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 the word should have exactly 5 letters. Please try again 
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess:crayf\\ \tt explanation:The feedback for "cray" indicates that the letters 'c', 'r', 'a', and 'y' are correct but in the wrong position, while 'f' is incorrect. The clue "sandwich decoration" suggests that the target word is related to something that is placed on a sandwich. Crayf is not a valid word, so I will try again. 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'crayf', 'explanation': 'The feedback for "cray" indicates that the letters \'c\', \'r\', \'a\', and \'y\' are correct but in the wrong position, while \'f\' is incorrect. The clue "sandwich decoration" suggests that the target word is related to something that is placed on a sandwich. Crayf is not a valid word, so I will try again.'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 Guesser Error: NOT_VALID_ENGLISH_WORD while parsing Player 1's (model: llama3.1-sft-e1-_E1_D40005) response 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 your guess is not a valid word for this game. Please try again 
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess:cramp\\ \tt explanation:The feedback for "cray" indicates that the letters 'c', 'r', 'a', and 'y' are correct but in the wrong position. The clue "sandwich decoration" suggests that the target word is related to something that is placed on a sandwich. Cramp is a type of muscle cramp that can occur when eating a sandwich, and the word "cramp" has 5 letters, which is within the limit for the target word 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'cramp', 'explanation': 'The feedback for "cray" indicates that the letters \'c\', \'r\', \'a\', and \'y\' are correct but in the wrong position. The clue "sandwich decoration" suggests that the target word is related to something that is placed on a sandwich. Cramp is a type of muscle cramp that can occur when eating a sandwich, and the word "cramp" has 5 letters, which is within the limit for the target word'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 attempts: 5\\ \tt target_word = caper\\ \tt target_word_clue = sandwich decoration\\ \tt guess: cramp\\ \tt guess_feedback: c<green> r<yellow> a<yellow> m<red> p<yellow> 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.9,0.9,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\langle$GM]}  
+	 guess_feedback: c<green> r<yellow> a<yellow> m<red> p<yellow> 
+	  } 
+	   } 
+	   } 
+	 & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & \multicolumn{4}{p{0.6\linewidth}}{\cellcolor[rgb]{0.8,1,0.9}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [A$\rangle$GM]}  
+	 guess:craps\\ \tt explanation:The feedback for "cramp" indicates that the letters 'c', 'r', 'a','m', and 'p' are correct but in the wrong position. The clue "sandwich decoration" suggests that the target word is related to something that is placed on a sandwich. Craps is a type of dice game that can be played while eating a sandwich, and the word "craps" has 5 letters, which is within the limit for 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 {'guess': 'craps', 'explanation': 'The feedback for "cramp" indicates that the letters \'c\', \'r\', \'a\',\'m\', and \'p\' are correct but in the wrong position. The clue "sandwich decoration" suggests that the target word is related to something that is placed on a sandwich. Craps is a type of dice game that can be played while eating a sandwich, and the word "craps" has 5 letters, which is within the limit for'} 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 attempts: 6\\ \tt target_word = caper\\ \tt target_word_clue = sandwich decoration\\ \tt guess: craps\\ \tt guess_feedback: c<green> r<yellow> a<yellow> p<yellow> s<red> 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+    \theutterance \stepcounter{utterance}  
+
+    & & & \multicolumn{2}{p{0.3\linewidth}}{\cellcolor[rgb]{0.95,0.95,0.95}{%
+	\makecell[{{p{\linewidth}}}]{% 
+	  \tt {\tiny [GM$|$GM]}  
+	 game_result = LOSS 
+	  } 
+	   } 
+	   } 
+	 & & \\ 
+ 
+
+\end{supertabular}
+}
+
+\end{document}
