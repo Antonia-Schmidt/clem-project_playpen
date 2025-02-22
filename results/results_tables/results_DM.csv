@@ -1,0 +1,4 @@
+,"-, clemscore","all, Average % Played","all, Average Quality Score","imagegame, % Played","imagegame, Quality Score","matchit_ascii, % Played","matchit_ascii, Quality Score","privateshared, % Played","privateshared, Quality Score","referencegame, % Played","referencegame, Quality Score","taboo, % Played","taboo, Quality Score","wordle, % Played","wordle, Quality Score","wordle_withclue, % Played","wordle_withclue, Quality Score","wordle_withcritic, % Played","wordle_withcritic, Quality Score"
+llama3.1-sft-e1-_E1_DM000,12.59,54.41,23.14,12.5,8.8,100.0,95.0,0.0,,54.44,43.88,95.0,7.6,96.67,0.0,26.67,0.0,50.0,6.67
+llama3.1-sft-e1-_E1_DM001,19.02,73.99,25.7,97.5,19.31,100.0,87.5,0.0,,63.33,30.7,100.0,27.22,96.67,0.0,73.33,6.06,61.11,9.09
+llama3.1-sft-e1-_E1_DM002,19.22,68.44,28.09,27.5,21.09,100.0,92.5,0.0,,85.0,40.52,98.33,25.99,100.0,0.0,83.33,4.0,53.33,12.5

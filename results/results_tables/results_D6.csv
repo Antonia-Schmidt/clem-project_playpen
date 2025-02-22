@@ -1,0 +1,8 @@
+,"-, clemscore","all, Average % Played","all, Average Quality Score","imagegame, % Played","imagegame, Quality Score","privateshared, % Played","privateshared, Quality Score","referencegame, % Played","referencegame, Quality Score","taboo, % Played","taboo, Quality Score","wordle, % Played","wordle, Quality Score","wordle_withclue, % Played","wordle_withclue, Quality Score","wordle_withcritic, % Played","wordle_withcritic, Quality Score"
+llama3.1-sft-e1-_E1_D60001,26.52,89.76,29.54,95.0,89.55,100.0,10.88,100.0,42.78,100.0,35.0,93.33,0.0,70.0,9.52,70.0,19.05
+llama3.1-sft-e1-_E1_D60002,28.41,80.86,35.13,100.0,90.12,16.0,38.85,100.0,40.0,100.0,31.94,93.33,1.07,76.67,21.74,80.0,22.22
+llama3.1-sft-e1-_E1_D60003,26.68,85.9,31.06,100.0,88.72,98.0,25.13,100.0,35.56,100.0,36.94,93.33,0.0,66.67,11.83,43.33,19.23
+llama3.1-sft-e1-_E1_D60004,28.03,91.83,30.52,97.5,89.79,82.0,17.13,100.0,33.33,100.0,25.83,93.33,2.5,86.67,23.08,83.33,22.0
+llama3.1-sft-e1-_E1_D60005,17.03,67.14,25.36,0.0,,70.0,43.63,56.67,37.25,100.0,31.67,100.0,1.67,70.0,15.24,73.33,22.73
+llama3.1-sft-e1-_E1_D60006,26.66,82.5,32.32,97.5,93.15,40.0,14.3,100.0,36.67,100.0,38.61,90.0,1.85,83.33,20.0,66.67,21.67
+llama3.1-sft-e1-_E1_D60007,30.14,87.19,34.57,100.0,92.1,82.0,23.17,95.0,39.18,100.0,40.56,96.67,0.69,66.67,22.5,70.0,23.81
