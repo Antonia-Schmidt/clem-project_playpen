@@ -131,6 +131,7 @@ class CustomTextToSqlModel:
             max_seq_length=self.unsloth_config.max_seq_length,
             dtype=self.unsloth_config.dtype,
             load_in_4bit=self.unsloth_config.load_in_4_bit,
+            fix_tokenizer=False
             # token = "hf_...", # use one if using gated models like meta-llama/Llama-2-7b-hf
         )
 
@@ -238,6 +239,7 @@ class CustomTextToSqlModel:
             tokenizer=self.tokenizer,
             args=self.training_arguments.get_training_args(),
             packing=self.packing,
+            dataset_num_proc=1,
         )
 
     def merge_adapter_and_model():

@@ -8,7 +8,7 @@ import wandb
 import argparse
 
 def load_hf_dataset(tokenizer):
-    dataset = load_dataset(f"{args.hf_repo}/DPO_{args.neg}neg{'_'+args.model_condition if args.model_condition else None}", split = "train")
+    dataset = load_dataset(f"{args.hf_repo}/DPO_{args.neg}neg{'_'+args.model_condition if args.model_condition else ''}", split = "train")
     dataset_dict = dataset.train_test_split(test_size=0.04)
     dataset_new = {'chosen':[], 'rejected':[]}
     #TODO: reduce to one line the following (one function)
@@ -26,7 +26,7 @@ def load_hf_dataset(tokenizer):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='DPO training')
-    parser.add_argument('--neg', default='all', choices=[1,2,3,6,'all'], help='number of negative samples per every positive one in the dataset')
+    parser.add_argument('--neg', default='all', choices=['1','2','3','6','all'], help='number of negative samples per every positive one in the dataset')
     parser.add_argument('--model_condition', default=False, choices=[False, 'best_models', 'same_family_model'], help='restriction to the negative samples to be from best models or from the family of the model to train (llama)')
     #TODO: take this out in common with DPO_training.py and KTO_training.py
     parser.add_argument('--hf_login', default="", help='hf login token')

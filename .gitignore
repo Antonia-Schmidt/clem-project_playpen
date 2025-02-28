@@ -21,3 +21,8 @@ test.json
 .vscode
 /benchmark_results/
 /yourname/
+
+# other file types
+*.tex
+
+unsloth_compiled_cache

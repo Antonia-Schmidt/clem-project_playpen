@@ -49,7 +49,7 @@ def check_chat_template_mapping(model_name: str):
 def get_model_hub_id(
     base_model_name: str, learning_strategy: str, episodes: int, dataset_name
 ) -> str:
-    return f'clembench-playpen/{base_model_name.replace("/", "-")}_{learning_strategy}_E{episodes}_{dataset_name.split("/")[-1].replace(".csv", "")}'
+    return f'clembench-playpen/{base_model_name.replace("/", "-")}_playpen_{learning_strategy}_{dataset_name.split("/")[-1].replace(".csv", "")}'
 
 
 if __name__ == "__main__":
