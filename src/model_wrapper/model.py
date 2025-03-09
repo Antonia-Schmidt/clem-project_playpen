@@ -34,6 +34,20 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 os.environ["WANDB_PROJECT"] = "clembench-playpen-sft"  # name your W&B project
 os.environ["WANDB_LOG_MODEL"] = "false"  # log all model checkpoints
 
+
+if torch.cuda.is_available():
+    # Get the number of available GPUs
+    num_gpus = torch.cuda.device_count()
+    print(f"Number of available GPUs: {num_gpus}")
+
+    # Print the name of each GPU
+    for i in range(num_gpus):
+        gpu_name = torch.cuda.get_device_name(i)
+        print(f"GPU {i}: {gpu_name}")
+else:
+    print("CUDA is not available.")
+
+
 from src.config.configurations import (
     CustomBitsAndBitesConfiguration,
     CustomInferenceConfig,
@@ -49,6 +63,7 @@ class CustomTextToSqlModel:
         model_name: str,
         chat_template: str,
         path_dataset_train: str,
+        path_dataset_test: str,
         path_dataset_inference: str,
         output_dir: str,
         lora_config: CustomLoraConfiguration,
@@ -71,12 +86,14 @@ class CustomTextToSqlModel:
             + f'_{training_arguments.hub_model_id.replace("/", "_")}'
         )
         print(run_name)
+        print(device_map)
 
         self.model_name: str = model_name
         self.chat_template = chat_template
         self.output_dir: str = output_dir
         self.run_name: str = run_name
         self.path_dataset_train: str = path_dataset_train
+        self.path_dataset_test: str = path_dataset_test
         self.path_dataset_inference: str = path_dataset_inference
         self.lora_config: CustomLoraConfiguration = lora_config
         self.bnb_config: CustomBitsAndBitesConfiguration = bnb_config
@@ -94,6 +111,7 @@ class CustomTextToSqlModel:
 
         # load dataset
         self.dataset_train: Dataset = None
+        self.dataset_test: Dataset = None
         self.dataset_inference: Dataset = None
         self.inference_results: dict = {"raw_output": [], "clean_output": []}
 
@@ -204,6 +222,8 @@ class CustomTextToSqlModel:
             self.load_model_and_tokenizer()
         if self.dataset_train is None:
             self.dataset_train = self.load_dataset_train()
+        if self.dataset_test is None:
+            self.dataset_test = self.load_dataset_test()
         if self.trainer is None:
             self.trainer = self.initialize_trainer()
         # save dataset
@@ -215,6 +235,17 @@ class CustomTextToSqlModel:
         df_data: DataFrame = pd.read_csv(self.path_dataset_train, index_col=0)
         ds: Dataset = Dataset.from_pandas(df=df_data)
 
+        # return ds.shuffle()
+
+        # return without shuffle
+        logging.warning("Loading Dataset without Shuffling, Ignore the warning if the dataset was shuffeled before running the traning!")
+        return ds
+
+    def load_dataset_test(self) -> Dataset:
+        logging.info("Loading Dataset for Training")
+
+        df_data: DataFrame = pd.read_csv(self.path_dataset_test, index_col=0)
+        ds: Dataset = Dataset.from_pandas(df=df_data)
         # return ds.shuffle()
 
         # return without shuffle
@@ -233,6 +264,7 @@ class CustomTextToSqlModel:
         return SFTTrainer(
             model=self.model,
             train_dataset=self.dataset_train,
+            eval_dataset=self.dataset_test,  # Add this line
             peft_config=self.lora_config.get_lora_config(),
             dataset_text_field="text",
             max_seq_length=self.unsloth_config.max_seq_length,
