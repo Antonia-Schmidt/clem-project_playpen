@@ -32,6 +32,8 @@ chat_template_mapping: dict = {
     "meta-llama/Llama-3.1-70B": "llama-3",
     "unsloth/Meta-Llama-3.1-70B-bnb-4bit": "llama-3",
     "unsloth/Meta-Llama-3.1-70B-bnb-4bit": "llama-3",
+    "Qwen/Qwen2.5-Coder-32B-Instruct": "chatml",
+    'meta-llama/Llama-3.1-70B-Instruct':  "llama-3",
 }
 
 
@@ -47,9 +49,12 @@ def check_chat_template_mapping(model_name: str):
 
 
 def get_model_hub_id(
-    base_model_name: str, learning_strategy: str, episodes: int, dataset_name
+    base_model_name: str, learning_strategy: str, episodes: int, dataset_name, training_steps = 0
 ) -> str:
-    return f'clembench-playpen/{base_model_name.replace("/", "-")}_playpen_{learning_strategy}_{dataset_name.split("/")[-1].replace(".csv", "")}'
+    hub_id = f'clembench-playpen/{base_model_name}_playpen_{learning_strategy}_{dataset_name.split("/")[-1].split("_")[0].replace(".csv", "")}'
+    if training_steps != 0:
+        hub_id = hub_id + f'_{training_steps/1000}K-steps'
+    return hub_id
 
 
 if __name__ == "__main__":
@@ -67,6 +72,12 @@ if __name__ == "__main__":
         "--training_dataset", help="The path to training dataset", default=None
     )
     parser.add_argument(
+        "--test_dataset", help="The path to test dataset", default=None
+    )
+    parser.add_argument(
+        "--hf_model_name", help="The desired name of the model in huggingface used in the huggingface id evenutally", default=None
+    )
+    parser.add_argument(
         "--model_adapter", help="The path to training dataset", default=None
     )
 
@@ -82,7 +93,7 @@ if __name__ == "__main__":
         1024  # Maximum sequence length to use can be adapted depending on the input
     )
     packing = False  # Pack multiple short examples in the same input sequence to increase efficiency
-    device_map = {"": 0}  # Load the entire model on the GPU 0
+    device_map = {"": 1}  # Load the entire model on the GPU 0
 
     # load custom configurations. If values need to be changed pass them as arguments
     lora_config: CustomLoraConfiguration = CustomLoraConfiguration()
@@ -92,11 +103,13 @@ if __name__ == "__main__":
     training_arguments: CustomTrainingArguments = CustomTrainingArguments(
         per_device_train_batch_size=4,
         gradient_accumulation_steps=1,
-        num_train_epochs=1,
+        num_train_epochs=0, # 1
         fp16=not torch.cuda.is_bf16_supported(),
         bf16=torch.cuda.is_bf16_supported(),
         optim="adamw_8bit",
         hub_model_id=None,
+        max_steps=1700,
+
     )
 
     inference_config: CustomInferenceConfig = CustomInferenceConfig(
@@ -106,19 +119,22 @@ if __name__ == "__main__":
 
     # prepare the model hub ID according to the specified format.
     model_hub_id: str = get_model_hub_id(
-        base_model_name=args.model_name,
+        base_model_name=args.hf_model_name,
         episodes=training_arguments.num_train_epochs,
         learning_strategy="SFT",
         dataset_name=args.training_dataset,
+        training_steps=1700
     )
 
     training_arguments.hub_model_id = model_hub_id
     print(training_arguments.hub_model_id)
+    print(chat_template_mapping[args.model_name])
 
     # Initialize model
     model: CustomTextToSqlModel = CustomTextToSqlModel(
         model_name=args.model_name,
         path_dataset_train=args.training_dataset,
+        path_dataset_test=args.test_dataset,
         path_dataset_inference="UNUSED RN",  # since this is used as training script only
         output_dir=args.output_dir,
         lora_config=lora_config,

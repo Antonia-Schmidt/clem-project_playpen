@@ -115,6 +115,9 @@ class CustomTrainingArguments:
             logging_steps: int = 10,
             warmup_steps: int = 5,
             hub_model_id: str = None,
+            do_eval=True,
+            evaluation_strategy="steps",
+            eval_steps=100,  # Evaluate every 100 steps
     ):
         self.output_dir: str = output_dir
         self.num_train_epochs: int = num_train_epochs
@@ -137,6 +140,14 @@ class CustomTrainingArguments:
         self.seed: int = 7331
         self.run_name = "Default Run Unnamed"
         self.hub_model_id = hub_model_id
+        self.do_eval = do_eval
+        self.evaluation_strategy = evaluation_strategy
+        self.eval_steps = eval_steps
+
+        if num_train_epochs and max_steps:
+            print("Cannot use num training epochs and max steps togehter, will use only training epochs to use max_steps set num train epochs to none")
+            self.max_steps = None
+       
 
     def get_training_args(self) -> TrainingArguments:
         return TrainingArguments(
@@ -161,6 +172,9 @@ class CustomTrainingArguments:
             seed=self.seed,
             run_name=self.run_name,
             hub_model_id=self.hub_model_id,
+            do_eval=self.do_eval,
+            evaluation_strategy=self.evaluation_strategy,
+            eval_steps=self.eval_steps, 
         )
 
     def as_dict(self):
