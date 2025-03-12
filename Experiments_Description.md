@@ -43,14 +43,14 @@ NOTE: The data was shuffled before it was split to mix the games. During trainin
 
 ## D4000X
 ### Balance the data between different games.
-**Dataset D40001:** Balanced before splitting random sampling of models
-**Dataset D40002:** Balanced after splitting random sampling of models
-**Dataset D40003:** Balanced before splitting random sampling of models (Oversampled, Private-shared, wordle)
-**Dataset D40004:** Balanced after splitting random sampling of models (Oversampled, Private-shared, wordle)
-**Dataset D40005:** Balanced before splitting sample from top-scores top models
-**Dataset D40006:** Balanced after splitting sample from top-scores top models
-**Dataset D40007:** Balanced before splitting sample from top-scores top models (Oversampled, Private-shared, wordle)
-**Dataset D40008:** Balanced after splitting sample from top-scores top models (Oversampled, Private-shared, wordle)
+**Dataset D40001:** Balanced before splitting random sampling of models</br>
+**Dataset D40002:** Balanced after splitting random sampling of models</br>
+**Dataset D40003:** Balanced before splitting random sampling of models (Oversampled, Private-shared, wordle)</br>
+**Dataset D40004:** Balanced after splitting random sampling of models (Oversampled, Private-shared, wordle)</br>
+**Dataset D40005:** Balanced before splitting sample from top-scores top models</br>
+**Dataset D40006:** Balanced after splitting sample from top-scores top models</br>
+**Dataset D40007:** Balanced before splitting sample from top-scores top models (Oversampled, Private-shared, wordle)</br>
+**Dataset D40008:** Balanced after splitting sample from top-scores top models (Oversampled, Private-shared, wordle)</br>
 
 ## D5000X
 ### Train on one game and evaluate
