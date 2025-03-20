@@ -3,6 +3,8 @@ This file contains the Object-Oriented Version of the Model Fine-tuning process.
 All Configs can be loaded with default values. If needed those values can be changed.
 to run this file use  python .\train_model.py from the Semantic-Parsing-Research folder
 """
+from src.model_wrapper.model import CustomTextToSqlModel
+
 
 import argparse
 import logging
@@ -22,7 +24,6 @@ from src.config.configurations import (
     CustomTrainingArguments,
     CustomUnslothModelConfig,
 )
-from src.model_wrapper.model import CustomTextToSqlModel
 
 # subprocess.Popen('huggingface-cli login --token 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 --add-to-git-credential ', shell=True)
 
@@ -34,6 +35,10 @@ chat_template_mapping: dict = {
     "unsloth/Meta-Llama-3.1-70B-bnb-4bit": "llama-3",
     "Qwen/Qwen2.5-Coder-32B-Instruct": "chatml",
     'meta-llama/Llama-3.1-70B-Instruct':  "llama-3",
+    "unsloth/Qwen2.5-Coder-32B-Instruct": "chatml",
+    "mistralai/Mistral-Small-24B-Instruct-2501": "chatml",
+    "unsloth/Mistral-Small-Instruct-2409": "mistral",
+    "unsloth/Mistral-Small-24B-Instruct-2501": "mistral"
 }
 
 
@@ -77,6 +82,10 @@ if __name__ == "__main__":
     parser.add_argument(
         "--hf_model_name", help="The desired name of the model in huggingface used in the huggingface id evenutally", default=None
     )
+
+    parser.add_argument(
+        "--steps", help="The desired name of the model in huggingface used in the huggingface id evenutally", default=None
+    )
     parser.add_argument(
         "--model_adapter", help="The path to training dataset", default=None
     )
@@ -108,7 +117,7 @@ if __name__ == "__main__":
         bf16=torch.cuda.is_bf16_supported(),
         optim="adamw_8bit",
         hub_model_id=None,
-        max_steps=1700,
+        max_steps=int(args.steps),
 
     )
 
@@ -123,7 +132,7 @@ if __name__ == "__main__":
         episodes=training_arguments.num_train_epochs,
         learning_strategy="SFT",
         dataset_name=args.training_dataset,
-        training_steps=1700
+        training_steps=int(args.steps)
     )
 
     training_arguments.hub_model_id = model_hub_id

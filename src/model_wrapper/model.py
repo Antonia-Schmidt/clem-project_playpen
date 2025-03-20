@@ -1,3 +1,6 @@
+from unsloth import FastLanguageModel, unsloth_save_model
+from unsloth.chat_templates import get_chat_template
+
 import datetime
 import gc
 import json
@@ -22,9 +25,6 @@ from transformers import (
 )
 from transformers.pipelines.pt_utils import KeyDataset
 from trl import SFTTrainer
-from unsloth import FastLanguageModel, unsloth_save_model
-from unsloth.chat_templates import get_chat_template
-
 from huggingface_hub import create_repo
 
 logging.basicConfig(format="%(levelname)s:%(message)s", level=logging.INFO)
