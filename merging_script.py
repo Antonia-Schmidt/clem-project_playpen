@@ -1,7 +1,6 @@
 from unsloth import FastLanguageModel
 from huggingface_hub import login
 
-login(f"")
 model_to_merge = 'llama-3.1-70B-Instruct_playpen_SFT_DFINAL_0.6K-steps'
 
 model, tokenizer = FastLanguageModel.from_pretrained(
