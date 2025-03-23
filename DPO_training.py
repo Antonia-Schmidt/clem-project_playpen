@@ -12,7 +12,7 @@ import json
 def load_hf_dataset(tokenizer):
 
     #TODO: il modello e il dataset di training non è detto che siano nello stesso posto, differenzia le variabili hf_repo_model e hf_repo_datasets
-    dataset = load_dataset(f"{args.hf_repo}/DPO_{args.neg}neg{'_Aborted' if args.aborted_interactions else ''}{'_'+args.model_condition if args.model_condition else ''}_FINAL", split = "train")
+    dataset = load_dataset(f"{args.hf_repo}/{args.dataset_name}", split = "train")
 
     dataset_dict = dataset.train_test_split(test_size=0.04)
     dataset_new = {'chosen':[], 'rejected':[]}
@@ -32,13 +32,12 @@ def load_hf_dataset(tokenizer):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='DPO training')
     #TODO: infer model condition from the dataset and not given as parameter
-    parser.add_argument('--neg', default='all', choices=['1','2','3','6','all'], help='number of negative samples per every positive one in the dataset')
-    parser.add_argument('--model_condition', default=False, choices=[False, 'best_models', 'same_family_model'], help='restriction to the negative samples to be from best models or from the family of the model to train (llama)')
     parser.add_argument('--aborted_interactions', default=True, choices=[True, False], help='integrating aborted interactions as negative samples')
     #TODO: take this out in common with DPO_training.py and KTO_training.py
-    parser.add_argument('--hf_login', default="", help='hf login token')
-    parser.add_argument('--wandb_login', default="", help='wandb login token')
+    parser.add_argument('--hf_login', default="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", help='hf login token')
+    parser.add_argument('--wandb_login', default="29fc614754925fca7f38d6d2193b3f5afa8485a9", help='wandb login token')
     parser.add_argument('--base_model', default="llama-SFT-base_merged_fp16_D90053_copy_32GB", help='base model for training')
+    parser.add_argument('--dataset_name', help='base model for training')
     parser.add_argument('--cache_dir', default = '/mnt/cimec-storage6/shared/hf_llms_checkpoints/', help='cache directory to store models')
     parser.add_argument('--hf_repo', default='clembench-playpen', help='huggingface repository to store the created datasets')
     args = parser.parse_args()
@@ -79,7 +78,7 @@ if __name__ == "__main__":
 
     project_name = f"playpen_{args.base_model}"
     entity = "wandb"
-    wandb.init(project=project_name, name=f"dpo_{args.neg}neg{'_Aborted' if args.aborted_interactions else ''}{'_'+args.model_condition if args.model_condition else ''}")
+    wandb.init(project=project_name, name=f"dpo_{args.dataset_name}")
 
     training_arguments = DPOConfig(
         per_device_train_batch_size=2,
@@ -100,8 +99,8 @@ if __name__ == "__main__":
         output_dir="./outputs", #f"{args.hf_repo}/meta-llama-Meta-Llama-3.1-8B-Instruct_DPO_{args.neg}neg{'_'+args.model_condition if args.model_condition else ''}_sblurry___",       #TODO: this does not work with dpo_trainer.push_to_hub
         logging_steps=1,
         #TODO: use this lines to avoid overfitting with old and new data
-        eval_steps=0.05,  # 0.2
-        save_steps=0.05,  # 0.2
+        eval_steps=0.2,  # 0.2
+        save_steps=0.2,  # 0.2
         eval_strategy = "steps",
         logging_strategy = "steps",
         save_strategy = "steps",
@@ -133,9 +132,10 @@ if __name__ == "__main__":
 
     training_tokens = compute_tokens(train_dataloader)
 
-    #TODO: restore the first line and delete the second one
+    #TODO: restore the second line (to modify btw)
     #trained_model_id = f"meta-llama-3.1_DPO_{args.neg}neg{'_Aborted' if args.aborted_interactions else ''}{'_'+args.model_condition if args.model_condition else ''}_END_07"
-    trained_model_id = f"{args.base_model}_DPO_FINAL"
+    #trained_model_id = f"{args.base_model}_{args.dataset_name}"
+    trained_model_id = f"D40005_{args.dataset_name}"
 
     model_hub_id = f"{args.hf_repo}/{trained_model_id}"
 
@@ -150,26 +150,26 @@ if __name__ == "__main__":
     dpo_trainer.push_to_hub()
 
     #TODO: restore this to save training logs (train time, tokens)
-    # training_time = (end_time - start_time)/3600
-    # with open('training_metrics.txt', 'a') as f:
-    #     f.write(f"{trained_model_id},{training_tokens},{training_time}\n")
-    #
-    # new_entry = {
-    #     "model_name": trained_model_id,
-    #     "base_model": model_name,
-    #     "backend": "huggingface_local",
-    #     "requires_api_key": True,
-    #     "huggingface_id": model_hub_id,
-    #     "premade_chat_template": True,
-    #     "eos_to_cull": "<\\|eot_id\\|>",            #TODO: change here
-    #     "open_weight": True,
-    #     "parameters": "8B",
-    #     "load_with_unsloth": True
-    # }
-    # json_file_path = "/mnt/cimec-storage6/users/davide.mazzaccara/clembench/backends/model_registry.json"
-    #
-    # with open(json_file_path, "r+") as file:
-    #     data = json.load(file)
-    #     data.append(new_entry)
-    #     file.seek(0)
-    #     json.dump(data, file, indent=4)
+    training_time = (end_time - start_time)/3600
+    with open('training_metrics.txt', 'a') as f:
+        f.write(f"{trained_model_id},{training_tokens},{training_time}\n")
+
+    new_entry = {
+        "model_name": trained_model_id,
+        "base_model": model_name,
+        "backend": "huggingface_local",
+        "requires_api_key": True,
+        "huggingface_id": model_hub_id,
+        "premade_chat_template": True,
+        "eos_to_cull": "<\\|eot_id\\|>",            #TODO: change here
+        "open_weight": True,
+        "parameters": "8B",
+        "load_with_unsloth": True
+    }
+    json_file_path = "/mnt/cimec-storage6/users/davide.mazzaccara/clembench/backends/model_registry.json"
+
+    with open(json_file_path, "r+") as file:
+        data = json.load(file)
+        data.append(new_entry)
+        file.seek(0)
+        json.dump(data, file, indent=4)
