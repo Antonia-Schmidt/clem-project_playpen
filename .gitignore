@@ -26,3 +26,5 @@ test.json
 *.tex
 
 unsloth_compiled_cache
+clembench-playpen
+clembench-playpen/*
