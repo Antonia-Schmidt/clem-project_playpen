@@ -3,36 +3,7 @@ from datasets import Dataset
 from huggingface_hub import login
 import argparse
 from dpo_dataset_creator import collect_old_and_new_files
-
-#TODO:unify outside this with SFT, DPO and merge in a function argument
-top_10_models = [
-    'gpt-4-0613-t0.0--gpt-4-0613-t0.0',
-    'claude-v1.3-t0.0--claude-v1.3-t0.0',
-    'gpt-4-1106-preview-t0.0--gpt-4-1106-preview-t0.0',
-    'gpt-4-t0.0--gpt-4-t0.0',
-    'gpt-4-0314-t0.0--gpt-4-0314-t0.0',
-    'claude-2.1-t0.0--claude-2.1-t0.0',
-    'gpt-4-t0.0--gpt-3.5-turbo-t0.0',
-    'claude-2-t0.0--claude-2-t0.0',
-    'gpt-3.5-turbo-1106-t0.0--gpt-3.5-turbo-1106-t0.0',
-    'gpt-3.5-turbo-0613-t0.0--gpt-3.5-turbo-0613-t0.0',
-]
-
-#TODO:integrate
-top_10_models_2 = [
-'o1-preview-2024-09-12-t0.0--o1-preview-2024-09-12-t0.0',
- 'gpt-4-0125-preview-t0.0--gpt-4-0125-preview-t0.0',
- 'gpt-4-1106-preview-t0.0--gpt-4-1106-preview-t0.0',
- 'gpt-4-turbo-2024-04-09-t0.0--gpt-4-turbo-2024-04-09-t0.0',
- 'gpt-4-0613-t0.0--gpt-4-0613-t0.0',
- 'claude-3-5-sonnet-20240620-t0.0--claude-3-5-sonnet-20240620-t0.0',
- 'Meta-Llama-3.1-405B-Instruct-Turbo-t0.0--Meta-Llama-3.1-405B-Instruct-Turbo-t0.0',
- 'gpt-4o-2024-05-13-t0.0--gpt-4o-2024-05-13-t0.0',
- 'gpt-4o-2024-08-06-t0.0--gpt-4o-2024-08-06-t0.0',
- 'claude-3-opus-20240229-t0.0--claude-3-opus-20240229-t0.0'
-]
-
-games = ['wordle', 'wordle_withclue', 'wordle_withcritic', 'taboo', 'imagegame', 'referencegame', 'privateshared']
+from utils import games, top_10_models_old_clembench, top_10_models_new_clembench
 
 #TODO: add this aborted strategy for all
 #TODO: solo parzialmente tolti, metti in funzione in dpo_dataset_creator
