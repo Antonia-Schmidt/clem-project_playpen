@@ -28,3 +28,8 @@ test.json
 unsloth_compiled_cache
 clembench-playpen
 clembench-playpen/*
+tmp_dpo_cache
+tmp_dpo_cache/*
+
+playpen_lora
+playpen_lora/*
