@@ -14,7 +14,7 @@ import pandas as pd
 import torch
 from datasets import Dataset, load_dataset
 from pandas import DataFrame
-from peft import PeftModel
+from peft import PeftModel, LoraConfig, get_peft_model
 from transformers import (
     AutoModelForCausalLM,
     AutoTokenizer,
@@ -23,8 +23,10 @@ from transformers import (
     PreTrainedTokenizerBase,
     pipeline,
 )
+
 from transformers.pipelines.pt_utils import KeyDataset
-from trl import SFTTrainer
+from trl import SFTTrainer, DataCollatorForCompletionOnlyLM
+
 from huggingface_hub import create_repo
 
 logging.basicConfig(format="%(levelname)s:%(message)s", level=logging.INFO)
@@ -33,19 +35,6 @@ logging.basicConfig(format="%(levelname)s:%(message)s", level=logging.INFO)
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 os.environ["WANDB_PROJECT"] = "clembench-playpen-sft"  # name your W&B project
 os.environ["WANDB_LOG_MODEL"] = "false"  # log all model checkpoints
-
-
-if torch.cuda.is_available():
-    # Get the number of available GPUs
-    num_gpus = torch.cuda.device_count()
-    print(f"Number of available GPUs: {num_gpus}")
-
-    # Print the name of each GPU
-    for i in range(num_gpus):
-        gpu_name = torch.cuda.get_device_name(i)
-        print(f"GPU {i}: {gpu_name}")
-else:
-    print("CUDA is not available.")
 
 
 from src.config.configurations import (
@@ -228,6 +217,19 @@ class CustomTextToSqlModel:
             self.trainer = self.initialize_trainer()
         # save dataset
         self.dataset_train.to_csv(self.directories["dataset_train"])
+    
+    def initialize_training_with_collator(self):
+        logging.info("Prepare Model for Training ...")
+        if self.model is None:
+            self.load_model_and_tokenizer()
+        if self.dataset_train is None:
+            self.dataset_train = self.load_dataset_train()
+        if self.dataset_test is None:
+            self.dataset_test = self.load_dataset_test()
+        if self.trainer is None:
+            self.trainer = self.initialize_trainer_with_collator()
+        # save dataset
+        self.dataset_train.to_csv(self.directories["dataset_train"])
 
     def load_dataset_train(self) -> Dataset:
         logging.info("Loading Dataset for Training")
@@ -273,6 +275,85 @@ class CustomTextToSqlModel:
             packing=self.packing,
             dataset_num_proc=1,
         )
+    
+    def initialize_trainer_with_collator(self) -> SFTTrainer:
+        logging.info("Initialize Trainer")
+        print(self.tokenizer)
+        
+        # Define the response template that marks where assistant responses begin
+        # This should match exactly how assistant responses are marked in your tokenized text
+        response_template_with_context = "<|eot_id|><|start_header_id|>assistant<|end_header_id|>"
+        collator = DataCollatorForCompletionOnlyLM(
+            response_template=response_template_with_context,
+            tokenizer=self.tokenizer,
+            mlm=False
+        )
+        
+        return SFTTrainer(
+            model=self.model,
+            train_dataset=self.dataset_train,
+            eval_dataset=self.dataset_test,
+            peft_config=self.lora_config.get_lora_config(),
+            dataset_text_field="text",
+            max_seq_length=self.unsloth_config.max_seq_length,
+            tokenizer=self.tokenizer,
+            args=self.training_arguments.get_training_args(),
+            packing=False,  # Must be False when using completion-only training
+            dataset_num_proc=1,
+            data_collator=collator
+        )
+    
+    def initialize_training_with_full_precision_LoRA(self):
+        # load dataset
+        self.dataset_train = self.load_dataset_train()
+        self.dataset_test = self.load_dataset_test()
+        
+        model, tokenizer = FastLanguageModel.from_pretrained(
+            model_name=self.model_name,
+            max_seq_length=self.unsloth_config.max_seq_length,
+            dtype=self.unsloth_config.dtype,
+            load_in_4bit=True,
+            fix_tokenizer=False
+            # token = "hf_...", # use one if using gated models like meta-llama/Llama-2-7b-hf
+        )
+
+        model = FastLanguageModel.get_peft_model(
+            model,  # Specify the existing model
+            r=self.lora_config.lora_r,
+            target_modules=self.lora_config.target_modules,
+            lora_alpha=self.lora_config.lora_alpha,
+            lora_dropout=self.lora_config.lora_dropout,  # Currently, only supports dropout = 0
+            bias=self.lora_config.lora_bias,  # Currently, only supports bias = "none"
+            use_gradient_checkpointing=self.unsloth_config.use_gradient_checkpointing,
+            random_state=7331,
+            max_seq_length=self.unsloth_config.max_seq_length,
+            use_rslora=self.lora_config.use_rslora,  # We support rank stabilized LoRA
+            loftq_config=self.lora_config.loftq_config,  # And LoftQ
+        )
+
+        tokenizer = get_chat_template(
+            tokenizer,
+            chat_template=self.chat_template,  # Supports zephyr, chatml, mistral, llama, alpaca, vicuna, vicuna_old, unsloth
+        )
+
+        # set model and tokenizer
+        self.model = model
+        self.tokenizer = tokenizer
+
+
+        trainer = SFTTrainer(
+            model=model,
+            train_dataset=self.dataset_train,
+            eval_dataset=self.dataset_test,  # Add this line
+            peft_config=self.lora_config.get_lora_config(),
+            dataset_text_field="text",
+            max_seq_length=self.unsloth_config.max_seq_length,
+            tokenizer=tokenizer,
+            args=self.training_arguments.get_training_args(),
+            packing=self.packing,
+            dataset_num_proc=1,
+        )
+        self.trainer = trainer
 
     def merge_adapter_and_model():
         # merge the adapter weigths into the model
@@ -282,6 +363,15 @@ class CustomTextToSqlModel:
         self.initialize_training()
 
         logging.info("Start Model Training")
+        self.trainer.train()
+    
+    def train_model_with_collator(self):
+        self.initialize_training_with_collator()
+        logging.info("Start Model Training with collator for completion only")
+        self.trainer.train()
+
+    def train_full_precision_LoRA(self):
+        self.initialize_training_with_full_precision_LoRA()
         self.trainer.train()
 
     def train_model_with_periodic_save(self, start_index: int, output_base_path: str):
@@ -346,6 +436,8 @@ class CustomTextToSqlModel:
 
 
     def save_model(self):
+        self.trainer.push_to_hub()
+
         unsloth_save_model(
             self.trainer.model,
             self.trainer.tokenizer,
@@ -353,8 +445,6 @@ class CustomTextToSqlModel:
             push_to_hub=False,
             token=None,
         )
-        self.trainer.push_to_hub()
-
     def initialize_inference(self):
         logging.info("Prepare Model for Inference")
         self.model = self.load_model()

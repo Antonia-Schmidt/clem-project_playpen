@@ -56,8 +56,9 @@ def check_chat_template_mapping(model_name: str):
 def get_model_hub_id(
     base_model_name: str, learning_strategy: str, episodes: int, dataset_name, training_steps = 0
 ) -> str:
-    hub_id = f'clembench-playpen/{base_model_name}_playpen_{learning_strategy}_{dataset_name.split("/")[-1].split("_")[0].replace(".csv", "")}'
-    if training_steps != 0:
+    hub_id = f'clembench-playpen/{base_model_name}_playpen_{learning_strategy}-e3_{dataset_name.split("/")[-1].split("_")[0].replace(".csv", "")}'
+    if training_steps is not None:
+        print(training_steps)
         hub_id = hub_id + f'_{training_steps/1000}K-steps'
     return hub_id
 
@@ -93,6 +94,9 @@ if __name__ == "__main__":
     # get all the args
     args = parser.parse_args()
     train: bool = args.training_dataset is not None
+    max_steps = int(args.steps)
+    if max_steps == 0:
+        max_steps = None
 
     # check that template mapping exists
     check_chat_template_mapping(args.model_name)
@@ -110,14 +114,14 @@ if __name__ == "__main__":
         use_4bit=True
     )
     training_arguments: CustomTrainingArguments = CustomTrainingArguments(
-        per_device_train_batch_size=4,
+        per_device_train_batch_size=2,
         gradient_accumulation_steps=1,
         num_train_epochs=0, # 1
         fp16=not torch.cuda.is_bf16_supported(),
         bf16=torch.cuda.is_bf16_supported(),
         optim="adamw_8bit",
         hub_model_id=None,
-        max_steps=int(args.steps),
+        max_steps=max_steps,
 
     )
 
@@ -132,7 +136,7 @@ if __name__ == "__main__":
         episodes=training_arguments.num_train_epochs,
         learning_strategy="SFT",
         dataset_name=args.training_dataset,
-        training_steps=int(args.steps)
+        training_steps=max_steps
     )
 
     training_arguments.hub_model_id = model_hub_id
@@ -163,7 +167,9 @@ if __name__ == "__main__":
     model.save_config()
 
     if train:
-        model.train_model()
+        # model.train_model()
+        # model.train_model_with_collator()
+        model.train_full_precision_LoRA()
 
         # save the model
         model.save_model()
