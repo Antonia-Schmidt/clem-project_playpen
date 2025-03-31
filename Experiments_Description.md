@@ -42,6 +42,16 @@ The experimets are the following:</br>
 NOTE: The data was shuffled before it was split to mix the games. During training the data was not further split to keep the order of the conversatoin bits.
 
 ## D4000X
+### Balance the data between different games.
+**Dataset D40001:** Balanced before splitting random sampling of models</br>
+**Dataset D40002:** Balanced after splitting random sampling of models</br>
+**Dataset D40003:** Balanced before splitting random sampling of models (Oversampled, Private-shared, wordle)</br>
+**Dataset D40004:** Balanced after splitting random sampling of models (Oversampled, Private-shared, wordle)</br>
+**Dataset D40005:** Balanced before splitting sample from top-scores top models</br>
+**Dataset D40006:** Balanced after splitting sample from top-scores top models</br>
+**Dataset D40007:** Balanced before splitting sample from top-scores top models (Oversampled, Private-shared, wordle)</br>
+**Dataset D40008:** Balanced after splitting sample from top-scores top models (Oversampled, Private-shared, wordle)</br>
+
 ## D5000X
 ### Train on one game and evaluate
 **Dataset D50001:** [training_data_D50001.csv](./data/training_data/D50001.csv)  Contains only data from wordle (v0.9 & v1.0)</br>
@@ -53,7 +63,15 @@ NOTE: The data was shuffled before it was split to mix the games. During trainin
 **Dataset D50007:** [training_data_D50007.csv](./data/training_data/D50007.csv)  Contains only data from referencegame (v0.9 & v1.0)</br>
 
 ## D6000X
-### Leave one out
+### Train on every game but one
+**Dataset D60001:** [training_data_D60001.csv](./data/training_data/D60001.csv)  Contains data excluding wordle (v0.9 & v1.0)</br>
+**Dataset D60002:** [training_data_D60002.csv](./data/training_data/D60002.csv)  Contains data excluding wordle-withclue (v0.9 & v1.0)</br>
+**Dataset D60003:** [training_data_D60003.csv](./data/training_data/D60003.csv)  Contains data excluding wordle-withcritic (v0.9 & v1.0)</br>
+**Dataset D60004:** [training_data_D60004.csv](./data/training_data/D60004.csv)  Contains data excluding taboo (v0.9 & v1.0)</br>
+**Dataset D60005:** [training_data_D60005.csv](./data/training_data/D60005.csv)  Contains data excluding imagegame (v0.9 & v1.0)</br>
+**Dataset D60006:** [training_data_D60006.csv](./data/training_data/D60006.csv)  Contains data excluding privateshared (v0.9 & v1.0)</br>
+**Dataset D60007:** [training_data_D60007.csv](./data/training_data/D60007.csv)  Contains referencegame (v0.9 & v1.0)</br>
+
 ## D7000X
 ### Experiments of improving single games by changing input (lessons learned from 5 and 6)
 **Dataset D70001:** [training_data_D70001.csv](./data/training_data/D70001.csv)  Privateshared, but all probe questions are in one block and not in separate instances </br>
@@ -64,7 +82,7 @@ NOTE: The data was shuffled before it was split to mix the games. During trainin
 
 ## D8000X
 ### Collection of test experiments
-**Dataset D8000X:** [training_data_D8000X.csv](./data/training_data/D30001.csv)  For every game, the data from the best performing experiments for the particular game was used. </br>
+**Dataset D8000X:** [training_data_D8000X.csv](./data/training_data/D8000X.csv)  For every game, the data from the best performing experiments for the particular game was used. </br>
 
 ## D9000X
 ### Hyperparameter tuning experiments

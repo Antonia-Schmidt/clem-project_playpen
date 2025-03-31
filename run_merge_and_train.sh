@@ -1,0 +1,2 @@
+CUDA_VISIBLE_DEVICES=0 python3 merging_script.py
+CUDA_VISIBLE_DEVICES=0 python3 KTO_training.py --hf_login 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 --wandb_login 29fc614754925fca7f38d6d2193b3f5afa8485a9 --base_model llama-3.1-70B-Instruct_playpen_SFT_DFINAL_0.6K-steps_merged_fp16 --dataset_name KTO_FINAL --cache_dir "../dpo-cache"

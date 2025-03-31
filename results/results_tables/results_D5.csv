@@ -1,8 +1,8 @@
-,"-, clemscore","all, Average % Played","all, Average Quality Score","imagegame, % Played","imagegame, Quality Score","privateshared, % Played","privateshared, Quality Score","referencegame, % Played","referencegame, Quality Score","taboo, % Played","taboo, Quality Score","wordle, % Played","wordle, Quality Score","wordle_withclue, % Played","wordle_withclue, Quality Score","wordle_withcritic, % Played","wordle_withcritic, Quality Score"
-llama3.1-sft-e1-_E1_D50001_REV,23.69,90.12,26.29,97.5,41.95,100.0,40.93,100.0,38.89,100.0,36.94,90.0,0.0,86.67,10.58,56.67,14.71
-llama3.1-sft-e1-_E1_D50002_REV,21.43,77.31,27.72,72.5,40.14,42.0,42.74,100.0,50.0,100.0,35.56,96.67,0.0,73.33,21.21,56.67,4.41
-llama3.1-sft-e1-_E1_D50003_REV,15.36,72.26,21.25,2.5,33.0,40.0,16.76,100.0,41.67,100.0,24.17,96.67,0.0,93.33,17.26,73.33,15.91
-llama3.1-sft-e1-_E1_D50004_REV,23.36,77.19,30.26,85.0,47.21,32.0,33.29,100.0,36.11,100.0,48.61,100.0,0.0,73.33,31.06,50.0,15.56
-llama3.1-sft-e1-_E1_D50005_REV,22.62,80.0,28.28,100.0,84.58,40.0,22.65,100.0,36.11,100.0,33.61,83.33,0.0,80.0,10.21,56.67,10.78
-llama3.1-sft-e1-_E1_D50006_REV,13.6,71.93,18.91,17.5,36.71,66.0,10.66,100.0,41.67,100.0,29.72,90.0,0.74,73.33,7.95,56.67,4.9
-llama3.1-sft-e1-_E1_D50007_REV,17.06,81.03,21.06,70.0,28.61,100.0,36.22,55.56,35.0,98.33,35.03,93.33,0.0,83.33,11.33,66.67,1.25
+short_name,mmlu,social_iqa,piqa,"-, clemscore","all, Average % Played","all, Average Quality Score","imagegame, % Played","imagegame, Quality Score","privateshared, % Played","privateshared, Quality Score","referencegame, % Played","referencegame, Quality Score","taboo, % Played","taboo, Quality Score","wordle, % Played","wordle, Quality Score","wordle_withclue, % Played","wordle_withclue, Quality Score","wordle_withcritic, % Played","wordle_withcritic, Quality Score"
+D50001_REV,65.45,47.95,79.16,23.69,90.12,26.29,97.5,41.95,100.0,40.93,100.0,38.89,100.0,36.94,90.0,0.0,86.67,10.58,56.67,14.71
+D50002_REV,65.47,48.87,79.0,21.43,77.31,27.72,72.5,40.14,42.0,42.74,100.0,50.0,100.0,35.56,96.67,0.0,73.33,21.21,56.67,4.41
+D50003_REV,65.25,48.26,78.67,15.36,72.26,21.25,2.5,33.0,40.0,16.76,100.0,41.67,100.0,24.17,96.67,0.0,93.33,17.26,73.33,15.91
+D50004_REV,65.47,48.67,79.43,23.36,77.19,30.26,85.0,47.21,32.0,33.29,100.0,36.11,100.0,48.61,100.0,0.0,73.33,31.06,50.0,15.56
+D50005_REV,65.98,48.21,79.05,22.62,80.0,28.28,100.0,84.58,40.0,22.65,100.0,36.11,100.0,33.61,83.33,0.0,80.0,10.21,56.67,10.78
+D50006_REV,64.83,46.21,78.45,13.6,71.93,18.91,17.5,36.71,66.0,10.66,100.0,41.67,100.0,29.72,90.0,0.74,73.33,7.95,56.67,4.9
+D50007_REV,65.43,48.11,79.22,17.06,81.03,21.06,70.0,28.61,100.0,36.22,55.56,35.0,98.33,35.03,93.33,0.0,83.33,11.33,66.67,1.25
