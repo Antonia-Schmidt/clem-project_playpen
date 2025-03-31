@@ -219,7 +219,7 @@ def find_aborted_turns_wordle(model_condition):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Create DPO datasets')
+    parser = argparse.ArgumentParser(description='Create KTO datasets')
     parser.add_argument('--model_condition', default=False, choices=[False, 'best_models', 'same_family_model'], help='restriction to the negative samples to be from best models or from the family of the model to train (llama)')
     parser.add_argument('--aborted_interactions', default=True, choices=[True, False], help='integrating aborted interactions as negative samples')
     parser.add_argument('--clembench_version', default='old', choices=['old', 'old_and_new'], help='clembench versions employed')
