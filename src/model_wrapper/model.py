@@ -242,9 +242,19 @@ class CustomTextToSqlModel:
         # return without shuffle
         logging.warning("Loading Dataset without Shuffling, Ignore the warning if the dataset was shuffeled before running the traning!")
         return ds
+    
+    def load_dataset_from_path(self, path: str):
+        print("Loading Dataset from path",  path)
+
+        df_data: DataFrame = pd.read_csv(path)
+        ds: Dataset = Dataset.from_pandas(df=df_data)
+
+        # return without shuffle
+        logging.warning("Loading Dataset without Shuffling, Ignore the warning if the dataset was shuffeled before running the traning!")
+        return ds
 
     def load_dataset_test(self) -> Dataset:
-        logging.info("Loading Dataset for Training")
+        logging.info("Loading Dataset for Testing")
 
         df_data: DataFrame = pd.read_csv(self.path_dataset_test, index_col=0)
         ds: Dataset = Dataset.from_pandas(df=df_data)
@@ -278,7 +288,6 @@ class CustomTextToSqlModel:
     
     def initialize_trainer_with_collator(self) -> SFTTrainer:
         logging.info("Initialize Trainer")
-        print(self.tokenizer)
         
         # Define the response template that marks where assistant responses begin
         # This should match exactly how assistant responses are marked in your tokenized text
@@ -298,6 +307,38 @@ class CustomTextToSqlModel:
             max_seq_length=self.unsloth_config.max_seq_length,
             tokenizer=self.tokenizer,
             args=self.training_arguments.get_training_args(),
+            packing=False,  # Must be False when using completion-only training
+            dataset_num_proc=1,
+            data_collator=collator
+        )
+    
+    def initialize_trainer_with_collator_warmup(self, warm_up_set) -> SFTTrainer:
+        logging.info("Initialize Trainer")
+        
+        # Define the response template that marks where assistant responses begin
+        # This should match exactly how assistant responses are marked in your tokenized text
+        response_template_with_context = "<|eot_id|><|start_header_id|>assistant<|end_header_id|>"
+        collator = DataCollatorForCompletionOnlyLM(
+            response_template=response_template_with_context,
+            tokenizer=self.tokenizer,
+            mlm=False
+        )   
+
+        # override the training args to train the full set for warmup
+        args = self.training_arguments.get_training_args()
+        args.num_train_epochs = 1
+        args.max_steps = 0
+        args.eval_steps = 20
+        
+        return SFTTrainer(
+            model=self.model,
+            train_dataset=warm_up_set,
+            eval_dataset=self.dataset_test,
+            peft_config=self.lora_config.get_lora_config(),
+            dataset_text_field="text",
+            max_seq_length=self.unsloth_config.max_seq_length,
+            tokenizer=self.tokenizer,
+            args=args,
             packing=False,  # Must be False when using completion-only training
             dataset_num_proc=1,
             data_collator=collator
@@ -373,6 +414,60 @@ class CustomTextToSqlModel:
     def train_full_precision_LoRA(self):
         self.initialize_training_with_full_precision_LoRA()
         self.trainer.train()
+
+    def train_model_with_wramup(self, path_warmup_ds: str):
+        # prepare datasets
+        dataset_warmup = self.load_dataset_from_path(path_warmup_ds)
+        self.dataset_test = self.load_dataset_test()
+        self.dataset_train = self.load_dataset_train()
+
+        self.load_model_and_tokenizer()
+      
+
+        # Warmup phase (using warmup dataset)
+        warmup_trainer = self.initialize_trainer_with_collator_warmup(dataset_warmup)
+        self.model = warmup_trainer.model
+        print("Starting Warmup")
+        warmup_trainer.train()
+        # Verify adapter continuity
+        print(f"Active adapters after warmup: {self.model.active_adapters}")
+
+        # Main training phase (using primary dataset)
+        main_trainer = self.initialize_trainer()
+        
+        # Start main training
+        print("Starting main training")
+        main_trainer.train()
+        print(f"Active adapters after warmup: {self.model.active_adapters}")
+        self.trainer = main_trainer
+
+    
+    def train_model_with_wramup_and_completion_only(self, path_warmup_ds: str):
+        # prepare datasets
+        dataset_warmup = self.load_dataset_from_path(path_warmup_ds)
+        self.dataset_test = self.load_dataset_test()
+        self.dataset_train = self.load_dataset_train()
+
+        self.load_model_and_tokenizer()
+      
+
+        # Warmup phase (using warmup dataset)
+        warmup_trainer = self.initialize_trainer_with_collator_warmup(dataset_warmup)
+        self.model = warmup_trainer.model
+        print("Starting Warmup")
+        warmup_trainer.train()
+        # Verify adapter continuity
+        print(f"Active adapters after warmup: {self.model.active_adapters}")
+
+        # Main training phase (using primary dataset)
+        main_trainer = self.initialize_trainer_with_collator()
+        
+        # Start main training
+        print("Starting main training")
+        main_trainer.train()
+        print(f"Active adapters after warmup: {self.model.active_adapters}")
+
+        self.trainer = main_trainer
 
     def train_model_with_periodic_save(self, start_index: int, output_base_path: str):
         self.initialize_training()

@@ -114,7 +114,7 @@ if __name__ == "__main__":
         use_4bit=True
     )
     training_arguments: CustomTrainingArguments = CustomTrainingArguments(
-        per_device_train_batch_size=2,
+        per_device_train_batch_size=4,
         gradient_accumulation_steps=1,
         num_train_epochs=0, # 1
         fp16=not torch.cuda.is_bf16_supported(),
@@ -169,7 +169,7 @@ if __name__ == "__main__":
     if train:
         # model.train_model()
         # model.train_model_with_collator()
-        model.train_full_precision_LoRA()
+        model.train_model_with_wramup('./data/training_data/warm-up_400samples.csv')
 
         # save the model
         model.save_model()
