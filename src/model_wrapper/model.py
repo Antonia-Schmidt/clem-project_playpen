@@ -22,12 +22,15 @@ from transformers import (
     PreTrainedModel,
     PreTrainedTokenizerBase,
     pipeline,
+    DataCollatorForLanguageModeling
 )
 
 from transformers.pipelines.pt_utils import KeyDataset
 from trl import SFTTrainer, DataCollatorForCompletionOnlyLM
 
 from huggingface_hub import create_repo
+
+from typing import Any, Dict, List
 
 logging.basicConfig(format="%(levelname)s:%(message)s", level=logging.INFO)
 
@@ -718,3 +721,50 @@ class CustomTextToSqlModel:
             "config_dir": config_dir,
             "model_dir": model_dir,
         }
+
+class MultiResponseDataCollator(DataCollatorForLanguageModeling):
+    def __init__(self, response_template, tokenizer, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.response_token_ids = tokenizer.encode(
+            response_template, add_special_tokens=False
+        )
+
+    def torch_call(self, examples: List[Dict[str, Any]]) -> Dict[str, Any]:
+        batch = super().torch_call(examples)
+
+        # Find all positions where response template occurs
+        for i, input_ids in enumerate(batch["input_ids"]):
+            response_positions = []
+            curr_idx = 0
+            while curr_idx < len(input_ids):
+                window = input_ids[curr_idx:curr_idx+len(self.response_token_ids)]
+                if window.tolist() == self.response_token_ids:
+                    response_positions.append(curr_idx)
+                    curr_idx += len(self.response_token_ids)
+                else:
+                    curr_idx += 1
+
+            # Create mask for all response segments
+            if response_positions:
+                loss_mask = torch.zeros_like(input_ids)
+                for pos in response_positions:
+                    start = pos + len(self.response_token_ids)
+                    end = self._find_next_template_start(
+                        input_ids, start, self.response_token_ids
+                    )
+                    loss_mask[start:end] = 1
+                batch["labels"][i] = torch.where(
+                    loss_mask.bool(),
+                    batch["labels"][i],
+                    -100
+                )
+
+        return batch
+
+    def _find_next_template_start(self, input_ids, start_idx, template):
+        curr = start_idx
+        while curr < len(input_ids) - len(template):
+            if input_ids[curr:curr+len(template)].tolist() == template:
+                return curr
+            curr += 1
+        return len(input_ids)
