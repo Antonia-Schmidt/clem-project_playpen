@@ -317,7 +317,8 @@ class CustomTextToSqlModel:
         
         # Define the response template that marks where assistant responses begin
         # This should match exactly how assistant responses are marked in your tokenized text
-        response_template_with_context = "<|eot_id|><|start_header_id|>assistant<|end_header_id|>"
+        # response_template_with_context = "<|eot_id|><|start_header_id|>assistant<|end_header_id|>"
+        response_template_with_context = "[/INST]"
         collator = DataCollatorForCompletionOnlyLM(
             response_template=response_template_with_context,
             tokenizer=self.tokenizer,

@@ -167,9 +167,18 @@ if __name__ == "__main__":
     model.save_config()
 
     if train:
-        # model.train_model()
+        if max_steps == 600:
+            if args.model_name.startswith("mistral"):
+                print("Train with warm up Mistral")
+                model.train_model_with_wramup('./data/training_data/warm-up_400samples_mistral-small.csv')
+            else:
+                print("Train with warm up LLama")
+                model.train_model_with_wramup('./data/training_data/warm-up_400samples.csv')
+        else:
+            print("Train with rehearsal")
+            model.train_model()
         # model.train_model_with_collator()
-        model.train_model_with_wramup('./data/training_data/warm-up_400samples.csv')
+        #model.train_model_with_wramup('./data/training_data/warm-up_400samples.csv')
 
         # save the model
         model.save_model()
