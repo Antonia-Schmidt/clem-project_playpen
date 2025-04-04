@@ -234,6 +234,19 @@ class CustomTextToSqlModel:
         # save dataset
         self.dataset_train.to_csv(self.directories["dataset_train"])
 
+    def initialize_training_with_multi_step_collator(self):
+        logging.info("Prepare Model for Training ...")
+        if self.model is None:
+            self.load_model_and_tokenizer()
+        if self.dataset_train is None:
+            self.dataset_train = self.load_dataset_train()
+        if self.dataset_test is None:
+            self.dataset_test = self.load_dataset_test()
+        if self.trainer is None:
+            self.trainer = self.initialize_trainer_with_multi_turn_collator()
+        # save dataset
+        self.dataset_train.to_csv(self.directories["dataset_train"])
+
     def load_dataset_train(self) -> Dataset:
         logging.info("Loading Dataset for Training")
 
@@ -314,7 +327,33 @@ class CustomTextToSqlModel:
             dataset_num_proc=1,
             data_collator=collator
         )
-    
+
+    def initialize_trainer_with_multi_turn_collator(self) -> SFTTrainer:
+        logging.info("Initialize Trainer")
+        
+        # Define the response template that marks where assistant responses begin
+        # This should match exactly how assistant responses are marked in your tokenized text
+        collator = SpecialTokenCollator(
+            assistant_header="<|start_header_id|>assistant<|end_header_id|>",
+            eot_token="<|eot_id|>",
+            tokenizer=self.tokenizer,
+            mlm=False
+        )
+        
+        return SFTTrainer(
+            model=self.model,
+            train_dataset=self.dataset_train,
+            eval_dataset=self.dataset_test,
+            peft_config=self.lora_config.get_lora_config(),
+            dataset_text_field="text",
+            max_seq_length=self.unsloth_config.max_seq_length,
+            tokenizer=self.tokenizer,
+            args=self.training_arguments.get_training_args(),
+            packing=False,  # Must be False when using completion-only training
+            dataset_num_proc=1,
+            data_collator=collator
+        )
+
     def initialize_trainer_with_collator_warmup(self, warm_up_set) -> SFTTrainer:
         logging.info("Initialize Trainer")
         
@@ -413,6 +452,10 @@ class CustomTextToSqlModel:
     def train_model_with_collator(self):
         self.initialize_training_with_collator()
         logging.info("Start Model Training with collator for completion only")
+        self.trainer.train()
+
+    def train_model_with_multi_step_collator(self):
+        self.initialize_training_with_multi_step_collator()
         self.trainer.train()
 
     def train_full_precision_LoRA(self):
@@ -722,49 +765,45 @@ class CustomTextToSqlModel:
             "model_dir": model_dir,
         }
 
-class MultiResponseDataCollator(DataCollatorForLanguageModeling):
-    def __init__(self, response_template, tokenizer, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.response_token_ids = tokenizer.encode(
-            response_template, add_special_tokens=False
+class SpecialTokenCollator(DataCollatorForLanguageModeling):
+    def __init__(self, assistant_header, eot_token, tokenizer, *args, **kwargs):
+        super().__init__(tokenizer=tokenizer, *args, **kwargs)
+        self.assistant_header = tokenizer.encode(
+            assistant_header, add_special_tokens=False
         )
-
-    def torch_call(self, examples: List[Dict[str, Any]]) -> Dict[str, Any]:
+        self.eot_token = tokenizer.encode(eot_token, add_special_tokens=False)[0]
+        
+    def torch_call(self, examples):
         batch = super().torch_call(examples)
-
-        # Find all positions where response template occurs
+        
         for i, input_ids in enumerate(batch["input_ids"]):
-            response_positions = []
+            # Find all assistant headers
+            header_positions = []
             curr_idx = 0
-            while curr_idx < len(input_ids):
-                window = input_ids[curr_idx:curr_idx+len(self.response_token_ids)]
-                if window.tolist() == self.response_token_ids:
-                    response_positions.append(curr_idx)
-                    curr_idx += len(self.response_token_ids)
+            while curr_idx <= len(input_ids) - len(self.assistant_header):
+                if input_ids[curr_idx:curr_idx+len(self.assistant_header)].tolist() == self.assistant_header:
+                    header_positions.append(curr_idx)
+                    curr_idx += len(self.assistant_header)
                 else:
                     curr_idx += 1
-
-            # Create mask for all response segments
-            if response_positions:
+            
+            # Create mask for assistant responses
+            if header_positions:
                 loss_mask = torch.zeros_like(input_ids)
-                for pos in response_positions:
-                    start = pos + len(self.response_token_ids)
-                    end = self._find_next_template_start(
-                        input_ids, start, self.response_token_ids
-                    )
+                for pos in header_positions:
+                    start = pos + len(self.assistant_header)
+                    end = self.find_eot(input_ids, start)
                     loss_mask[start:end] = 1
+                
                 batch["labels"][i] = torch.where(
                     loss_mask.bool(),
                     batch["labels"][i],
                     -100
                 )
-
+                
         return batch
+    
+    def find_eot(self, input_ids, start_idx):
+        eot_positions = (input_ids[start_idx:] == self.eot_token).nonzero()
+        return start_idx + eot_positions[0].item() if eot_positions.numel() > 0 else len(input_ids)
 
-    def _find_next_template_start(self, input_ids, start_idx, template):
-        curr = start_idx
-        while curr < len(input_ids) - len(template):
-            if input_ids[curr:curr+len(template)].tolist() == template:
-                return curr
-            curr += 1
-        return len(input_ids)

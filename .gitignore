@@ -33,3 +33,5 @@ tmp_dpo_cache/*
 
 playpen_lora
 playpen_lora/*
+
+data/processed/processed_data_all/

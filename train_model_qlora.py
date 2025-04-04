@@ -175,10 +175,11 @@ if __name__ == "__main__":
                 print("Train with warm up LLama")
                 model.train_model_with_wramup('./data/training_data/warm-up_400samples.csv')
         else:
-            print("Train with rehearsal")
-            model.train_model()
-        # model.train_model_with_collator()
-        #model.train_model_with_wramup('./data/training_data/warm-up_400samples.csv')
+            print("Train with multistep-collator")
+            #model.train_model()
+            # model.train_model_with_collator()
+            #model.train_model_with_wramup('./data/training_data/warm-up_400samples.csv')
+            model.train_model_with_multi_step_collator()
 
         # save the model
         model.save_model()
