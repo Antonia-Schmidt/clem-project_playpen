@@ -148,28 +148,28 @@ if __name__ == "__main__":
     kto_trainer.push_to_hub()
 
     # Save training logs (train time, tokens)
-    training_time = (end_time - start_time) / 3600
-    with open('training_metrics.txt', 'a') as f:
-        f.write(f"{trained_model_id},{training_tokens},{training_time}\n")
+    #training_time = (end_time - start_time) / 3600
+    #with open('training_metrics.txt', 'a') as f:
+    #    f.write(f"{trained_model_id},{training_tokens},{training_time}\n")
 
     # # TODO: migliora: vale solo per Llama 3.1 per ora
-    new_entry = {
-        "model_name": trained_model_id,
-        "base_model": model_name,
-        "backend": "huggingface_local",
-        "requires_api_key": True,
-        "huggingface_id": model_hub_id,
-        "premade_chat_template": True,
-        "eos_to_cull": "<\\|eot_id\\|>",            #TODO: change here
-        "open_weight": True,
-        "parameters": "8B",
-        "load_with_unsloth": True
-    }
+    #new_entry = {
+    #    "model_name": trained_model_id,
+    #    "base_model": model_name,
+    #    "backend": "huggingface_local",
+    #    "requires_api_key": True,
+    #    "huggingface_id": model_hub_id,
+    #    "premade_chat_template": True,
+    #    "eos_to_cull": "<\\|eot_id\\|>",            #TODO: change here
+    #    "open_weight": True,
+    #    "parameters": "8B",
+    #    "load_with_unsloth": True
+    #}
     # #TODO: solve a bug here, there is an issue: does it work this way? see if it is possible to reduce opening the file twice using json_file_path, 'a'
-    json_file_path = "/mnt/cimec-storage6/users/davide.mazzaccara/clembench/backends/model_registry.json"
+    #json_file_path = "/mnt/cimec-storage6/users/davide.mazzaccara/clembench/backends/model_registry.json"
 
-    with open(json_file_path, "r+") as file:
-        data = json.load(file)
-        data.append(new_entry)
-        file.seek(0)
-        json.dump(data, file, indent=4)
+    #with open(json_file_path, "r+") as file:
+    #    data = json.load(file)
+    #    data.append(new_entry)
+    #    file.seek(0)
+    #    json.dump(data, file, indent=4)
