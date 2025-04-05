@@ -33,13 +33,14 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='KTO training')
     parser.add_argument('--model_condition', default=False, choices=[False, 'best_models', 'same_family_model'], help='restriction to the negative samples to be from best models or from the family of the model to train (llama)')
     #TODO: take this out in common with DPO_training.py and KTO_training.py
-    parser.add_argument('--hf_login', default="", help='hf login token')
-    parser.add_argument('--wandb_login', default="", help='wandb login token')
+    parser.add_argument('--hf_login', default="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", help='hf login token')
+    parser.add_argument('--wandb_login', default="29fc614754925fca7f38d6d2193b3f5afa8485a9", help='wandb login token')
     parser.add_argument('--base_model', default="llama-SFT-base_merged_fp16_D90053_copy_32GB", help='base model for training')
     parser.add_argument('--cache_dir', default = '/mnt/cimec-storage6/shared/hf_llms_checkpoints/', help='cache directory to store models')
-    parser.add_argument('--hf_repo', default='clembench-playpen', help='huggingface repository to store the created datasets')
     parser.add_argument('--dataset_name', default='KTO_Aborted_WordleOnly', help='training datasets')
     parser.add_argument('--n_epochs', default=1, type=int, help='number of training epochs')
+    parser.add_argument('--hf_repo_base', default='clembench-playpen', help='huggingface repository where the base model is stored')
+    parser.add_argument('--hf_repo_target', default='clembench-playpen', help='huggingface repository to save the trained model')
     args = parser.parse_args()
 
     login(f"{args.hf_login}")
@@ -50,7 +51,7 @@ if __name__ == "__main__":
     max_seq_length = 1024
     dtype = None
     load_in_4bit = True
-    model_name = f"{args.hf_repo}/{args.base_model}"
+    model_name = f"{args.hf_repo_base}/{args.base_model}"
 
     model, tokenizer = FastLanguageModel.from_pretrained(
         model_name=model_name,
@@ -58,6 +59,7 @@ if __name__ == "__main__":
         load_in_4bit=load_in_4bit,
         cache_dir=cache_dir_models,
         max_seq_length=max_seq_length,      #default truncation mode is 'keep end' (thus deleting initial tokens)
+        fix_tokenizer=False
     )
 
     model = FastLanguageModel.get_peft_model(
@@ -74,7 +76,7 @@ if __name__ == "__main__":
         loftq_config = None,
     )
 
-    dataset = load_hf_dataset(f"{args.hf_repo}/{args.dataset_name}", max_seq_length)
+    dataset = load_hf_dataset(f"{args.hf_repo_target}/{args.dataset_name}", max_seq_length)
 
     PatchDPOTrainer() #TODO: best patchDPO or patchKTO?????
 
@@ -104,8 +106,8 @@ if __name__ == "__main__":
             max_length = max_seq_length,
             max_prompt_length = max_seq_length,
             #news
-            eval_steps=0.05, #0.2
-            save_steps=0.05, #0.2
+            eval_steps=0.2, #0.2
+            save_steps=0.2, #0.2
             eval_strategy="steps",
             logging_strategy="steps",
             save_strategy="steps",
@@ -133,8 +135,8 @@ if __name__ == "__main__":
 
     training_tokens = compute_tokens(train_dataloader)
 
-    trained_model_id = f"{args.base_model}_{args.dataset_name}{'_'+str(args.n_epochs)+'eps' if args.n_epochs != 1 else ''}_FINAL"
-    model_hub_id = f"{args.hf_repo}/{trained_model_id}"
+    trained_model_id = f"{args.base_model}_{args.dataset_name}{'_'+str(args.n_epochs)+'eps' if args.n_epochs != 1 else ''}_KTO_noSFT"
+    model_hub_id = f"{args.hf_repo_target}/{trained_model_id}"
     create_repo(repo_id=model_hub_id, repo_type="model", private=False, exist_ok=True)
     kto_trainer.hub_model_id = model_hub_id
 
@@ -145,29 +147,29 @@ if __name__ == "__main__":
     model.save_pretrained("kto_trained")
     kto_trainer.push_to_hub()
 
-    # # Save training logs (train time, tokens)
-    # training_time = (end_time - start_time) / 3600
-    # with open('training_metrics.txt', 'a') as f:
-    #     f.write(f"{trained_model_id},{training_tokens},{training_time}\n")
-    #
-    # # # TODO: migliora: vale solo per Llama 3.1 per ora
-    # new_entry = {
-    #     "model_name": trained_model_id,
-    #     "base_model": model_name,
-    #     "backend": "huggingface_local",
-    #     "requires_api_key": True,
-    #     "huggingface_id": model_hub_id,
-    #     "premade_chat_template": True,
-    #     "eos_to_cull": "<\\|eot_id\\|>",            #TODO: change here
-    #     "open_weight": True,
-    #     "parameters": "8B",
-    #     "load_with_unsloth": True
-    # }
-    # # #TODO: solve a bug here, there is an issue: does it work this way? see if it is possible to reduce opening the file twice using json_file_path, 'a'
-    # json_file_path = "/mnt/cimec-storage6/users/davide.mazzaccara/clembench/backends/model_registry.json"
-    #
-    # with open(json_file_path, "r+") as file:
-    #     data = json.load(file)
-    #     data.append(new_entry)
-    #     file.seek(0)
-    #     json.dump(data, file, indent=4)
+    # Save training logs (train time, tokens)
+    training_time = (end_time - start_time) / 3600
+    with open('training_metrics.txt', 'a') as f:
+        f.write(f"{trained_model_id},{training_tokens},{training_time}\n")
+
+    # # TODO: migliora: vale solo per Llama 3.1 per ora
+    new_entry = {
+        "model_name": trained_model_id,
+        "base_model": model_name,
+        "backend": "huggingface_local",
+        "requires_api_key": True,
+        "huggingface_id": model_hub_id,
+        "premade_chat_template": True,
+        "eos_to_cull": "<\\|eot_id\\|>",            #TODO: change here
+        "open_weight": True,
+        "parameters": "8B",
+        "load_with_unsloth": True
+    }
+    # #TODO: solve a bug here, there is an issue: does it work this way? see if it is possible to reduce opening the file twice using json_file_path, 'a'
+    json_file_path = "/mnt/cimec-storage6/users/davide.mazzaccara/clembench/backends/model_registry.json"
+
+    with open(json_file_path, "r+") as file:
+        data = json.load(file)
+        data.append(new_entry)
+        file.seek(0)
+        json.dump(data, file, indent=4)

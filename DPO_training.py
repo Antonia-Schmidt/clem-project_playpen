@@ -12,7 +12,7 @@ import json
 def load_hf_dataset(tokenizer):
 
     #TODO: il modello e il dataset di training non è detto che siano nello stesso posto, differenzia le variabili hf_repo_model e hf_repo_datasets
-    dataset = load_dataset(f"{args.hf_repo}/{args.dataset_name}", split = "train")
+    dataset = load_dataset(f"{args.hf_repo_target}/{args.dataset_name}", split = "train")
 
     dataset_dict = dataset.train_test_split(test_size=0.04)
     dataset_new = {'chosen':[], 'rejected':[]}
@@ -39,7 +39,9 @@ if __name__ == "__main__":
     parser.add_argument('--base_model', default="llama-SFT-base_merged_fp16_D90053_copy_32GB", help='base model for training')
     parser.add_argument('--dataset_name', help='base model for training')
     parser.add_argument('--cache_dir', default = '/mnt/cimec-storage6/shared/hf_llms_checkpoints/', help='cache directory to store models')
-    parser.add_argument('--hf_repo', default='clembench-playpen', help='huggingface repository to store the created datasets')
+    parser.add_argument('--hf_repo_base', default='clembench-playpen', help='huggingface repository where the base model is stored')
+    parser.add_argument('--hf_repo_target', default='clembench-playpen', help='huggingface repository to save the trained model')
+
     args = parser.parse_args()
 
     login(f"{args.hf_login}")
@@ -48,7 +50,7 @@ if __name__ == "__main__":
     cache_dir_models = args.cache_dir
 
     max_seq_length = 1024
-    model_name = f"{args.hf_repo}/{args.base_model}"
+    model_name = f"{args.hf_repo_base}/{args.base_model}"
 
     model, tokenizer = FastLanguageModel.from_pretrained(
         model_name=model_name,
@@ -56,8 +58,9 @@ if __name__ == "__main__":
         max_seq_length=max_seq_length,
         dtype=None,
         load_in_4bit=True,
+        fix_tokenizer=False     #This is works only if the base model is llama3.1 unsloth 4bit
     )
-    tokenizer.truncation_side = 'left'
+    tokenizer.truncation_side = 'left'      #is this needed? (keep_last)
     dataset_dict = load_hf_dataset(tokenizer)
 
     model = FastLanguageModel.get_peft_model(
@@ -135,9 +138,11 @@ if __name__ == "__main__":
     #TODO: restore the second line (to modify btw)
     #trained_model_id = f"meta-llama-3.1_DPO_{args.neg}neg{'_Aborted' if args.aborted_interactions else ''}{'_'+args.model_condition if args.model_condition else ''}_END_07"
     #trained_model_id = f"{args.base_model}_{args.dataset_name}"
-    trained_model_id = f"D40005_{args.dataset_name}"
+    trained_model_id = f"llama3.1_{args.dataset_name}_DPO_noSFT_______"
+    #trained_model_id = f"llama3.1_D40005_{args.dataset_name}_DPO_noSFT" #TODO: restore
 
-    model_hub_id = f"{args.hf_repo}/{trained_model_id}"
+
+    model_hub_id = f"{args.hf_repo_target}/{trained_model_id}"
 
     create_repo(repo_id=model_hub_id, repo_type="model", private=False, exist_ok=True)
     dpo_trainer.hub_model_id = model_hub_id
@@ -150,26 +155,26 @@ if __name__ == "__main__":
     dpo_trainer.push_to_hub()
 
     #TODO: restore this to save training logs (train time, tokens)
-    #training_time = (end_time - start_time)/3600
-    #with open('training_metrics.txt', 'a') as f:
-    #    f.write(f"{trained_model_id},{training_tokens},{training_time}\n")
-    #
-    #new_entry = {
-    #    "model_name": trained_model_id,
-    #    "base_model": model_name,
-    #    "backend": "huggingface_local",
-    #    "requires_api_key": True,
-    #    "huggingface_id": model_hub_id,
-    #    "premade_chat_template": True,
-    #    "eos_to_cull": "<\\|eot_id\\|>",            #TODO: change here
-    #    "open_weight": True,
-    #    "parameters": "8B",
-    #    "load_with_unsloth": True
-    #}
-    #json_file_path = "/mnt/cimec-storage6/users/davide.mazzaccara/clembench/backends/model_registry.json"
+    training_time = (end_time - start_time)/3600
+    with open('training_metrics.txt', 'a') as f:
+        f.write(f"{trained_model_id},{training_tokens},{training_time}\n")
 
-    #with open(json_file_path, "r+") as file:
-    #    data = json.load(file)
-    #    data.append(new_entry)
-    #    file.seek(0)
-    #    json.dump(data, file, indent=4)
+    new_entry = {
+        "model_name": trained_model_id,
+        "base_model": model_name,
+        "backend": "huggingface_local",
+        "requires_api_key": True,
+        "huggingface_id": model_hub_id,
+        "premade_chat_template": True,
+        "eos_to_cull": "<\\|eot_id\\|>",            #TODO: change here
+        "open_weight": True,
+        "parameters": "8B",
+        "load_with_unsloth": True
+    }
+    json_file_path = "/mnt/cimec-storage6/users/davide.mazzaccara/clembench/backends/model_registry.json"
+
+    with open(json_file_path, "r+") as file:
+        data = json.load(file)
+        data.append(new_entry)
+        file.seek(0)
+        json.dump(data, file, indent=4)
