@@ -456,6 +456,8 @@ class CustomTextToSqlModel:
 
     def train_model_with_multi_step_collator(self):
         self.initialize_training_with_multi_step_collator()
+        print(self.tokenizer.pad_token)
+
         self.trainer.train()
 
     def train_full_precision_LoRA(self):
@@ -805,5 +807,9 @@ class SpecialTokenCollator(DataCollatorForLanguageModeling):
     
     def find_eot(self, input_ids, start_idx):
         eot_positions = (input_ids[start_idx:] == self.eot_token).nonzero()
-        return start_idx + eot_positions[0].item() if eot_positions.numel() > 0 else len(input_ids)
+        if eot_positions.numel() > 0:
+            eot_pos = start_idx + eot_positions[0].item()
+            # Return position AFTER the EOT token (+0 includes EOT, +1 would go past it)
+            return eot_pos + 1  # Include EOT itself in loss
+        return len(input_ids)
 
