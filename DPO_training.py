@@ -4,29 +4,39 @@ import torch
 from datasets import Dataset, load_dataset
 from huggingface_hub import login, create_repo
 from trl import DPOTrainer, DPOConfig
+from peft import LoraConfig, get_peft_model
+from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 import wandb
 import argparse
 import time
 import json
 
 def load_hf_dataset(tokenizer):
+    dataset = load_dataset(f"{args.hf_repo_target}/{args.dataset_name}", split="train")
 
-    #TODO: il modello e il dataset di training non è detto che siano nello stesso posto, differenzia le variabili hf_repo_model e hf_repo_datasets
-    dataset = load_dataset(f"{args.hf_repo_target}/{args.dataset_name}", split = "train")
+    initial_split = dataset.train_test_split(test_size=0.04)
+    train_dataset = initial_split['train']
 
-    dataset_dict = dataset.train_test_split(test_size=0.04)
-    dataset_new = {'chosen':[], 'rejected':[]}
-    #TODO: reduce to one line the following (one function)
-    for data_point in dataset_dict['train']['chosen']:
-      dataset_new['chosen'].append(tokenizer.apply_chat_template(data_point, tokenize=False, add_generation_prompt=False))
-    for data_point in dataset_dict['train']['rejected']:
-      dataset_new['rejected'].append(tokenizer.apply_chat_template(data_point, tokenize=False, add_generation_prompt=False))
-    for data_point in dataset_dict['test']['chosen']:
-      dataset_new['chosen'].append(tokenizer.apply_chat_template(data_point, tokenize=False, add_generation_prompt=False))
-    for data_point in dataset_dict['test']['rejected']:
-      dataset_new['rejected'].append(tokenizer.apply_chat_template(data_point, tokenize=False, add_generation_prompt=False))
+    #TODO: check from herer to test_dataset
+    unique_games = set(dataset['game'])
+    test_indices = []
+
+    for game in unique_games:
+        game_indices = [i for i, g in enumerate(dataset['game']) if g == game]
+        samples_per_game = max(1, int(len(dataset) * 0.04 / len(unique_games)))
+        samples_to_take = min(samples_per_game, len(game_indices))
+        test_indices.extend(game_indices[:samples_to_take])
+
+    test_dataset = dataset.select(test_indices)
+    dataset_new = {'chosen': [], 'rejected': []}
+    for split_name, split_data in [('train', train_dataset), ('test', test_dataset)]:
+        for choice_type in ['chosen', 'rejected']:
+            for data_point in split_data[choice_type]:
+                dataset_new[choice_type].append(
+                    tokenizer.apply_chat_template(data_point, tokenize=False, add_generation_prompt=False))
     new_dataset = Dataset.from_dict(dataset_new)
-    dataset_dict = new_dataset.train_test_split(test_size=0.04)
+    test_size = len(test_dataset) / (len(train_dataset) + len(test_dataset))
+    dataset_dict = new_dataset.train_test_split(test_size=test_size)
     return dataset_dict
 
 if __name__ == "__main__":
@@ -41,6 +51,9 @@ if __name__ == "__main__":
     parser.add_argument('--cache_dir', default = '/mnt/cimec-storage6/shared/hf_llms_checkpoints/', help='cache directory to store models')
     parser.add_argument('--hf_repo_base', default='clembench-playpen', help='huggingface repository where the base model is stored')
     parser.add_argument('--hf_repo_target', default='clembench-playpen', help='huggingface repository to save the trained model')
+    parser.add_argument('--use_unsloth', default=False, choices=[True, False], help='huggingface repository to save the trained model')
+    #parser.add_argument('--players', default="player 1", choices=['player 1', 'all'])
+
 
     args = parser.parse_args()
 
@@ -52,39 +65,68 @@ if __name__ == "__main__":
     max_seq_length = 1024
     model_name = f"{args.hf_repo_base}/{args.base_model}"
 
-    model, tokenizer = FastLanguageModel.from_pretrained(
-        model_name=model_name,
-        cache_dir=cache_dir_models,
-        max_seq_length=max_seq_length,
-        dtype=None,
-        load_in_4bit=True,
-        fix_tokenizer=False     #This is works only if the base model is llama3.1 unsloth 4bit
-    )
-    tokenizer.truncation_side = 'left'      #is this needed? (keep_last)
-    dataset_dict = load_hf_dataset(tokenizer)
+    if args.use_unsloth:
+        model, tokenizer = FastLanguageModel.from_pretrained(
+            model_name=model_name,
+            cache_dir=cache_dir_models,
+            max_seq_length=max_seq_length,
+            dtype=None,
+            load_in_4bit=True,
+            #fix_tokenizer=False     #This is works only if the base model is llama3.1 unsloth 4bit
+        )
+        tokenizer.truncation_side = 'left'      #is this needed? (keep_last)
+        dataset_dict = load_hf_dataset(tokenizer)
 
-    model = FastLanguageModel.get_peft_model(
-        model,
-        r=64,
-        target_modules=["q_proj", "k_proj", "v_proj", "o_proj",
-                        "gate_proj", "up_proj", "down_proj", ],
-        lora_alpha=64,
-        lora_dropout=0,
-        bias="none",
-        use_gradient_checkpointing="unsloth",
-        random_state=3407,
-        use_rslora=False,
-        loftq_config=None,
-    )
+        model = FastLanguageModel.get_peft_model(
+            model,
+            r=64,
+            target_modules=["q_proj", "k_proj", "v_proj", "o_proj",
+                            "gate_proj", "up_proj", "down_proj", ],
+            lora_alpha=64,
+            lora_dropout=0,
+            bias="none",
+            use_gradient_checkpointing="unsloth",
+            random_state=3407,
+            use_rslora=False,
+            loftq_config=None,
+        )
+
+    else:
+        quantization_config = BitsAndBytesConfig(
+            load_in_4bit=True,
+            bnb_4bit_compute_dtype=torch.bfloat16 if torch.cuda.is_bf16_supported() else torch.float16,
+            bnb_4bit_quant_type="nf4",
+            bnb_4bit_use_double_quant=False,
+        )
+
+        base_model = AutoModelForCausalLM.from_pretrained(
+            model_name,
+            cache_dir=cache_dir_models,
+            quantization_config=quantization_config,
+            torch_dtype=torch.bfloat16 if torch.cuda.is_bf16_supported() else torch.float16,
+            device_map="auto",
+        )
+        tokenizer = AutoTokenizer.from_pretrained(model_name)
+        tokenizer.pad_token = tokenizer.eos_token
+        dataset_dict = load_hf_dataset(tokenizer)
+        lora_config = LoraConfig(
+            r=64,
+            lora_alpha=64,
+            lora_dropout=0,
+            bias="none",
+            task_type="CAUSAL_LM",
+            target_modules=["q_proj", "k_proj", "v_proj", "o_proj",
+                            "gate_proj", "up_proj", "down_proj", ])
+        model = get_peft_model(base_model, lora_config)
 
     PatchDPOTrainer()
 
-    project_name = f"playpen_{args.base_model}"
+    project_name = f"playpen_{args.base_model}_F"
     entity = "wandb"
     wandb.init(project=project_name, name=f"dpo_{args.dataset_name}")
 
     training_arguments = DPOConfig(
-        per_device_train_batch_size=2,
+        per_device_train_batch_size=4,
         per_device_eval_batch_size=1,
         gradient_accumulation_steps=3,
         warmup_ratio=0.1,
@@ -124,24 +166,21 @@ if __name__ == "__main__":
     #TODO: migliora questa funzione (riduci, sposta)
     train_dataloader = dpo_trainer.get_train_dataloader()
     #Modified from the original HF trainer.py
-    def compute_tokens(train_dl: train_dataloader) -> int:
+    def compute_tokens(train_dl: train_dataloader, tokenizer) -> int:
         train_tokens = 0
+        pad_token_id = tokenizer.pad_token_id
         for batch in train_dl:
-            tokens_chosen = batch["chosen_input_ids"].numel()
-            tokens_rejected = batch["rejected_input_ids"].numel()
+            chosen_mask = batch["chosen_input_ids"] != pad_token_id
+            tokens_chosen = chosen_mask.sum().item()
+            rejected_mask = batch["rejected_input_ids"] != pad_token_id
+            tokens_rejected = rejected_mask.sum().item()
             tokens = tokens_chosen + tokens_rejected
             train_tokens += tokens
         return train_tokens
 
-    training_tokens = compute_tokens(train_dataloader)
-
-    #TODO: restore the second line (to modify btw)
-    #trained_model_id = f"meta-llama-3.1_DPO_{args.neg}neg{'_Aborted' if args.aborted_interactions else ''}{'_'+args.model_condition if args.model_condition else ''}_END_07"
-    #trained_model_id = f"{args.base_model}_{args.dataset_name}"
-    trained_model_id = f"llama3.1_{args.dataset_name}_DPO_noSFT_______"
-    #trained_model_id = f"llama3.1_D40005_{args.dataset_name}_DPO_noSFT" #TODO: restore
-
-
+    training_tokens = compute_tokens(train_dataloader, tokenizer)
+    dataset_type = 'dialogue' if 'dialogue' in args.dataset_name else 'turn'
+    trained_model_id = f"{args.base_model}_{dataset_type}"
     model_hub_id = f"{args.hf_repo_target}/{trained_model_id}"
 
     create_repo(repo_id=model_hub_id, repo_type="model", private=False, exist_ok=True)
@@ -155,26 +194,26 @@ if __name__ == "__main__":
     dpo_trainer.push_to_hub()
 
     #TODO: restore this to save training logs (train time, tokens)
-    #training_time = (end_time - start_time)/3600
-    #with open('training_metrics.txt', 'a') as f:
-    #    f.write(f"{trained_model_id},{training_tokens},{training_time}\n")
+    training_time = (end_time - start_time)/3600
+    with open('training_metrics.txt', 'a') as f:
+        f.write(f"{trained_model_id},{training_tokens},{training_time}\n")
 
-    #new_entry = {
-    #    "model_name": trained_model_id,
-    #    "base_model": model_name,
-    #    "backend": "huggingface_local",
-    #    "requires_api_key": True,
-    #    "huggingface_id": model_hub_id,
-    #    "premade_chat_template": True,
-    #    "eos_to_cull": "<\\|eot_id\\|>",            #TODO: change here
-    #    "open_weight": True,
-    #    "parameters": "8B",
-    #    "load_with_unsloth": True
-    #}
-    #json_file_path = "/mnt/cimec-storage6/users/davide.mazzaccara/clembench/backends/model_registry.json"
+    new_entry = {
+        "model_name": trained_model_id,
+        "base_model": model_name,
+        "backend": "huggingface_local",
+        "requires_api_key": True,                   #TODO: check
+        "huggingface_id": model_hub_id,
+        "premade_chat_template": True,
+        "eos_to_cull": "<\\|eot_id\\|>",            #TODO: change here
+        "open_weight": True,
+        "parameters": "8B",
+        "load_with_unsloth": args.use_unsloth
+    }
+    json_file_path = "/mnt/cimec-storage6/users/davide.mazzaccara/clembench/backends/model_registry.json"
 
-    #with open(json_file_path, "r+") as file:
-    #    data = json.load(file)
-    #    data.append(new_entry)
-    #    file.seek(0)
-    #    json.dump(data, file, indent=4)
+    with open(json_file_path, "r+") as file:
+        data = json.load(file)
+        data.append(new_entry)
+        file.seek(0)
+        json.dump(data, file, indent=4)
