@@ -192,28 +192,3 @@ if __name__ == "__main__":
 
     model.save_pretrained("playpen_lora") #TODO: needed to save_pretrained?
     dpo_trainer.push_to_hub()
-
-    #TODO: restore this to save training logs (train time, tokens)
-    training_time = (end_time - start_time)/3600
-    with open('training_metrics.txt', 'a') as f:
-        f.write(f"{trained_model_id},{training_tokens},{training_time}\n")
-
-    new_entry = {
-        "model_name": trained_model_id,
-        "base_model": model_name,
-        "backend": "huggingface_local",
-        "requires_api_key": True,                   #TODO: check
-        "huggingface_id": model_hub_id,
-        "premade_chat_template": True,
-        "eos_to_cull": "<\\|eot_id\\|>",            #TODO: change here
-        "open_weight": True,
-        "parameters": "8B",
-        "load_with_unsloth": args.use_unsloth
-    }
-    json_file_path = "/mnt/cimec-storage6/users/davide.mazzaccara/clembench/backends/model_registry.json"
-
-    with open(json_file_path, "r+") as file:
-        data = json.load(file)
-        data.append(new_entry)
-        file.seek(0)
-        json.dump(data, file, indent=4)
