@@ -3,6 +3,8 @@ This file contains the Object-Oriented Version of the Model Fine-tuning process.
 All Configs can be loaded with default values. If needed those values can be changed.
 to run this file use  python .\train_model.py from the Semantic-Parsing-Research folder
 """
+from datetime import datetime
+
 from src.model_wrapper.model import CustomTextToSqlModel
 
 
